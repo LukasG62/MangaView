@@ -19,6 +19,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="css/style.css">
   <title>MangaView</title>
 </head>
 
@@ -35,10 +36,10 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
           <div id="navbarContent" class="collapse navbar-collapse">
             <ul class="navbar-nav">
               <li class="nav-item active">
-                <a class="nav-link" href="index.html">Accueil</a>
+                <a class="nav-link" href="index.php?view=accueil">Accueil</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Liste des mangas</a>
+                <a class="nav-link" href="index.php?view=series">Liste des mangas</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Ma collection</a>
@@ -46,7 +47,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
             </ul>
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="index.php?view=login">
                 <i class="bi bi-box-arrow-in-right"></i></i> Se connecter
                 </a>
               </li>
@@ -59,9 +60,6 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
       </div>
     </div>
   </div>
-
-
-
 
 
 
