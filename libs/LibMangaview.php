@@ -59,10 +59,10 @@ function bbcodeParser($text){ // TODO eviter cas du genre "[b][u][/b][u]"
         "~\[color=(.*?)\](.*?)\[/color\]~si",
         "~\[url\]((?:ftp|https?)://.*?)\[/url\]~si",
         "~\[img\](https?://.*?\.(?:jpg|jpeg|gif|png|bmp))\[/img\]~si",
-        "~\\n~s"
-
+        "~\\n~s",
+        "~\[spoiler\](.*?)\[/spoiler\]~si"
     );
-    // dans ce tableau on peut y trouver $1, $2
+    // dans ce tableau on peut y trouver $1, $2 ... $n
     // Cela indique que l'on récupère le contenu de la n-eme parenthèse
     $htmltags = array(
         '<b>$1</b>',
@@ -76,7 +76,8 @@ function bbcodeParser($text){ // TODO eviter cas du genre "[b][u][/b][u]"
         '<span style="color:$1;">$2</span>',
         '<a href="$1">$1</a>',
         '<img src="$1" alt="" />',
-        '<br />'
+        '<br />',
+        '<span class="spoiler-hidden" onclick="toggle_spoiler(this)">$1</span>'
     );
     
     // Fonction qui permet de remplacer un pattern par un autre
