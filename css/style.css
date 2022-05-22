@@ -1,3 +1,20 @@
 .mv-navbar.bg-dark {
     background-color:#810000 !important;
 }
+
+
+/* Pour le bbcode spoiler */
+
+.spoiler-hidden {
+	background-color :black;
+    color:black;
+}
+
+.spoiler-hidden:hover {
+	cursor:pointer;
+    border:1px solid black;
+}
+
+.spoiler-shown {
+	background-color:#D3D3D3;
+}
