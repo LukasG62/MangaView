@@ -6,13 +6,18 @@
 /* Pour le bbcode spoiler */
 
 .spoiler-hidden {
-	background-color :black;
+    background-color :black;
     color:black;
 }
 
 .spoiler-hidden:hover {
-	cursor:pointer;
+    cursor:pointer;
     border:1px solid black;
+}
+
+/* Fix pour élement de couleur entre les balises [spoiler][/spoiler] */
+.spoiler-hidden span {
+	color:black !important;
 }
 
 .spoiler-shown {
