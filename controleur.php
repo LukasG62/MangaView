@@ -25,7 +25,8 @@ session_start();
 
 			// Connexion //////////////////////////////////////////////////
 			case 'Login' :
-
+			
+			$tabQs["view"] = "accueil";
 			break;
             
             // Deconnexion
@@ -68,13 +69,3 @@ session_start();
 	ob_end_flush();
 	
 ?>
-
-
-
-
-
-
-
-
-
-
