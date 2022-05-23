@@ -23,4 +23,16 @@ function mkError($message) {
 	// https://www.w3schools.com/bootstrap/bootstrap_alerts.asp
 	return '<div class="alert alert-danger"><strong>Erreur ! </strong><span>' . $message . '</span> </div>';
 }
+
+function mkNews($dataNews, $complete = false) {
+	// Fonction qui affiche une news
+	// Params : data un tableau contenant toutes les info d'une news; complete, si on affiche toute la news ou non
+
+}
+
+function mkComment($comments) {
+	// Fonction qui consruit un commentaire
+}
+
+
 ?>

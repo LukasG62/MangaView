@@ -15,7 +15,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	<div class="carousel-inner">
 	  <div class="carousel-item active">
 		<div class="news-preview">
-		  <img class="img-fluid" src="https://www.manga-news.com/public/dossier/Dossier-jumbor-angzengbang.jpg">
+		  <a href="index.php?view=news&id=1"><img class="img-fluid" src="https://www.manga-news.com/public/dossier/Dossier-jumbor-angzengbang.jpg"></a>
 		  <div class="news-preview-text">
 			<p>
 			  <i class="bi bi-clock">
@@ -57,6 +57,5 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	</span>
   </a>
   <br />
-  <button type="button" class="btn btn-secondary btn-lg btn-block">Historique des news
-  </button>
+  <a href="index.php?view=newshistory"><button type="button" class="btn btn-secondary btn-lg btn-block">Historique des news</button></a>
 </div>
