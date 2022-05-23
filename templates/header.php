@@ -25,38 +25,44 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 
 <body>
   <!-- TITRE DU HEADER ! TODO !!-->
-  <!-- BARRE DE NAVIGATION ! TODO : Rendre dynamique les elements de la navbar-->
-  <div class="mv-navbar bg-dark">
-    <div class="container">
-      <div class="row">
-        <nav class="col navbar navbar-expand-lg navbar-dark">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-          </button>
-          <div id="navbarContent" class="collapse navbar-collapse">
-            <ul class="navbar-nav">
-              <li class="nav-item active">
-                <a class="nav-link" href="index.php?view=accueil">Accueil</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="index.php?view=series">Liste des mangas</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Ma collection</a>
-              </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="index.php?view=login">
-                <i class="bi bi-box-arrow-in-right"></i></i> Se connecter
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Mon profil</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
+  <div class="mv-header">
+    <div class="mv-header-title">
+      <h1>MangaView</h1>
+      <h2><small>Share mangas with us !</small></h2>
+    </div>
+    <!-- BARRE DE NAVIGATION ! TODO : Rendre dynamique les elements de la navbar-->
+    <div class="mv-navbar bg-dark">
+      <div class="container">
+        <div class="row">
+          <nav class="col navbar navbar-expand-lg navbar-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbarContent" class="collapse navbar-collapse">
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="index.php?view=accueil">Accueil</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="index.php?view=series">Liste des mangas</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Ma collection</a>
+                </li>
+              </ul>
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="index.php?view=login">
+                  <i class="bi bi-box-arrow-in-right"></i></i> Se connecter
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Mon profil</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
       </div>
     </div>
-  </div>
+</div>
