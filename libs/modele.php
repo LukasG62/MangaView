@@ -74,6 +74,23 @@ function getReview($idVolume){
     // liste les reviews d'un volume
 }
 
+function getCollection($idUser) {
+    // Récupère la collection d'un utilisateur et renvoie les informations de la collection
+}
+
+
+
+
+
+function getPrev($idVolume){
+    // donne l'id du tome précédent s'il existe
+}
+
+
+function getNext($idVolume){
+    // donne l'id du tome suivant s'il existe
+}
+
 
 //// FONCTIONS METIERS LIÉE A UNE SERIE ////
 
