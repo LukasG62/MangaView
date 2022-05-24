@@ -2,10 +2,10 @@
 
 include_once "modele.php";
 
-$uploadInfo = [ "USERPATH" => "ressources/img/user",
+$uploadInfo = [ "USERPATH" => "ressources/img/users",
                 "NEWSPATH" => "ressources/img/news",
                 "VOLUMESPATH" => "ressources/img/volumes",
-                "SERIESPATH" => "ressources/img/series",
+                "SERIESPATH" => "ressources/img/mangas",
               ];
 
 
@@ -17,10 +17,6 @@ function isUserAdmin($idUser) {
 function isUserBlacklist($idUser) {
     // Fonction retournant vrai si le grade utilisateur == -1
     
-}
-
-function isUserDeleted($idUser) {
-    // Fonction retournant vrai si le grade utilisateur == -2
 }
 
 function isUserReviewer($idUser) {
