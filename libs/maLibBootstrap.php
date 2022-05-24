@@ -31,8 +31,17 @@ function mkNews($dataNews, $complete = false) {
 }
 
 function mkComment($comments) {
-	// Fonction qui consruit un commentaire
+	// Fonction qui consruit un commentaire en HTML
 }
+
+function mkReview($review) {
+	// Fonction qui construit une review en html
+}
+
+function mkCollection($collection, $myprofile) {
+	// Fonction qui construit une collection en fonction de la page (si c'est myprofile ou profile)
+}
+
 
 
 ?>
