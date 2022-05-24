@@ -11,6 +11,12 @@ function getUser($idUser) {
     
 }
 
+function deleteUser($idUser) {
+    // Fonction supprime toutes les informations de l'utilisateur via son id
+    // Params : idUser, l'id de l'utilisateur
+    
+}
+
 function getGradeLabel($idUser) {
     // Fonction retournant le titre du grade d'un utilisateur
     // Params : idUser
@@ -64,7 +70,7 @@ function addToCollection($idUser, $idVolume) {
     // Ajoute un volume à la collection de utilisateur
 }
 
-function listerReview($idVolume){
+function getReview($idVolume){
     // liste les reviews d'un volume
 }
 
@@ -75,9 +81,6 @@ function getVolumes($idManga) {
         // Donne la liste de tous les tome d'une série
 }
 
-function getComments($idManga) {
-        // Donne la liste de tous les commentaire d'une série
-}
 
 function getSeries() {
     // Donne la liste de toutes les séries
@@ -92,6 +95,17 @@ function getSerieTags($idManga) {
    // retourne la liste des identifiant tags et le label pour une série
 }
 
+//// FONCTIONS METIERS LIEE A UNE NEWS ////
+
+function getNews($idNews, $number){
+    // donne toutes les informations nécessaires pour l'affichage d'une news ( sur carroussel ou page de review ). On récupère $number news avec all (toutes les news)
+}
+
+//// Fonction générale ////
+
+function getComments($id, $typecomm){
+    // liste les commentaires liés à une news, un tome ou une série via un champ caché récupéré dans typecomm
+}
 
 
 ?>
