@@ -119,5 +119,7 @@ function getComments($id, $typecomm){
     // liste les commentaires liés à une news, un tome ou une série via un champ caché récupéré dans typecomm
 } // retourne un tableau associatif
 
-
+function addComment($uid, $content, $type) {
+    // Fonction qui insère un commentaire selon si c'est un commentaire de news, de tome, de séries
+}
 ?>
