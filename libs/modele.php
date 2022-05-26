@@ -115,8 +115,8 @@ function getSerieTags($idManga) {
 
 //// FONCTIONS METIERS LIEE A UNE NEWS ////
 
-function getNews($idNews, $number){
-    // donne toutes les informations nécessaires pour l'affichage d'une news ( sur carroussel ou page de review ). On récupère $number news avec all (toutes les news)
+function getNews(){
+    // liste toutes les informations nécessaires pour l'affichage de toutes les news ( sur carroussel ou page de review ).
 } // retourne un tableau associatif 
 
 //// Fonction générale ////
