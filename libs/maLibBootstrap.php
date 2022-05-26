@@ -1,6 +1,6 @@
 <?php
 
-
+include_once "modele.php";
 /*
 Ce fichier définit diverses fonctions permettant de faciliter la production de mises en formes complexes
 Il est utilisé en conjonction avec le style de bootstrap et insère des classes bootstrap
@@ -24,10 +24,14 @@ function mkError($message) {
 	return '<div class="alert alert-danger"><strong>Erreur ! </strong><span>' . $message . '</span> </div>';
 }
 
-function mkNews($dataNews, $complete = false) {
-	// Fonction qui affiche une news
-	// Params : data un tableau contenant toutes les info d'une news; complete, si on affiche toute la news ou non
+function mkNews($dataNews, $active="") {
+  $news = '<div class="carousel-item' .$active . '"><div class="news-preview">'.
+  		  '<a href="index.php?view=news&id=' . $dataNews["id"] . '"><img class="img-fluid" src="' . $dataNews["banner"]. '" /></a>' .
+          '<div class="news-preview-text"><p><i class="bi bi-clock"></i> Posté le <b>' . date_format(date_create($dataNews["date"]), "d/m/Y") . '</b> par <b>' . getUserPseudo($dataNews["uid"]) . '</b></p>' .
+          '<h1>' . $dataNews["title"] . '</h1>' .
+          '<p>' . bbcodeparser(htmlspecialchars($dataNews["content"])) . '</p>' . '</div></div></div>';
 
+  return $news;
 }
 
 function mkComment($comments) {
