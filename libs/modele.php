@@ -32,9 +32,11 @@ function isUserConnected($idUser) {
     // Fonction retournant vrai si l'utilisateur est connectés
 } // retourne 0 ou 1
 
-function getAvatar($idUser) {
+function getUserAvatar($idUser) {
     // Fonction retournant le chemin de l'avatar ou default.png si l'avatar n'a pas été autorisé ou nul
-} // retourne un chemin dans un tableau 
+    return "default.png";
+} // retourne un chemin dans un tableau
+
 
 function getUserBio($idUser) {
     // Fonction retournant la bio de l'utilisateur
