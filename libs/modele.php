@@ -2,6 +2,7 @@
 
 
 include_once "maLibSQL.pdo.php";
+include_once "LibMangaview.php";
 
 //// FONCTIONS METIERS LIÉE A UN UTILISATEUR ////
 
@@ -38,6 +39,11 @@ function getAvatar($idUser) {
 function getUserBio($idUser) {
     // Fonction retournant la bio de l'utilisateur
 } // retourne un tableau 
+
+function getUserPseudo($idUser) {
+    // Fonction retournant la bio de l'utilisateur
+    return "Lukas";
+}
 
 function createUser($pseudo,$password, $bio = "",$grade=0, $avatar="") {
     // Fonction qui inserer un utilisateur dans la bdd
