@@ -9,6 +9,12 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 
 // Pose qq soucis avec certains serveurs...
 echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
+
+include_once "libs/maLibBootstrap.php";
+include_once "libs/LibMangaview.php"; 
+include_once "libs/maLibUtils.php";
+
+$view = valider("view")
 ?>
 
 <!DOCTYPE html>
@@ -27,10 +33,13 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
   <!-- TITRE DU HEADER ! TODO !!-->
   <div class="mv-header">
     <div class="mv-header-title">
-      <h1>MangaView</h1>
-      <h2><small>Share mangas with us !</small></h2>
+      <img>
+      <div>
+        <h1>MangaView</h1>
+        <h2><small>Share mangas with us !</small></h2>
+      </div>
     </div>
-    <!-- BARRE DE NAVIGATION ! TODO : Rendre dynamique les elements de la navbar-->
+    <!-- BARRE DE NAVIGATION -->
     <div class="mv-navbar bg-dark">
       <div class="container">
         <div class="row">
@@ -40,25 +49,26 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
             </button>
             <div id="navbarContent" class="collapse navbar-collapse">
               <ul class="navbar-nav">
-                <li class="nav-item active">
-                  <a class="nav-link" href="index.php?view=accueil">Accueil</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="index.php?view=series">Liste des mangas</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Ma collection</a>
-                </li>
+                <?=mkHeadLink("Accueil", "accueil", $view, "nav-item", "bi bi-house-door-fill")?>
+                <?=mkHeadLink("Liste des mangas", "series", $view, "nav-item")?>
+                
+                <?php
+                  if(valider("isConnected", "SESSION"))
+                  if($idUser = valider("idUser", "SESSION"))
+                  echo mkHeadLink("Ma collection", "profile&id=$idUser", $view)
+                
+                ?>
               </ul>
               <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                  <a class="nav-link" href="index.php?view=login">
-                  <i class="bi bi-box-arrow-in-right"></i></i> Se connecter
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Mon profil</a>
-                </li>
+                <?php 
+                  if(valider("isConnected", "SESSION")) {
+                    echo mkHeadLink("Mon profil", "myprofile", $view);
+                  }
+                  else {
+                    echo mkHeadLink("Inscription", "signup", $view, "nav-item", "bi bi-person-plus-fill");
+                    echo mkHeadLink("Se connecter", "login", $view, "nav-item", "bi bi-box-arrow-in-right");
+                  }
+                ?>
               </ul>
             </div>
           </nav>
