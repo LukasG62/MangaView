@@ -15,15 +15,17 @@ Les formulaires de toutes les vues générées enverront leurs données vers la 
 	$view = valider("view"); 
 
 	// S'il est vide, on charge la vue accueil par défaut
-	if (!$view) $view = "accueil"; 
-
+	if (!$view) {
+		$urlBase = dirname($_SERVER["PHP_SELF"]) . "/index.php";
+		// On redirige vers la page index avec les bons arguments
+  		rediriger($urlBase, ["view"=>"accueil"], false);
+	}
 	// NB : il faut que view soit défini avant d'appeler l'entête
 
 	// Dans tous les cas, on affiche l'entete, 
 	// qui contient les balises de structure de la page, le logo, etc. 
 	// Le formulaire de recherche ainsi que le lien de connexion 
 	// si l'utilisateur n'est pas connecté 
-
 	include("templates/header.php");
 
 	// En fonction de la vue à afficher, on appelle tel ou tel template
