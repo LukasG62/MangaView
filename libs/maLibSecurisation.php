@@ -18,21 +18,25 @@ include_once "modele.php";	// Car on utilise la fonction connecterUtilisateur()
  * @param string $password
  * @return false ou true ; un effet de bord est la création de variables de session
  */
-function verifUser($login,$password)
+function verifUser($pseudo,$password)
 {
 	
-	$id = verifUserBdd($login,$password);
+	$userCredentials = getUserCredentials($pseudo);
 
-	if (!$id) return false; 
+	if (!$userCredentials) return false;
+	if(!password_verify($password, $userCredentials["password"])) return False;
 
 	// Cas succès : on enregistre pseudo, idUser dans les variables de session 
 	// il faut appeler session_start ! 
 	// Le controleur le fait déjà !!
-	$_SESSION["pseudo"] = $login;
-	$_SESSION["idUser"] = $id;
+	$idUser = $userCredentials["id"];
+	$_SESSION["pseudo"] = $pseudo;
+	$_SESSION["idUser"] = $idUser;
 	$_SESSION["connecte"] = true;
 	$_SESSION["heureConnexion"] = date("H:i:s");
-	$_SESSION["isAdmin"] = isAdmin($id);
+	$_SESSION["isAdmin"] = isUserAdmin($idUser);
+	$_SESSION["isReviewer"] = isUserReviewer($idUser);
+	$_SESSION["isBlacklist"] = isUserBlacklist($idUser);
 
 	return true;	
 }
@@ -43,7 +47,7 @@ function verifUser($login,$password)
 /**
  * Fonction à placer au début de chaque page privée
  * Cette fonction redirige vers la page $urlBad en envoyant un message d'erreur 
-	et arrête l'interprétation si l'utilisateur n'est pas connecté
+ * et arrête l'interprétation si l'utilisateur n'est pas connecté
  * Elle ne fait rien si l'utilisateur est connecté, et si $urlGood est faux
  * Elle redirige vers urlGood sinon
  */
