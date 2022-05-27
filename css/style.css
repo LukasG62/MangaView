@@ -74,3 +74,10 @@
 .round img {
   border-radius: 50%;
 }
+
+
+/* Pour la page de login */
+
+.mv-login-form {
+  margin:20px;
+}

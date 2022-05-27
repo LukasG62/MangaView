@@ -28,7 +28,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
                 <button name="action" value="Login" type="submit" class="btn btn-primary btn-block">Login</button>
               </div>
               <div class="mt-4 text-center">
-                <a href="register.html">Première connexion ?</a>
+                <a href="index.php?view=signup">Première connexion ?</a>
               </div>
             </form>
           </div>
