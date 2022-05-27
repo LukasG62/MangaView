@@ -46,6 +46,7 @@
 .news-preview-text {
     margin:10px;
 }
+
 /*
 .carousel-control-prev {
   left: 25px !important;
@@ -81,4 +82,25 @@
 
 .mv-login-form {
   margin:20px;
+}
+
+
+
+/* Pour la page de review  */
+
+.mv-review {
+  border:1px solid black; 
+  padding:10px;
+  margin: 5px;
+}
+
+
+.avatar-review {
+  width: 150px;
+  height:150px;
+  display:inline-block;
+}
+
+.avatar-review h4, .avatar-review h5 {
+  text-align: center;
 }
