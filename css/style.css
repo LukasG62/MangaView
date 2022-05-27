@@ -10,9 +10,10 @@
     background-size: 100% 100%;
  }
 
- .mv-header-title {
-   
+ .header-waifu {
+   max-height: 150px;
  }
+
 
 /* Pour le bbcode spoiler */
 

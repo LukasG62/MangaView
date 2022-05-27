@@ -30,13 +30,19 @@ $view = valider("view")
 </head>
 
 <body>
-  <!-- TITRE DU HEADER ! TODO !!-->
   <div class="mv-header">
+     <!-- TITRE DU HEADER ! TODO !!-->
     <div class="mv-header-title">
-      <img>
-      <div>
-        <h1>MangaView</h1>
-        <h2><small>Share mangas with us !</small></h2>
+      <div class="row">
+        <div class="col-md-1">
+          <div class="header-waifu">
+            <img width="150" height="150" src="ressources/img/header_waifu.png" />
+          </div>
+        </div>
+        <div class="col-md-8">
+          <h1>MangaView</h1>
+          <h2><small>Share mangas with us !</small></h2>
+        </div>
       </div>
     </div>
     <!-- BARRE DE NAVIGATION -->
