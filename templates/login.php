@@ -6,10 +6,14 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	header("Location:../index.php?view=login");
 	die("");
 }
+
+$msg = valider("msg");
+
 ?>
 
 <div class="mv-login-form">
   <div class="container">
+    <?php if($msg) echo mkError($msg)?>
     <div class="row justify-content-md-center">
       <div class="col-6 card-wrapper">
         <div class="card fat">
