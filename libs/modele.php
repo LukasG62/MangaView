@@ -47,6 +47,10 @@ function getUserPseudo($idUser) {
     return "Lukas";
 }
 
+function getUserCredentials($pseudo) {
+    // Fonction qui récupère l'id le login et le mot de passe de l'utilisateur portant le pseudo $pseudo 
+}
+
 function createUser($pseudo,$password, $bio = "",$grade=0, $avatar="") {
     // Fonction qui inserer un utilisateur dans la bdd
 } // retourne 1 ou 0
