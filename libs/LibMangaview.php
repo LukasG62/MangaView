@@ -2,12 +2,52 @@
 
 include_once "modele.php";
 
-$uploadInfo = [ "USERPATH" => "ressources/img/users/",
+$uploadInfo = [ "USERSPATH" => "ressources/img/users/",
                 "NEWSPATH" => "ressources/img/news/",
-                "VOLUMESPATH" => "ressources/img/volumes/",
+                "VOLUMESPATH" => "ressources/img/tomes/",
                 "SERIESPATH" => "ressources/img/mangas/",
               ];
 
+
+function getStatusLabel($status) {
+
+    switch($status) {
+        case 0:
+            return "Annulé";
+
+        case 1:
+            return "En cours";
+
+        case 2:
+            return "Hiatus";
+        
+        case 3:
+            return "Terminé";
+
+        default :
+            return "UNKNONW";
+    }
+}
+
+function getStatusColor($status) {
+
+    switch($status) {
+        case 0:
+            return "color:red;";
+
+        case 1:
+            return "color:blue;";
+
+        case 2:
+            return "color:darkorange;";
+        
+        case 3:
+            return "color:green;";
+
+        default :
+            return "color:black;";
+    }
+}
 
 function isUserAdmin($idUser) {
     // Fonction retournant vrai si le grade utilisateur >= 20
