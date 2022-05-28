@@ -8,9 +8,6 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	die("");
 }
 
-include_once "libs\maLibBootstrap.php";
-
-
 //$news = getNews();
 
 // TEMPORAIRE POUR TEST LE CARROUSEL SANS LE MODELE A RETIRER DÉS QUE MODELE PRÊT
