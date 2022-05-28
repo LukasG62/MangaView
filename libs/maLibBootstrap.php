@@ -66,7 +66,7 @@ function mkReview($dataReview) {
 
 	$review = '<div class="mv-review container"><div class="row"><div class="col-md-2"><div class="avatar-review">' .
 			  '<a href="index.php?view=profile&id=' . $dataReview["uid"] . '">' . 
-			  '<img width="150" height="150" src="'. $uploadInfo["USERPATH"] . getUserAvatar($dataReview["uid"]) .'" alt="User avatar"/></a>' .
+			  '<img width="150" height="150" src="'. $uploadInfo["USERSPATH"] . getUserAvatar($dataReview["uid"]) .'" alt="User avatar"/></a>' .
 			  '<h4>' . getUserPseudo($dataReview["uid"]) . '</h4>' .
 			  '<h5 style="' . $color . '">' . $dataReview["note"] . '/10</h5></div></div><div class="col-md-8"><p>' .
 			  bbcodeParser(htmlspecialchars($dataReview["content"])) . '</p></div></div>';
@@ -78,6 +78,22 @@ function mkCollection($collection, $myprofile) {
 	// Fonction qui construit une collection en fonction de la page (si c'est myprofile ou profile)
 }
 
+function mkSearchSeries($dataSeries) {
+	// Fonction qui construit l'affichage d'une serie dans la vue liste de mangas
+	global $uploadInfo;
+
+	$series = '<div class="col"><div class="mv-series-container"><a href="index.php?view=manga&id=' . $dataSeries["id"] . '">' . 
+	          '<img src="' . $uploadInfo["VOLUMESPATH"] . $dataSeries["cover"] . '" alt="couverture dernier tome"/></a><div>' .
+			  '<h4>' . htmlspecialchars($dataSeries["title"]) . '</h4>' .
+			  '<h5 style="' . getStatusColor($dataSeries["status"]) .'">' . getStatusLabel($dataSeries["status"]). '</h5></div></div></div>';
+	
+	return $series;
+}
+
+function mkSearchPage($seriesList, $page) {
+	// Fonction qui construit la vue de recherche en fonction du numéro de page
+
+}
 
 
 ?>
