@@ -111,8 +111,11 @@ function getSeries() {
     // Donne la liste de toutes les séries
 } // retourne un tableau associatif
 
+function getSeriesWithLastVolumeCover() {
+    // donne la listes de mangas avec la couverture du dernier tome
+}
 function searchSeries($keyword, $listtags){
-    // donne la liste des series par theme et par mot clé
+    // donne la liste des series par theme et par mot clé avec la couverture du dernier tome
 } // retourne un tableau associatif
 
 function getSerieTags($idManga) {
@@ -122,7 +125,7 @@ function getSerieTags($idManga) {
 //// FONCTIONS METIERS LIEE A UNE NEWS ////
 
 function getNews(){
-    // liste toutes les informations nécessaires pour l'affichage de toutes les news ( sur carroussel ou page de review ).
+    // liste toutes les informations nécessaires pour l'affichage de toutes les news ( sur carroussel ou page de news ).
 } // retourne un tableau associatif 
 
 //// Fonction générale ////
