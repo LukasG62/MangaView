@@ -94,7 +94,6 @@
   margin: 5px;
 }
 
-
 .avatar-review {
   width: 150px;
   height:150px;
@@ -103,4 +102,13 @@
 
 .avatar-review h4, .avatar-review h5 {
   text-align: center;
+}
+
+
+
+/* Pour la page series */
+
+.mv-series-container img {
+  height:400px;
+	width:258px;
 }
