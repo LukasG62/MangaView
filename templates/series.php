@@ -5,18 +5,25 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	die("");
 }
 
-$dataSeries = ["title"=>"Spice and wolf",
+$dataSeries = ["title"=>"Spy x Family",
 			   "id" =>"1",
-			   "status"=>0,
+			   "status"=>1,
 			   "cover" => "1.jpg"
 ];
 
+
+$seriesList = [$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries];
+$partionedSeriesList  = array_chunk($seriesList, 9);
+$nbPages =  count($partionedSeriesList);
+
+if(!($page = valider("page")) || $page >= $nbPages || $page < 0) $page = 0;
+
 ?>
 
+<br />
+<br />
 
 <div class="mv-manga container">
-	<div class="row">
-		<?=mkSearchSeries($dataSeries)?>
-		<?=mkSearchSeries($dataSeries)?>
-	</div>
+	<?=mkSearchPage($partionedSeriesList, $page, $nbPages)?>
+
 </div>
