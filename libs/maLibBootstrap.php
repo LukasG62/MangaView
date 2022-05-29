@@ -90,8 +90,41 @@ function mkSearchSeries($dataSeries) {
 	return $series;
 }
 
-function mkSearchPage($seriesList, $page) {
+function mkSearchPage($partionedSeriesList, $page, $nbPages) {
 	// Fonction qui construit la vue de recherche en fonction du numéro de page
+	$series = "";
+
+	$seriesRows = array_chunk($partionedSeriesList[$page], 3); // on affiche 3 séries par ligne
+
+	// Affichage des séries 3 par ligne avec 15 séries par pages (donner par le partionedSeriesList)
+	foreach($seriesRows as $seriesList) {
+		$series = $series . '<div class="row justify-content-center">';
+		foreach($seriesList as $dataSeries) {
+			$series = $series . mkSearchSeries($dataSeries);
+		}
+		$series = $series . '</div>';
+	}
+
+	//// Gestion de la barre de navigation
+	
+	// Ajout de la commande previous dans la barre de navigation des pages
+	$series = $series . '<nav aria-label="Page navigation"><ul class="pagination">' .
+	          '<li class="page-item ' . (($page == 0) ? "disabled" : "") .'">' . 
+			  '<a class="page-link" href="index.php?view=series&page=' . $page-1 .'" aria-label="Previous"><span aria-hidden="true">&laquo;</span>' .
+			  '<span class="sr-only">Previous</span></a></li>';
+
+	// Ajout de toutes les pages avec les liens vers les pages
+	for($i=0; $i < $nbPages; $i++) {
+		$series .= '<li class="page-item ' . (($page == $i) ? "active" : "") . '"><a class="page-link" href="index.php?view=series&page=' . $i . '">' . $i+1 . '</a></li>';
+	}
+
+	// Ajout de la commande next dans la barre de navigation des pages
+	$series .=  '<li class="page-item ' . (($page+1 == $nbPages) ? "disabled" : "") .'">' .
+	            '<a class="page-link" href="index.php?view=series&page=' . $page+1 . '" aria-label="Next">' .
+				'<span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li></ul></nav>';
+
+
+	return $series;
 
 }
 
