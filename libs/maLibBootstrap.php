@@ -106,7 +106,7 @@ function mkSearchPage($partionedSeriesList, $page, $nbPages) {
 
 	// Affichage des séries 3 par ligne avec 15 séries par pages (donner par le partionedSeriesList)
 	foreach($seriesRows as $seriesList) {
-		$series = $series . '<div class="mv-Series-row row">';
+		$series = $series . '<div class="mv-series-row row">';
 		foreach($seriesList as $dataSeries) {
 			$series = $series . mkSearchSeries($dataSeries);
 		}
