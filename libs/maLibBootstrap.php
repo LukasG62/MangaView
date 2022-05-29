@@ -1,5 +1,11 @@
 <?php
-
+//
+//
+// TODO
+// -> mkCollection
+// -> mkPageSerie : mettre un offset de 2 quand il n'y que 2 séries sur une ligne et un offset de 4 quand y'en a qu'une
+// -> changer les fonction pour faire moins de requete sql
+//
 include_once "modele.php";
 include_once "LibMangaview.php";
 
@@ -93,12 +99,17 @@ function mkSearchSeries($dataSeries) {
 function mkSearchPage($partionedSeriesList, $page, $nbPages) {
 	// Fonction qui construit la vue de recherche en fonction du numéro de page
 	$series = "";
-
+	$offset = "";
 	$seriesRows = array_chunk($partionedSeriesList[$page], 3); // on affiche 3 séries par ligne
 
 	// Affichage des séries 3 par ligne avec 15 séries par pages (donner par le partionedSeriesList)
 	foreach($seriesRows as $seriesList) {
-		$series = $series . '<div class="row justify-content-center">';
+		/// On rajoute un décalage si il n'y a pas 3 éléments sur la ligne
+		if(count($seriesList) == 2) $offset = "offset-2";
+		else if(count($seriesList)==1) $offset = "offset-4";
+		else $offset = "";
+
+		$series = $series . '<div class="mv-Series-row row ' . $offset . '">';
 		foreach($seriesList as $dataSeries) {
 			$series = $series . mkSearchSeries($dataSeries);
 		}
@@ -108,7 +119,7 @@ function mkSearchPage($partionedSeriesList, $page, $nbPages) {
 	//// Gestion de la barre de navigation
 	
 	// Ajout de la commande previous dans la barre de navigation des pages
-	$series = $series . '<nav aria-label="Page navigation"><ul class="pagination">' .
+	$series = $series . '<nav aria-label="Page navigation"><ul class="pagination justify-content-center">' .
 	          '<li class="page-item ' . (($page == 0) ? "disabled" : "") .'">' . 
 			  '<a class="page-link" href="index.php?view=series&page=' . $page-1 .'" aria-label="Previous"><span aria-hidden="true">&laquo;</span>' .
 			  '<span class="sr-only">Previous</span></a></li>';

@@ -103,13 +103,13 @@ function mkTable($tabData,$listeChamps=false)
 // mkSelect("idUser",$users,"id","pseudo");
 // TESTER AVEC mkSelect("idUser",$users,"id","pseudo",2,"couleur");
 
-function mkSelect($nomChampSelect, $tabData,$champValue, $champLabel,$selected=false,$champLabel2=false)
+function mkSelect($nomChampSelect, $tabData,$champValue, $champLabel,$attr="",$selected=false,$champLabel2=false)
 {
 
 	$multiple=""; 
 	if (preg_match('/.*\[\]$/',$nomChampSelect)) $multiple =" multiple =\"multiple\" ";
 
-	echo "<select $multiple name=\"$nomChampSelect\">\n";
+	echo "<select $multiple name=\"$nomChampSelect\" $attr>\n";
 	foreach ($tabData as $data)
 	{
 		$sel = "";	// par défaut, aucune option n'est préselectionnée 
@@ -132,7 +132,7 @@ function mkSelect($nomChampSelect, $tabData,$champValue, $champLabel,$selected=f
 	echo "</select>\n";
 }
 
-function mkForm($action="",$method="get")
+function mkForm($action="controleur.php",$method="get")
 {
 	// Produit une balise de formulaire NB : penser à la balise fermante !!
 	echo "<form action=\"$action\" method=\"$method\" >\n";
@@ -147,6 +147,12 @@ function mkInput($type,$name,$value="",$attrs="")
 {
 	// Produit un champ formulaire
 	echo "<input $attrs type=\"$type\" name=\"$name\" value=\"$value\"/>\n";
+}
+
+function mkButton($type,$name,$value="",$label="",$attrs="")
+{
+	// Produit un champ formulaire
+	echo "<button $attrs type=\"$type\" name=\"$name\" value=\"$value\">$label</button>\n";
 }
 
 function mkRadioCb($type,$name,$value,$checked=false)
