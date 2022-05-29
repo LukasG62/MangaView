@@ -91,7 +91,7 @@ function mkSearchSeries($dataSeries) {
 	// Fonction qui construit l'affichage d'une serie dans la vue liste de mangas
 	global $uploadInfo;
 
-	$series = '<div class="mv-series-col col-3"><div class="mv-series-container"><a href="index.php?view=manga&id=' . $dataSeries["id"] . '">' . 
+	$series = '<div class="mv-series-col col-3 mx-auto"><div class="mv-series-container"><a href="index.php?view=manga&id=' . $dataSeries["id"] . '">' . 
 	          '<img src="' . $uploadInfo["VOLUMESPATH"] . $dataSeries["cover"] . '" alt="couverture dernier tome"/></a><div>' .
 			  '<h4>' . htmlspecialchars($dataSeries["title"]) . '</h4>' .
 			  '<h5 style="' . getStatusColor($dataSeries["status"]) .'">' . getStatusLabel($dataSeries["status"]). '</h5></div></div></div>';
