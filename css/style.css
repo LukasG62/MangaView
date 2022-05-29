@@ -113,11 +113,15 @@
 	width:193px;
 }
 
+.mv-series-container h4 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .input-group {
   margin:10px;
 }
 
-.mv-Series-row {
+.mv-series-row {
   margin-bottom:10px;
 }

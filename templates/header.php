@@ -13,8 +13,9 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>";
 include_once "libs/maLibBootstrap.php";
 include_once "libs/LibMangaview.php"; 
 include_once "libs/maLibUtils.php";
+include_once "libs/maLibForms.php";
 
-$view = valider("view")
+$view = valider("view");
 ?>
 
 <!DOCTYPE html>

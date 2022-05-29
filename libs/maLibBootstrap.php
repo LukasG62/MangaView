@@ -9,6 +9,9 @@
 include_once "modele.php";
 include_once "LibMangaview.php";
 
+define("NBSERIESBYPAGE", 16);
+define("NBSERIESBYROW", 4);
+
 /*
 Ce fichier définit diverses fonctions permettant de faciliter la production de mises en formes complexes
 Il est utilisé en conjonction avec le style de bootstrap et insère des classes bootstrap
@@ -88,7 +91,7 @@ function mkSearchSeries($dataSeries) {
 	// Fonction qui construit l'affichage d'une serie dans la vue liste de mangas
 	global $uploadInfo;
 
-	$series = '<div class="col"><div class="mv-series-container"><a href="index.php?view=manga&id=' . $dataSeries["id"] . '">' . 
+	$series = '<div class="mv-series-col col-3"><div class="mv-series-container"><a href="index.php?view=manga&id=' . $dataSeries["id"] . '">' . 
 	          '<img src="' . $uploadInfo["VOLUMESPATH"] . $dataSeries["cover"] . '" alt="couverture dernier tome"/></a><div>' .
 			  '<h4>' . htmlspecialchars($dataSeries["title"]) . '</h4>' .
 			  '<h5 style="' . getStatusColor($dataSeries["status"]) .'">' . getStatusLabel($dataSeries["status"]). '</h5></div></div></div>';
@@ -99,17 +102,11 @@ function mkSearchSeries($dataSeries) {
 function mkSearchPage($partionedSeriesList, $page, $nbPages) {
 	// Fonction qui construit la vue de recherche en fonction du numéro de page
 	$series = "";
-	$offset = "";
-	$seriesRows = array_chunk($partionedSeriesList[$page], 3); // on affiche 3 séries par ligne
+	$seriesRows = array_chunk($partionedSeriesList[$page], NBSERIESBYROW); // on affiche 3 séries par ligne
 
 	// Affichage des séries 3 par ligne avec 15 séries par pages (donner par le partionedSeriesList)
 	foreach($seriesRows as $seriesList) {
-		/// On rajoute un décalage si il n'y a pas 3 éléments sur la ligne
-		if(count($seriesList) == 2) $offset = "offset-2";
-		else if(count($seriesList)==1) $offset = "offset-4";
-		else $offset = "";
-
-		$series = $series . '<div class="mv-Series-row row ' . $offset . '">';
+		$series = $series . '<div class="mv-Series-row row">';
 		foreach($seriesList as $dataSeries) {
 			$series = $series . mkSearchSeries($dataSeries);
 		}
