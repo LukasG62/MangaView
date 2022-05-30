@@ -55,7 +55,7 @@ function getGradeLabel($idUser) {
     // Params : idUser
 
     $PHP = "SELECT label
-            FROM users JOIN grades ON users.grades = grades.id
+            FROM users JOIN grades ON users.grade = grades.id
             WHERE users.id = $idUser;";
     return SQLGetChamp($PHP);
 
