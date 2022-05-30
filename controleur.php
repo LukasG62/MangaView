@@ -29,8 +29,11 @@ session_start();
 			if ($user = valider("username"))
 			if(verifUser($user,$passe))
 				$tabQs["view"] = "accueil";
-			else
+			else {
 				$tabQs["view"] = "login";
+				$tabQs["msg"] = "Identifiant incorrect !";
+			}
+			
 			break;
             
             // Deconnexion
