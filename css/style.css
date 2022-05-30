@@ -126,6 +126,20 @@
   margin-bottom:10px;
 }
 
+.banner
+{
+  padding-top: 15px;
+}
+
+.tome 
+{
+  margin-top: 10px;
+  display: block;
+  padding: 4px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
 
 .photoProfil {
   float: left;
