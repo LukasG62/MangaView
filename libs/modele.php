@@ -11,8 +11,8 @@ function getUser($idUser) {
     // Params : idUser, l'id de l'utilisateur
     $PHP = "SELECT *
             FROM users
-            WHERE pseudo = $idUser";
-    return parcoursRs($PHP);
+            WHERE id = $idUser";
+    return parcoursRs(SQLSelect($PHP));
     
 } //Retourne un tableau associatif 
 
@@ -82,18 +82,11 @@ function isUserConnected($idUser) {
 
 function getUserAvatar($idUser) {
     // Fonction retournant le chemin de l'avatar ou default.png si l'avatar n'a pas été autorisé ou nul
-    $valide = "SELECT avatarValided 
-               FROM users
-               WHERE id = $idUser;";
-    
-    if($valide)
-    {
-        return SQLGetChamp("SELECT avatar FROM users WHERE if = $idUser;");
-    }
-    if(!($valide))
-    {
+    $PHP = "SELECT avatar FROM users WHERE id = $idUser AND avatarValided=1;";
+    if($res = SQLGetChamp($PHP))
+        return $res;
+    else
         return "default.png";
-    }
 
 } // retourne un chemin dans un tableau
 
@@ -120,7 +113,7 @@ function getUserCredentials($pseudo) {
     $PHP = "SELECT id, pseudo, password
             FROM users
             WHERE pseudo = $pseudo;";
-    return parcourRs($PHP);
+    return parcoursRs(SQLSelect($PHP));
 }
 
 function createUser($pseudo,$password, $bio = "",$grade=0, $avatar="") {
@@ -149,7 +142,7 @@ function changeUserPassword($idUser, $newPassword){
     $PHP = "SELECT *
             FROM users
             WHERE id = $idUser;";
-    return (parcourRs($PHP));
+    return (parcoursRs($PHP));
 } //Retourne un tableau associatif contenant les nouvelles informations 
 
 function changeUserAvatarPath($idUser, $newAvatar){
@@ -166,7 +159,8 @@ function changeUserAvatarPath($idUser, $newAvatar){
     $PHP = "SELECT *
             FROM users
             WHERE id = $idUser;";
-    return (parcourRs($PHP));
+    
+    return (parcoursRs(SQLSelect($PHP)));
 } //Retourne un tableau associatif contenant les nouvelles informations 
 
 function changeUserBio($idUser, $newBio) {
@@ -178,7 +172,7 @@ function changeUserBio($idUser, $newBio) {
     $PHP = "SELECT *
             FROM users
             WHERE id = $idUser;";
-    return (parcourRs($PHP));
+    return (parcoursRs(SQLSelect($PHP)));
     
 } //Retourne un tableau associatif contenant les nouvelles informations 
 
@@ -190,7 +184,7 @@ function getVolume($idVolume){
     $PHP = "SELECT *
             FROM volumes 
             WHERE id = $idVolume;";
-    return (parcourRs($PHP));
+    return (parcoursRs(SQLSelect($PHP)));
 
 } //Retourne un tableau associatif
 
@@ -207,7 +201,7 @@ function getReview($idVolume){
     $PHP = "SELECT id
             FROM reviews 
             WHERE vid = $idVolume;";
-    return (parcourRs($PHP));
+    return (parcoursRs(SQLSelect($PHP)));
 } // retourne un tableau contenant les id reviews
 
 
@@ -217,7 +211,7 @@ function getCollection($idUser) {
     $PHP = "SELECT *
             FROM  collections  
             WHERE uid = $idUser;";
-    return (parcourRs($PHP));
+    return (parcoursRs(SQLSelect($PHP)));
 
 } //Retourne un tableau associatif
 
@@ -228,7 +222,7 @@ function getPrev($idVolume){
     $PHP = "SELECT prev
             FROM  volumes 
             WHERE id = $idVolume;";
-    return (parcourRs($PHP));
+    return (parcoursRs(SQLSelect($PHP)));
 
 } // retourne un int 
 
@@ -239,7 +233,7 @@ function getNext($idVolume){
     $PHP = "SELECT next
             FROM  volumes 
             WHERE id = $idVolume;";
-    return (parcourRs($PHP));
+    return (parcoursRs(SQLSelect($PHP)));
 
 } // retourne un int
 
@@ -249,10 +243,10 @@ function getNext($idVolume){
 function getVolumes($idManga) {
     // Donne la liste de tous les tome d'une série
 
-    $PHP = "SELECT title 
+    $PHP = "SELECT * 
             FROM  volumes 
             WHERE mid = $idManga;";
-    return (parcourRs($PHP));
+    return (parcoursRs(SQLSelect($PHP)));
 
 } // retourne un tableau associatif
 
@@ -260,35 +254,40 @@ function getVolumes($idManga) {
 function getSeries() {
     // Donne la liste de toutes les séries
 
-    $PHP = "SELECT titre
+    $PHP = "SELECT *
             FROM  mangas;";
-    return (parcourRs($PHP));
+    return (parcoursRs(SQLSelect($PHP)));
 
 } // retourne un tableau associatif
 
 function getSeriesWithLastVolumeCover() {
     // donne la listes de mangas avec la couverture du dernier tome
 
-    $PHP = "SELECT mangas.titre, volumes.cover
+    $PHP = "SELECT mangas.*, volumes.cover
             FROM  mangas JOIN volumes ON mangas.id = volumes.mid
-            GROUP BY mangas.id
-            HAVING volumes.id = MAX(volumes.id);";
+            WHERE volumes.next IS NULL";
             //HAVING volumes.next = 0 ;";
-    return (parcourRs($PHP));
+    return (parcoursRs(SQLSelect($PHP)));
 
 }
 function searchSeries($keyword, $listtags){
     // donne la liste des series par theme et par mot clé avec la couverture du dernier tome
     $a = "%";
-    $chaineTheme = $a . $listtags . $a;
+
+    if(count($listtags)) {
+        $chaineTags = "IN (" . implode(",", $listtags) . ")";
+    }
+    else
+        $chaineTags = "";
+    
     $chaineTitre = $a . $keyword . $a;
-    $PHP = "SELECT mangas.titre, volumes.cover
-            FROM  mangas JOIN tags ON mangas.id = tags.mid JOIN themes ON tags.tid = themes.id 
-            WHERE (themes.label LIKE ($chaineTheme)) AND /* OR */ (mangas.titre LIKE ($chaineTitre))
-            GROUP BY mangas.id 
-            HAVING volumes.id = MAX(volumes.id);";
-            //HAVING volumes.next = 0 ;";
-    return (parcourRs($PHP));
+
+    $PHP = "SELECT DISTINCT mangas.*, volumes.cover
+            FROM  mangas JOIN tags ON mangas.id = tags.mid 
+                         JOIN themes ON tags.tid = themes.id 
+                         JOIN volumes ON volumes.mid = mangas.id
+            WHERE themes.id $chaineTags AND (mangas.titre LIKE '$chaineTitre' AND volumes.next IS NULL);";
+    return (parcoursRs(SQLSelect($PHP)));
 
 } // retourne un tableau associatif
 
@@ -297,8 +296,8 @@ function getSerieTags($idManga) {
 
     $PHP = "SELECT DISTINCT tags.tid , themes.label
             FROM  mangas JOIN tags ON mangas.id = tags.mid JOIN themes ON tags.tid = themes.id 
-            WHERE mangas.titre = $idManga;";
-    return (parcourRs($PHP));
+            WHERE mangas.id = $idManga;";
+    return (parcoursRs(SQLSelect($PHP)));
 
 } // retourne un tableau associatif 
 
@@ -308,7 +307,7 @@ function getNews(){
     // liste toutes les informations nécessaires pour l'affichage de toutes les news ( sur carroussel ou page de news ).
     $PHP = "SELECT *
             FROM news;";
-    return (parcourRs($PHP));
+    return parcoursRs(SQLSelect($PHP));
     
 } // retourne un tableau associatif 
 
@@ -318,7 +317,7 @@ function getComments($id, $typecomm){
     // liste les commentaires liés à une news, un tome ou une série via un champ caché récupéré dans typecomm
     // typecomm = {news,tome,serie}
 
-    $PHP="SELECT id FROM ";
+    $PHP="SELECT * FROM ";
     switch ($typecomm) {
         case 'news':
             $PHP .= "comment_n;";
@@ -334,7 +333,7 @@ function getComments($id, $typecomm){
             $PHP .= "comment_n;";
             break;
     }
-    return parcourRs($PHP);
+    return parcoursRs(SQLSelect($PHP));
 
 } // retourne un tableau associatif
 
