@@ -17,7 +17,7 @@ Ce fichier définit diverses fonctions permettant de faciliter la production de 
 Il est utilisé en conjonction avec le style de bootstrap et insère des classes bootstrap
 */
 
-function mkHeadLink($label,$view,$currentView="",$class="nav-item", $icon="")
+function mkHeadLink($label,$view,$currentView="",$class="", $icon="")
 {
 	// fabrique un lien pour l'entête en insèrant la classe 'active' si view = currentView
 
