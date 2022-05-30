@@ -35,6 +35,7 @@ $sortsAvailable = [["id"=>"date", "label"=>"date"], ["id"=>"title", "label"=>"ti
 //$seriesList = [$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries];
 $seriesList = searchSeries($tabQs["search"], $tabQs["tag"], $tabQs["sortby"]);
 $tagsList = getTags();
+
 if(!count($seriesList) < 1) {
   $partionedSeriesList  = array_chunk($seriesList, NBSERIESBYPAGE);
   $nbPages =  count($partionedSeriesList);
