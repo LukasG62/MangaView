@@ -210,6 +210,7 @@ function getReview($idVolume){
     return (parcourRs($PHP));
 } // retourne un tableau contenant les id reviews
 
+
 function getCollection($idUser) {
     // Récupère la collection d'un utilisateur et renvoie les informations de la collection
 
