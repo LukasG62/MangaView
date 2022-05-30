@@ -60,7 +60,7 @@ $view = valider("view");
                 <?=mkHeadLink("Liste des mangas", "series", $view, "nav-item")?>
                 
                 <?php
-                  if(valider("isConnected", "SESSION"))
+                  if(valider("connecte", "SESSION"))
                   if($idUser = valider("idUser", "SESSION"))
                   echo mkHeadLink("Ma collection", "profile&id=$idUser", $view)
                 
@@ -68,7 +68,7 @@ $view = valider("view");
               </ul>
               <ul class="navbar-nav ml-auto">
                 <?php 
-                  if(valider("isConnected", "SESSION")) {
+                  if(valider("connecte", "SESSION")) {
                     echo mkHeadLink("Mon profil", "myprofile", $view);
                   }
                   else {
