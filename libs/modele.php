@@ -318,6 +318,15 @@ function getNews(){
     
 } // retourne un tableau associatif 
 
+function getNewsDecroi(){
+    // liste toutes les informations nécessaires pour l'affichage de toutes les news dans l'ordre decroissant pouyr l'historique des news.
+    $PHP = "SELECT *
+            FROM news
+            ORDER BY date DESC;";
+    return parcoursRs(SQLSelect($PHP));
+    
+} // retourne un tableau associatif 
+
 //// Fonction générale ////
 
 function getComments($id, $typecomm){
