@@ -283,7 +283,7 @@ function searchSeries($keyword, $listtags, $order){
 
     switch($order) {
         case "date":
-            $orderby = "ORDER BY mangas.year ASC;";
+            $orderby = "ORDER BY mangas.year DESC;";
         break;
 
         case "title":
