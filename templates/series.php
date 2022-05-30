@@ -33,7 +33,7 @@ else
 
 $sortsAvailable = [["id"=>"date", "label"=>"date"], ["id"=>"title", "label"=>"titre"]];
 //$seriesList = [$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries];
-$seriesList = searchSeries($tabQs["search"], $tabQs["tag"]);
+$seriesList = searchSeries($tabQs["search"], $tabQs["tag"], $tabQs["sortby"]);
 $tagsList = getTags();
 if(!count($seriesList) < 1) {
   $partionedSeriesList  = array_chunk($seriesList, NBSERIESBYPAGE);
@@ -92,7 +92,7 @@ if(!count($seriesList) < 1) {
 
   <?=endForm()?>
 	<?php if(!count($seriesList) < 1) echo mkSearchPage($partionedSeriesList, $page, $nbPages, $tabQs);
-        else echo mkError("AUcun résultat trouvé !")
+        else echo mkError("Aucun résultat trouvé !")
   ?>
 
 </div>
