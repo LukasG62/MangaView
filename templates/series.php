@@ -12,13 +12,21 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	die("");
 }
 
+if($view = valider("view"))
+  $tabQs["view"] = $view;
+
+if($search = valider("search"))
+  $tabQs["search"] = $search;
+
+if($sortby = valider("sortby"))
+  $tabQs["sortby"] = $sortby;
+
 
 
 $sortsAvailable = [["id"=>"date", "label"=>"date"], ["id"=>"title", "label"=>"titre"]];
 //$seriesList = [$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries];
 $seriesList = searchSeries("", []);
 $tagsList = getTags();
-
 $partionedSeriesList  = array_chunk($seriesList, NBSERIESBYPAGE);
 $nbPages =  count($partionedSeriesList);
 
