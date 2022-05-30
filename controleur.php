@@ -33,7 +33,7 @@ session_start();
 				$tabQs["view"] = "login";
 				$tabQs["msg"] = "Identifiant incorrect !";
 			}
-			
+
 			break;
             
             // Deconnexion
@@ -56,6 +56,22 @@ session_start();
             
             break;
             
+			case "Rechercher":
+			case "Trier":
+
+				if($search = valider("search"))
+					$tabQs["search"] = $search;
+				
+				if($sortby = valider("sortby"))
+					$tabQs["sortby"] = $sortby;
+
+				if($tags = valider("tag"))
+					$tabQs["tag"] = $tags;
+
+
+				$tabQs["view"] = "series";
+			
+			break;
             
 
 		}
