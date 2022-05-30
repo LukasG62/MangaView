@@ -371,4 +371,14 @@ function addComment($uid, $content, $type, $id) {
     $PHP .= "VALUES ($uid,$id,$content);";
     return SQLUpdate($PHP);
 }
+
+
+/* Fonction métiers liées aux themes */
+
+function getTags() {
+    $PHP = "SELECT themes.id, themes.label
+            FROM themes;";
+
+    return parcoursRS(SQLSelect($PHP));
+}
 ?>
