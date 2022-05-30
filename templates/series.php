@@ -31,8 +31,6 @@ if(($tags = valider("tag")) && is_array($tags) && verifTagsArray($tags)) $tabQs[
 else 
   $tabQs["tag"] = [];
 
-tprint($tabQs);
-echo gettype($tags[0]);
 $sortsAvailable = [["id"=>"date", "label"=>"date"], ["id"=>"title", "label"=>"titre"]];
 //$seriesList = [$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries];
 $seriesList = searchSeries($tabQs["search"], $tabQs["tag"]);
