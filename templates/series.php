@@ -17,6 +17,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 $sortsAvailable = [["id"=>"date", "label"=>"date"], ["id"=>"title", "label"=>"titre"]];
 //$seriesList = [$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries];
 $seriesList = searchSeries("", []);
+$tagsList = getTags();
 
 $partionedSeriesList  = array_chunk($seriesList, NBSERIESBYPAGE);
 $nbPages =  count($partionedSeriesList);
@@ -53,7 +54,20 @@ if(!($page = valider("page")) || $page >= $nbPages || $page < 0) $page = 0;
       </div>
       <div id="collapseTags" class="collapse show" aria-labelledby="TagsHeader" data-parent="#tags">
         <div class="card-body">
-          TAGS GOES HERE !
+        <?php
+          $partionedTagsList = array_chunk($tagsList, 10);
+          foreach($partionedTagsList as $dataTagsList) {
+            echo "<div class=\"container\">";
+            foreach($dataTagsList as $dataTags) {
+              echo "<div class=\"form-check form-check-inline\">";
+              echo "<input class=\"form-check-input\" type=\"checkbox\" name=\"tag[]\" id=\"checkbox$dataTags[id]\" value=\"$dataTags[id]\">";
+              echo "<label class=\"form-check-label\" for=\"checkbox$dataTags[id]\">$dataTags[label]</label>";
+              echo "</div>";
+            }
+
+            echo "</div>";
+          }
+        ?>
         </div>
       </div>
     </div>
