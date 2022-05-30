@@ -108,10 +108,7 @@ function rediriger($url,$tabQS="",$dieALaFin=true)
 	// NB : tabQS est un tableau associatif 
 
 	if (is_array($tabQS)) {
-		foreach($tabQS as $nom => $val) {
-			// Il faut respecter l'encodage des caractères dans les chaînes de requêtes
-			$qs .= "$nom=" . urlencode($val) . "&";
-		}
+		$qs = http_build_query($tabQS);
 	}
 	
 	header("Location:$url?" . rtrim($qs, "&") ); // envoi par la méthode GET
