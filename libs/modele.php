@@ -199,11 +199,11 @@ function addToCollection($idUser, $idVolume) {
 
 function getReview($idVolume){
     // liste les reviews d'un volume
-    $PHP = "SELECT id
+    $PHP = "SELECT *
             FROM reviews 
             WHERE vid = $idVolume;";
     return (parcoursRs(SQLSelect($PHP)));
-} // retourne un tableau contenant les id reviews
+} // retourne un tableau contenant toutes les infos d'une reviews
 
 
 function getCollection($idUser) {
@@ -247,16 +247,6 @@ function getVolumes($idManga) {
     $PHP = "SELECT * 
             FROM  volumes 
             WHERE mid = $idManga;";
-    return (parcoursRs(SQLSelect($PHP)));
-
-} // retourne un tableau associatif
-
-
-function getSeries() {
-    // Donne la liste de toutes les séries
-
-    $PHP = "SELECT *
-            FROM  mangas;";
     return (parcoursRs(SQLSelect($PHP)));
 
 } // retourne un tableau associatif
@@ -381,4 +371,14 @@ function getTags() {
 
     return parcoursRS(SQLSelect($PHP));
 }
+
+function getListReviewByUser($idUser){
+    // liste les reviews d'un volume
+    $PHP = "SELECT id
+            FROM reviews 
+            WHERE uid = $idUser;";
+    return (parcoursRs(SQLSelect($PHP)));
+} // retourne un tableau contenant les id de review d'un utilisateur 
+
+
 ?>
