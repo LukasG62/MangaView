@@ -65,7 +65,7 @@ function getGrade($idUser) {
     // Fonction retournant la valeur numérique du grade d'un utilisateur
 
     $PHP = "SELECT grades.id
-            FROM users JOIN grades ON users.grades = grades.id
+            FROM users JOIN grades ON users.grade = grades.id
             WHERE users.id = $idUser;";
     return SQLGetChamp($PHP);
 
@@ -113,6 +113,7 @@ function getUserCredentials($pseudo) {
     $PHP = "SELECT id, pseudo, password
             FROM users
             WHERE pseudo = '$pseudo';";
+    
     return parcoursRs(SQLSelect($PHP));
 }
 

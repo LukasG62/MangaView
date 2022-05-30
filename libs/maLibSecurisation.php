@@ -24,12 +24,12 @@ function verifUser($pseudo,$password)
 	$userCredentials = getUserCredentials($pseudo);
 
 	if (!$userCredentials) return false;
-	if(!password_verify($password, $userCredentials["password"])) return False;
+	if(!password_verify($password, $userCredentials[0]["password"])) return False;
 
 	// Cas succès : on enregistre pseudo, idUser dans les variables de session 
 	// il faut appeler session_start ! 
 	// Le controleur le fait déjà !!
-	$idUser = $userCredentials["id"];
+	$idUser = $userCredentials[0]["id"];
 	$_SESSION["pseudo"] = $pseudo;
 	$_SESSION["idUser"] = $idUser;
 	$_SESSION["connecte"] = true;
