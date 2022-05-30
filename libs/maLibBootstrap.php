@@ -93,7 +93,7 @@ function mkSearchSeries($dataSeries) {
 
 	$series = '<div class="mv-series-col col-3 mx-auto"><div class="mv-series-container"><a href="index.php?view=manga&id=' . $dataSeries["id"] . '">' . 
 	          '<img src="' . $uploadInfo["VOLUMESPATH"] . $dataSeries["cover"] . '" alt="couverture dernier tome"/></a><div>' .
-			  '<h4>' . htmlspecialchars($dataSeries["title"]) . '</h4>' .
+			  '<h4>' . htmlspecialchars($dataSeries["titre"]) . '</h4>' .
 			  '<h5 style="' . getStatusColor($dataSeries["status"]) .'">' . getStatusLabel($dataSeries["status"]). '</h5></div></div></div>';
 	
 	return $series;

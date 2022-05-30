@@ -12,14 +12,12 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	die("");
 }
 
-$dataSeries = ["title"=>"Spy x Family",
-			   "id" =>"1",
-			   "status"=>1,
-			   "cover" => "1.jpg"
-];
+
 
 $sortsAvailable = [["id"=>"date", "label"=>"date"], ["id"=>"title", "label"=>"titre"]];
-$seriesList = [$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries];
+//$seriesList = [$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries];
+$seriesList = searchSeries("", []);
+
 $partionedSeriesList  = array_chunk($seriesList, NBSERIESBYPAGE);
 $nbPages =  count($partionedSeriesList);
 
