@@ -261,6 +261,16 @@ function getSeries() {
 
 } // retourne un tableau associatif
 
+function getSerie($idManga) {
+    // Donne la liste de toutes les séries
+
+    $PHP = "SELECT *
+            FROM  mangas
+            WHERE id = $idManga ;";
+    return (parcoursRs(SQLSelect($PHP)));
+
+} // retourne un tableau associatif
+
 function getSeriesWithLastVolumeCover() {
     // donne la listes de mangas avec la couverture du dernier tome
 
