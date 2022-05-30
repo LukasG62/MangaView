@@ -55,7 +55,7 @@ function getGradeLabel($idUser) {
     // Params : idUser
 
     $PHP = "SELECT label
-            FROM users JOIN grades ON users.grades = grades.id
+            FROM users JOIN grades ON users.grade = grades.id
             WHERE users.id = $idUser;";
     return SQLGetChamp($PHP);
 
@@ -197,13 +197,21 @@ function addToCollection($idUser, $idVolume) {
     return SQLUpdate($PHP);
 } // retourne 0 ou 1
 
-function getReview($idVolume){
+function getReview($idReview){
+    // liste les reviews d'un volume
+    $PHP = "SELECT *
+            FROM reviews 
+            WHERE id = $idReview;";
+    return (parcoursRs(SQLSelect($PHP)));
+} // retourne un tableau contenant les infos d'une review
+
+function getListReviewByUser($idUser){
     // liste les reviews d'un volume
     $PHP = "SELECT id
             FROM reviews 
-            WHERE vid = $idVolume;";
+            WHERE uid = $idUser;";
     return (parcoursRs(SQLSelect($PHP)));
-} // retourne un tableau contenant les id reviews
+} // retourne un tableau contenant les id de review d'un utilisateur 
 
 
 function getCollection($idUser) {
@@ -257,16 +265,6 @@ function getSeries() {
 
     $PHP = "SELECT *
             FROM  mangas;";
-    return (parcoursRs(SQLSelect($PHP)));
-
-} // retourne un tableau associatif
-
-function getSerie($idManga) {
-    // Donne la liste de toutes les séries
-
-    $PHP = "SELECT *
-            FROM  mangas
-            WHERE id = $idManga ;";
     return (parcoursRs(SQLSelect($PHP)));
 
 } // retourne un tableau associatif
@@ -370,15 +368,5 @@ function addComment($uid, $content, $type, $id) {
     }
     $PHP .= "VALUES ($uid,$id,$content);";
     return SQLUpdate($PHP);
-}
-
-
-/* Fonction métiers liées aux themes */
-
-function getTags() {
-    $PHP = "SELECT themes.id, themes.label
-            FROM themes;";
-
-    return parcoursRS(SQLSelect($PHP));
 }
 ?>
