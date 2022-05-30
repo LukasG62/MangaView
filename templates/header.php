@@ -56,8 +56,8 @@ $view = valider("view");
             </button>
             <div id="navbarContent" class="collapse navbar-collapse">
               <ul class="navbar-nav">
-                <?=mkHeadLink("Accueil", "accueil", $view, "nav-item", "bi bi-house-door-fill")?>
-                <?=mkHeadLink("Liste des mangas", "series", $view, "nav-item")?>
+                <?=mkHeadLink("Accueil", "accueil", $view, "", "bi bi-house-door-fill")?>
+                <?=mkHeadLink("Liste des mangas", "series", $view, "")?>
                 
                 <?php
                   if(valider("connecte", "SESSION"))
@@ -69,11 +69,12 @@ $view = valider("view");
               <ul class="navbar-nav ml-auto">
                 <?php 
                   if(valider("connecte", "SESSION")) {
-                    echo mkHeadLink("Mon profil", "myprofile", $view);
+                    echo mkHeadLink("Mon profil", "myprofile", $view, "", "bi bi-person-fill");
+                    echo "<li class=\"nav-item\"> <a class=\"nav-link\" href=\"controleur.php?action=Logout\">Se déconnecter</a></li>";
                   }
                   else {
-                    echo mkHeadLink("Inscription", "signup", $view, "nav-item", "bi bi-person-plus-fill");
-                    echo mkHeadLink("Se connecter", "login", $view, "nav-item", "bi bi-box-arrow-in-right");
+                    echo mkHeadLink("Inscription", "signup", $view, "", "bi bi-person-plus-fill");
+                    echo mkHeadLink("Se connecter", "login", $view, "", "bi bi-box-arrow-in-right");
                   }
                 ?>
               </ul>
