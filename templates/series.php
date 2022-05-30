@@ -17,21 +17,32 @@ if($view = valider("view"))
 
 if($search = valider("search"))
   $tabQs["search"] = $search;
+else
+  $tabQs["search"] = "";
+
 
 if($sortby = valider("sortby"))
   $tabQs["sortby"] = $sortby;
+else
+  $tabQs["sortby"] = "";
 
+if(($tags = valider("tag")) && is_array($tags) && verifTagsArray($tags)) $tabQs["tag"] = $tags;
 
+else 
+  $tabQs["tag"] = [];
 
+tprint($tabQs);
+echo gettype($tags[0]);
 $sortsAvailable = [["id"=>"date", "label"=>"date"], ["id"=>"title", "label"=>"titre"]];
 //$seriesList = [$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries,$dataSeries];
-$seriesList = searchSeries("", []);
+$seriesList = searchSeries($tabQs["search"], $tabQs["tag"]);
 $tagsList = getTags();
-$partionedSeriesList  = array_chunk($seriesList, NBSERIESBYPAGE);
-$nbPages =  count($partionedSeriesList);
+if(!count($seriesList) < 1) {
+  $partionedSeriesList  = array_chunk($seriesList, NBSERIESBYPAGE);
+  $nbPages =  count($partionedSeriesList);
 
-if(!($page = valider("page")) || $page >= $nbPages || $page < 0) $page = 0;
-
+  if(!($page = valider("page")) || $page >= $nbPages || $page < 0) $page = 0;
+}
 ?>
 
 <div class="mv-manga container">
@@ -82,6 +93,8 @@ if(!($page = valider("page")) || $page >= $nbPages || $page < 0) $page = 0;
   </div>
 
   <?=endForm()?>
-	<?=mkSearchPage($partionedSeriesList, $page, $nbPages)?>
+	<?php if(!count($seriesList) < 1) echo mkSearchPage($partionedSeriesList, $page, $nbPages, $tabQs);
+        else echo mkError("AUcun résultat trouvé !")
+  ?>
 
 </div>

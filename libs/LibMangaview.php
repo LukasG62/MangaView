@@ -156,4 +156,12 @@ function bbcodeParser($text){ // TODO eviter cas du genre "[b][u][/b][u]"
     return preg_replace($bbcode,$htmltags,$text);
 }
 
+function verifTagsArray($tab) {
+    foreach($tab as $tags) {
+        if(!intval($tags))
+            return false;
+    }
+    return true;
+}
+
 ?>

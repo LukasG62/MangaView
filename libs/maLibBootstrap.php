@@ -99,7 +99,7 @@ function mkSearchSeries($dataSeries) {
 	return $series;
 }
 
-function mkSearchPage($partionedSeriesList, $page, $nbPages) {
+function mkSearchPage($partionedSeriesList, $page, $nbPages, $tabQs) {
 	// Fonction qui construit la vue de recherche en fonction du numéro de page
 	$series = "";
 	$seriesRows = array_chunk($partionedSeriesList[$page], NBSERIESBYROW); // on affiche 3 séries par ligne
@@ -118,17 +118,17 @@ function mkSearchPage($partionedSeriesList, $page, $nbPages) {
 	// Ajout de la commande previous dans la barre de navigation des pages
 	$series = $series . '<nav aria-label="Page navigation"><ul class="pagination justify-content-center">' .
 	          '<li class="page-item ' . (($page == 0) ? "disabled" : "") .'">' . 
-			  '<a class="page-link" href="index.php?view=series&page=' . $page-1 .'" aria-label="Previous"><span aria-hidden="true">&laquo;</span>' .
+			  '<a class="page-link" href="index.php?'  . http_build_query($tabQs) . "&page=" . $page-1 .'" aria-label="Previous"><span aria-hidden="true">&laquo;</span>' .
 			  '<span class="sr-only">Previous</span></a></li>';
 
 	// Ajout de toutes les pages avec les liens vers les pages
 	for($i=0; $i < $nbPages; $i++) {
-		$series .= '<li class="page-item ' . (($page == $i) ? "active" : "") . '"><a class="page-link" href="index.php?view=series&page=' . $i . '">' . $i+1 . '</a></li>';
+		$series .= '<li class="page-item ' . (($page == $i) ? "active" : "") . '"><a class="page-link" href="index.php?' . http_build_query($tabQs) . "&page=" . $i . '">' . $i+1 . '</a></li>';
 	}
 
 	// Ajout de la commande next dans la barre de navigation des pages
 	$series .=  '<li class="page-item ' . (($page+1 == $nbPages) ? "disabled" : "") .'">' .
-	            '<a class="page-link" href="index.php?view=series&page=' . $page+1 . '" aria-label="Next">' .
+	            '<a class="page-link" href="index.php?' . http_build_query($tabQs) . "&page=" . $page+1 . '" aria-label="Next">' .
 				'<span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li></ul></nav>';
 
 
