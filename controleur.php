@@ -25,8 +25,12 @@ session_start();
 
 			// Connexion //////////////////////////////////////////////////
 			case 'Login' :
-			
-			$tabQs["view"] = "accueil";
+			if ($passe = valider("password"))
+			if ($user = valider("username"))
+			if(verifUser($user,$passe))
+				$tabQs["view"] = "accueil";
+			else
+				$tabQs["view"] = "login";
 			break;
             
             // Deconnexion
