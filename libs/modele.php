@@ -277,15 +277,32 @@ function getSeriesWithLastVolumeCover() {
     return (parcoursRs(SQLSelect($PHP)));
 
 }
-function searchSeries($keyword, $listtags){
+function searchSeries($keyword, $listtags, $order){
     // donne la liste des series par theme et par mot clé avec la couverture du dernier tome
     $a = "%";
 
-    if(count($listtags)) {
-        $chaineTags = "IN (" . implode(",", $listtags) . ")";
+    switch($order) {
+        case "date":
+            $orderby = "ORDER BY mangas.year ASC;";
+        break;
+
+        case "title":
+            $orderby = "ORDER BY mangas.title ASC;";
+        
+        default:
+            $orderby = ";";
     }
-    else
+
+
+    if($nb = count($listtags)) {
+        $chaineTags = "IN (" . implode(",", $listtags) . ")";
+        $groupby = "GROUP BY mangas.id HAVING COUNT(*) = $nb ";
+    }
+    else {
         $chaineTags = "";
+        $groupby =  "";
+    }
+
     
     $chaineTitre = $a . $keyword . $a;
 
@@ -293,7 +310,10 @@ function searchSeries($keyword, $listtags){
             FROM  mangas JOIN tags ON mangas.id = tags.mid 
                          JOIN themes ON tags.tid = themes.id 
                          JOIN volumes ON volumes.mid = mangas.id
-            WHERE themes.id $chaineTags AND (mangas.titre LIKE '$chaineTitre' AND volumes.next IS NULL);";
+            WHERE themes.id $chaineTags AND (mangas.titre LIKE '$chaineTitre' AND volumes.next IS NULL) 
+            $groupby 
+            $orderby";
+    
     return (parcoursRs(SQLSelect($PHP)));
 
 } // retourne un tableau associatif
