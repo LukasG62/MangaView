@@ -125,3 +125,51 @@
 .mv-series-row {
   margin-bottom:10px;
 }
+
+
+.photoProfil {
+  float: left;
+  height: 140px;
+  width: auto;
+  border: 1px solid black;
+  margin-right: 7px;
+}
+
+.bio {
+  width: 50%;
+}
+
+.floatLeft{
+  float: left;
+}
+
+#choixTriCollection{
+  margin-left: 10px;
+}
+
+.couverture{
+  height: 100px;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.td{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.collection{
+  width: 100%;
+}
+
+.favori{
+  width: 100%;
+}
+.review{
+  width: 100%;
+}
+.imgReview{
+  margin-right: 0;
+}
