@@ -112,7 +112,7 @@ function getUserCredentials($pseudo) {
 
     $PHP = "SELECT id, pseudo, password
             FROM users
-            WHERE pseudo = $pseudo;";
+            WHERE pseudo = '$pseudo';";
     return parcoursRs(SQLSelect($PHP));
 }
 
