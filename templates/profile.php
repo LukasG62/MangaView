@@ -5,7 +5,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	die("");
 }
 global $uploadInfo;
-$idUser = valider("idUser", "GET");
+$idUser = valider("id", "GET");
 $pseudo = getUserPseudo($idUser);
 $rank = getGradeLabel($idUser);
 $bio = bbcodeparser(htmlspecialchars(getUserBio($idUser)));
