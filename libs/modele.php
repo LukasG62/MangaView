@@ -205,6 +205,12 @@ function getReview($idVolume){
     return (parcoursRs(SQLSelect($PHP)));
 } // retourne un tableau contenant toutes les infos d'une reviews
 
+function getAllReview(){
+    // liste les reviews d'un volume
+    $PHP = "SELECT *
+            FROM reviews";
+    return (parcoursRs(SQLSelect($PHP)));
+} // retourne un tableau contenant les infos d'une review
 
 function getCollection($idUser) {
     // Récupère la collection d'un utilisateur et renvoie les informations de la collection
