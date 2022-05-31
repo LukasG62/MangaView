@@ -56,8 +56,9 @@ session_start();
             if (isset($_FILES["fileToUpload"]))
 			{			
 				$tabQs["msg"] = "Fichier ecrit !";
-				$valide = uploadUserAvatar(hash("SHA-1",$user),$uploadInfo);
-				switch($valide) 
+				$valide = uploadUserAvatar(hash("sha1",$user),$uploadInfo);
+                $tabQs["msg"] = $valide;
+				switch($valide["CODE"]) 
 				{
 					// -1 type de fichier pas bon
 					// -2 taile du fichier pas bon
@@ -84,10 +85,12 @@ session_start();
 						$tabQs["view"] = "signup";
 					break;
 
-					case 0 :
+					case 1 :
 						$tabQs["msg"] = "Création du compte réussie!";
 						$tabQs["view"] = "login";
-						createUser($user,$passe,"",0, hash("SHA-1",$user));
+
+                        $hashpasse = password_hash($passe, PASSWORD_BCRYPT, ["cost"=>10]);
+						createUser($user,$hashpasse,"",0,$valide["FILENAME"]);
 				}
 			}
             break;
