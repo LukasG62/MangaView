@@ -208,13 +208,14 @@ function mkLabel($for, $value) {
 
 function mkListTomes($idManga){
 	$dataVolumes = getVolumes($idManga);
+	echo("Liste des tomes");
 	echo("<ul class=\"scrollable\">");
 	foreach($dataVolumes as $dataTome)
 	{
 		$id = $dataTome['id'];
 		$num = $dataTome['num'];
 		$string = "tome $num";
-		echo("<li> <a href='http://localhost/www/MangaViewV2/MangaView-main/index.php?view=volumes&mid=$idManga&id=$id'>$string</a>");
+		echo("<li> <a href='index.php?view=tome&id=$id'>$string</a>");
 	}
 	echo("</ul>");
 }
