@@ -28,7 +28,11 @@ session_start();
 			if ($passe = valider("password"))
 			if ($user = valider("username"))
 			if(verifUser($user,$passe))
+			{
 				$tabQs["view"] = "accueil";
+				$id = valider("idUser","SESSION");
+				sessionchange($id,1);
+			}
 			else {
 				$tabQs["view"] = "login";
 				$tabQs["msg"] = "Identifiant incorrect !";
@@ -38,7 +42,10 @@ session_start();
             
             // Deconnexion
 			case 'Logout' :
-            
+				if ($id = valider("idUser","SESSION"))
+				sessionchange($id,0);
+				session_destroy();
+				$tabQs["view"] = "login";
 			break;
             
             
