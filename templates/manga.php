@@ -44,6 +44,10 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 			</div>
 		</div>
 	</div>
+</div>
+
+<div class="container">
+	<h2>Les commentaires :</h2>
 	<?php
 		$dataComment = getComments($idManga, 'serie');
 		foreach($dataComment as $dataOneComment){
