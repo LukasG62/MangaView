@@ -415,5 +415,17 @@ function getListReviewByUser($idUser){
     return (parcoursRs(SQLSelect($PHP)));
 } // retourne un tableau contenant les id de review d'un utilisateur 
 
+function sessionchange($idU,$num)
+{
+    if ($num == 0)
+        $PHP = "UPDATE users 
+                SET connected = 0 
+                WHERE id = $idU;";
+    else 
+        $PHP = "UPDATE users 
+        SET connected = 1 
+        WHERE id = $idU ;" ;
+    return SQLUpdate($PHP);   
+}
 
 ?>
