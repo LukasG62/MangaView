@@ -30,5 +30,12 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 			<p>Date de parution : <?php echo($dataTome[0]['releaseDate']) ?></p>
 		</div>
 	</div>
+	<?php
+		$dataComment = getComments($idTome, 'tome');
+		foreach($dataComment as $dataOneComment){
+			$comment = mkComment($dataOneComment);
+			echo($comment);
+		}
+	?>
 </div>
 

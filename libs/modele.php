@@ -384,17 +384,17 @@ function getComments($id, $typecomm){
     $PHP="SELECT * FROM ";
     switch ($typecomm) {
         case 'news':
-            $PHP .= "comment_n;";
+            $PHP .= "comment_n WHERE nid=$id;";
             break;
         case 'tome':
-            $PHP .= "comments_v;";
+            $PHP .= "comments_v WHERE vid=$id;";
             break;
         case 'serie':
-            $PHP .= "comment_m;";
+            $PHP .= "comment_m WHERE mid=$id;";
             break;
         
         default:
-            $PHP .= "comment_n;";
+            $PHP .= "comment_n WHERE nid=$id;";
             break;
     }
     return parcoursRs(SQLSelect($PHP));
