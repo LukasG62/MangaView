@@ -214,7 +214,7 @@ function mkListTomes($idManga){
 		$id = $dataTome['id'];
 		$num = $dataTome['num'];
 		$string = "tome $num";
-		echo("<li> <a href='http://localhost/www/MangaViewV2/MangaView-main/index.php?view=volumes&mid=$idManga&id=$id'>$string</a>");
+		echo("<li> <a href='index.php?view=tome&id=$id'>$string</a>");
 	}
 	echo("</ul>");
 }
