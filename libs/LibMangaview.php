@@ -68,38 +68,49 @@ function isUserReviewer($idUser) {
 
 function uploadUserAvatar($filename, $uploadInfo) {
     // NOTE : VERIFIER AVANT APPELLE QUE $_FILES["fileToUpload"] existe avec la fonction valider
-    // RETOURNE : 0 si succès
+    // RETOURNE : 1 si succès
     // CODE ERREUR :
     // -1 type de fichier pas bon
     // -2 taile du fichier pas bon
     // -3 extension du fichier pas correct
     // -4 erreur survenu lors de l'upload
     
-    $path = $uploadInfo["USERPATH"]; // chemin des avatars
+    $path = $uploadInfo["USERSPATH"]; // chemin des avatars
     
+
     $imageFileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"],PATHINFO_EXTENSION)); // extension du fichier
     $file = $path . $filename . ".$imageFileType"; // le chemin du fichier
     $finfo = new finfo(FILEINFO_MIME_TYPE, null); // on déclare un objet finfo pour récupèrer le type du fichier uploadé
 
+    $returnInfo["FILENAME"] = $filename . ".$imageFileType";
+
     // Vérification du type : on ne voudrais pas que l'utilisateur upload un fichier php par exemple
     $mine_type = explode("/", $finfo->file($_FILES["fileToUpload"]["tmp_name"]))[0]; // la méthode file retourne type/extension donc on garde le type pour vérifié si c une image
-    if($mine_type != "image")
-        return -1;
-
+    if($mine_type != "image") {
+        $returnInfo["CODE"] = -1;
+        return $returnInfo;
+    }
     // Vérification de la taille
-    if ($_FILES["fileToUpload"]["size"] > 250*250) // on récupère l'info de la taille dans la superglobale $_FILES
-        return -2;
-
+    if ($_FILES["fileToUpload"]["size"] > 250*250) {// on récupère l'info de la taille dans la superglobale $_FILES
+        $returnInfo["CODE"] = -2;
+        return $returnInfo;
+    }
     // Vérification de l'extension
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "gif" ) 
-        return -3;
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "gif" ) {
+        $returnInfo["CODE"] = -3;
+        return $returnInfo;
+    }
 
     // if everything is ok, try to upload file
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $file)) 
-        return 1;
-    else
-        return -4;
-    
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $file)) {
+        $returnInfo["CODE"] = 1;
+        return $returnInfo;
+
+    }
+    else {
+        $returnInfo["CODE"] = -4;
+        return $returnInfo;
+    }
 }
 
 function bbcodeParser($text){ // TODO eviter cas du genre "[b][u][/b][u]"
