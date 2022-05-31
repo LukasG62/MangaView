@@ -57,9 +57,9 @@ function mkComment($dataComment) { // TODO : userAvatar à adapter pour les chem
 	global $uploadInfo;
 
 	$comment = '<div class="comment-widgets m-b-20"><div class="d-flex flex-row comment-row">' .
-			   '<div class="p-2"><span class="round"><img src="' . $uploadInfo["USERPATH"] .getUserAvatar($dataComment["uid"]) . '" alt="user" width="100"></span></div>' .
+			   '<div class="p-2"><span class="round"><img src="' . $uploadInfo["USERSPATH"] .getUserAvatar($dataComment["uid"]) . '" alt="user" width="100"></span></div>' .
 			   '<div class="comment-text w-100"><h5>' . getUserPseudo($dataComment["uid"]) . ' : </h5>' .
-			   '<p class="m-b-5 m-t-10">' . bbcodeParser(htmlspecialchars($dataComment["content"])) .'</p></div></div>';
+			   '<p class="m-b-5 m-t-10">' . bbcodeParser(htmlspecialchars($dataComment["comment"])) .'</p></div></div>';
 
 	return $comment;
 }
@@ -84,7 +84,8 @@ function mkReview($dataReview) {
 }
 
 function mkCollection($collection, $myprofile) {
-	// Fonction qui construit une collection en fonction de la page (si c'est myprofile ou profile)
+	$collection = '<div class="collection-accordion" id="collectionAccordion">' .
+				  '';
 }
 
 function mkSearchSeries($dataSeries) {
