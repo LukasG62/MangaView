@@ -273,7 +273,7 @@ function getSerie($idManga) {
 
     $PHP = "SELECT *
             FROM  mangas
-            WHERE id = $idManga ;";
+            WHERE id = '$idManga' ;";
     return (parcoursRs(SQLSelect($PHP)));
 
 } // retourne un tableau associatif
