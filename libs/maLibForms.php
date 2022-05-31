@@ -205,21 +205,19 @@ function mkLiens($tabData,$champLabel, $champCible, $urlBase=false, $nomCible=""
 function mkLabel($for, $value) {
 	echo "<label for=\"$for\">$value</label>";
 }
+
+function mkLabel($for, $value) {
+	echo "<label for=\"$for\">$value</label>";
+}
+
+function mkListTomes($idManga){
+	$nombreDeTomes = getSerieInfos($idManga)[0]['chapters'];
+	echo("<ul class=\"scrollable\">");
+	for($i = 1; $i<($nombreDeTomes+1);$i++)
+	{
+		$string = "chapitre $i";
+		echo("<li> <a href='http://localhost/www/MangaViewV2/MangaView-main/index.php?view=volumes&mid=$idManga&id=$i'>$string</a>");
+	}
+	echo("</ul>");
+}
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
