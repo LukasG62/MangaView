@@ -44,7 +44,7 @@ function mkError($message) {
 function mkNews($dataNews, $active="", $carousel = "carousel-item") { // TODO : banner à adapter pour les chemins relatifs
   global $uploadInfo;
 
-  $news = '<div class="' . $carousel . $active . '"><div class="news-preview">'.
+  $news = '<div class="' . $carousel .' '. $active . '"><div class="news-preview">'.
   		  '<a href="index.php?view=news&id=' . $dataNews["id"] . '"><img class="img-fluid" src="' . $uploadInfo["NEWSPATH"] . $dataNews["banner"]. '" /></a>' .
           '<div class="news-preview-text"><p><i class="bi bi-clock"></i> Posté le <b>' . date_format(date_create($dataNews["date"]), "d/m/Y") . '</b> par <b>' . getUserPseudo($dataNews["uid"]) . '</b></p>' .
           '<h1>' . $dataNews["title"] . '</h1>' .
