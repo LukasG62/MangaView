@@ -258,6 +258,16 @@ function getVolumes($idManga) {
 
 } // retourne un tableau associatif
 
+function getTome($idManga, $idTome) {
+    // Donne la liste de tous les tome d'une série
+
+    $PHP = "SELECT * 
+            FROM volumes 
+            WHERE mid='$idManga' AND id='$idTome';";
+    return parcoursRs(SQLSelect($PHP));
+
+} // retourne un tableau associatif
+
 function getSerie($idManga) {
     // Donne la liste de toutes les séries
 
@@ -329,8 +339,6 @@ function getSerieTags($idManga) {
 
 } // retourne un tableau associatif 
 
-//// FONCTIONS METIERS LIEE A UNE NEWS ////
-
 function getSerieInfos($idManga) {
     // donne les infos relatives a un manga sous forme de tableau associatif
 
@@ -347,6 +355,8 @@ function getFirstTomeSerie($idManga) {
             WHERE ((mid = $idManga) AND (num = 1));";
     return (parcoursRs(SQLSelect($PHP)));
 }
+
+//// FONCTIONS METIERS LIEE A UNE NEWS ////
 
 function getNews(){
     // liste toutes les informations nécessaires pour l'affichage de toutes les news ( sur carroussel ou page de news ).
@@ -433,17 +443,5 @@ function getListReviewByUser($idUser){
     return (parcoursRs(SQLSelect($PHP)));
 } // retourne un tableau contenant les id de review d'un utilisateur 
 
-function sessionchange($idU,$num)
-{
-    if ($num == 0)
-        $PHP = "UPDATE users 
-                SET connected = 0 
-                WHERE id = $idU;";
-    else 
-        $PHP = "UPDATE users 
-        SET connected = 1 
-        WHERE id = $idU ;" ;
-    return SQLUpdate($PHP);   
-}
 
 ?>
