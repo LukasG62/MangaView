@@ -252,7 +252,8 @@ function getVolumes($idManga) {
 
     $PHP = "SELECT * 
             FROM  volumes 
-            WHERE mid = $idManga;";
+            WHERE mid = $idManga
+            ORDER BY id ASC;";
     return (parcoursRs(SQLSelect($PHP)));
 
 } // retourne un tableau associatif
