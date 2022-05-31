@@ -9,8 +9,8 @@
 include_once "modele.php";
 include_once "LibMangaview.php";
 
-define("NBSERIESBYPAGE", 16);
-define("NBSERIESBYROW", 4);
+define("NBSERIESBYPAGE", 1);
+define("NBSERIESBYROW", 1);
 
 /*
 Ce fichier définit diverses fonctions permettant de faciliter la production de mises en formes complexes
@@ -118,17 +118,17 @@ function mkSearchPage($partionedSeriesList, $page, $nbPages, $tabQs) {
 	// Ajout de la commande previous dans la barre de navigation des pages
 	$series = $series . '<nav aria-label="Page navigation"><ul class="pagination justify-content-center">' .
 	          '<li class="page-item ' . (($page == 0) ? "disabled" : "") .'">' . 
-			  '<a class="page-link" href="index.php?'  . http_build_query($tabQs) . "&page=" . $page-1 .'" aria-label="Previous"><span aria-hidden="true">&laquo;</span>' .
+			  '<a class="page-link" href="index.php?'  . http_build_query($tabQs) . "&page=" . ($page-1) .'" aria-label="Previous"><span aria-hidden="true">&laquo;</span>' .
 			  '<span class="sr-only">Previous</span></a></li>';
 
 	// Ajout de toutes les pages avec les liens vers les pages
 	for($i=0; $i < $nbPages; $i++) {
-		$series .= '<li class="page-item ' . (($page == $i) ? "active" : "") . '"><a class="page-link" href="index.php?' . http_build_query($tabQs) . "&page=" . $i . '">' . $i+1 . '</a></li>';
+		$series .= '<li class="page-item ' . (($page == $i) ? "active" : "") . '"><a class="page-link" href="index.php?' . http_build_query($tabQs) . "&page=" . $i . '">' . ($i+1) . '</a></li>';
 	}
 
 	// Ajout de la commande next dans la barre de navigation des pages
 	$series .=  '<li class="page-item ' . (($page+1 == $nbPages) ? "disabled" : "") .'">' .
-	            '<a class="page-link" href="index.php?' . http_build_query($tabQs) . "&page=" . $page+1 . '" aria-label="Next">' .
+	            '<a class="page-link" href="index.php?' . http_build_query($tabQs) . "&page=" . ($page+1) . '" aria-label="Next">' .
 				'<span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li></ul></nav>';
 
 
