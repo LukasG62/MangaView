@@ -32,5 +32,8 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 			<p>Nombre de chapitres : <?php echo($dataSerie[0]['chapters']) ?></p>
 		</div>
 	</div>
-
 </div>
+	<?php
+		mkListTomes($idManga);
+	?>
+
