@@ -215,3 +215,14 @@
 .text_centre{
   text-align: center;
 }
+
+.scrollable {
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 25vh;
+  float: left;
+  position: fixed;
+  top: 8cm;
+  left: 5cm;
+  border: 1px solid black;
+}
