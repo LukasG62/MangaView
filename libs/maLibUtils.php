@@ -43,6 +43,13 @@ function valider($nom,$type="REQUEST")
 		if(isset($_SERVER[$nom]) && !($_SERVER[$nom] == "")) 	
 			return $_SERVER[$nom]; 		
 		break;
+
+		case 'FILES': 
+			if(isset($_FILES[$nom]) && !($_FILES[$nom] == "")) 	
+				return $_FILES[$nom]; 		
+			break;
+	
+		
 	}
 	return false; // Si pb pour récupérer la valeur 
 }
