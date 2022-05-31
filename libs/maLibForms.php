@@ -207,12 +207,14 @@ function mkLabel($for, $value) {
 }
 
 function mkListTomes($idManga){
-	$nombreDeTomes = getSerieInfos($idManga)[0]['chapters'];
+	$dataVolumes = getVolumes($idManga);
 	echo("<ul class=\"scrollable\">");
-	for($i = 1; $i<($nombreDeTomes+1);$i++)
+	foreach($dataVolumes as $dataTome)
 	{
-		$string = "chapitre $i";
-		echo("<li> <a href='http://localhost/www/MangaViewV2/MangaView-main/index.php?view=volumes&mid=$idManga&id=$i'>$string</a>");
+		$id = $dataTome['id'];
+		$num = $dataTome['num'];
+		$string = "tome $num";
+		echo("<li> <a href='http://localhost/www/MangaViewV2/MangaView-main/index.php?view=volumes&mid=$idManga&id=$id'>$string</a>");
 	}
 	echo("</ul>");
 }
