@@ -11,9 +11,10 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 ?>
 
 <div class="container" >
-	<br>
+	<br/>
 	<h1 class="text_centre"> <?php echo($dataSerie)[0]['titre'] ?></h1>
-	<img src="<?= $imgPath ?>" alt="banner" class="banner">
+	
+	<div class="row"><img src="<?= $imgPath ?>" alt="banner" class="banner"></div>
 
 	<?php
 		$dataFirstTome = getFirstTomeSerie($idManga);
@@ -22,19 +23,29 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	<br>
 	<br>
 	<br>
-	<div class="flex">
-		<img src="<?= $imgPath ?>" alt="First Tome's cover" class="couverturedeu floatLeft" >
-		<div class="description" >
-			<p class="synopsis"><?php echo($dataSerie[0]['synopsis']) ?></p>
-			<p>Auteur : <?php echo($dataSerie[0]['author']) ?></p>
-			<p>Publieur : <?php echo($dataSerie[0]['publisher']) ?></p>
-			<p>Annee de parution : <?php echo($dataSerie[0]['year']) ?></p>
-			<p>Nombre de chapitres : <?php echo($dataSerie[0]['chapters']) ?></p>
+	<div class="row">
+		<div class="col-0">
+			<img src="<?= $imgPath ?>" alt="First Tome's cover" class="couverturedeu" >
+		</div>
+		<div class="col">
+			<div class="description" >
+				<p class="synopsis"><b>Synopsis : </b><?php echo($dataSerie[0]['synopsis']) ?></p>
+				<div class="row">
+					<div class="col-7">
+						<p><b>Auteur : </b><?php echo($dataSerie[0]['author']) ?></p>
+						<p><b>Publieur :</b> <?php echo($dataSerie[0]['publisher']) ?></p>
+						<p><b>Annee de parution :</b> <?php echo($dataSerie[0]['year']) ?></p>
+						<p><b>Nombre de chapitres :</b> <?php echo($dataSerie[0]['chapters']) ?></p>
+					</div>
+					<div class="col-2">
+						<?php mkListTomes($idManga);?>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<?php
 		$dataComment = getComments($idManga, 'serie');
-		mkListTomes($idManga);
 		foreach($dataComment as $dataOneComment){
 			$comment = mkComment($dataOneComment);
 			echo($comment);
