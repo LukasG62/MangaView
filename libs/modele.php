@@ -330,6 +330,23 @@ function getSerieTags($idManga) {
 
 //// FONCTIONS METIERS LIEE A UNE NEWS ////
 
+function getSerieInfos($idManga) {
+    // donne les infos relatives a un manga sous forme de tableau associatif
+
+    $PHP = "SELECT *
+            FROM mangas
+            WHERE id = $idManga;";
+    return (parcoursRs(SQLSelect($PHP)));
+}
+
+function getFirstTomeSerie($idManga) {
+    // donne les infos relatives au premier tome d'un manga sous forme de tableau associatif
+    $PHP = "SELECT *
+            FROM volumes
+            WHERE ((mid = $idManga) AND (num = 1));";
+    return (parcoursRs(SQLSelect($PHP)));
+}
+
 function getNews(){
     // liste toutes les informations nécessaires pour l'affichage de toutes les news ( sur carroussel ou page de news ).
     $PHP = "SELECT *
