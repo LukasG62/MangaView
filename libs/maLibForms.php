@@ -206,10 +206,6 @@ function mkLabel($for, $value) {
 	echo "<label for=\"$for\">$value</label>";
 }
 
-function mkLabel($for, $value) {
-	echo "<label for=\"$for\">$value</label>";
-}
-
 function mkListTomes($idManga){
 	$nombreDeTomes = getSerieInfos($idManga)[0]['chapters'];
 	echo("<ul class=\"scrollable\">");
