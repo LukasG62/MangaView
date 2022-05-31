@@ -41,6 +41,10 @@ function mkError($message) {
 	return '<div class="alert alert-danger"><strong>Erreur ! </strong><span>' . $message . '</span> </div>';
 }
 
+function mkSuccess($message) {
+	return '<div class="alert alert-success"><strong>Succès ! </strong><span>' . $message . '</span> </div>';	
+}
+
 function mkNews($dataNews, $active="", $carousel = "carousel-item") { // TODO : banner à adapter pour les chemins relatifs
   global $uploadInfo;
 
@@ -59,7 +63,7 @@ function mkComment($dataComment) { // TODO : userAvatar à adapter pour les chem
 	$comment = '<div class="comment-widgets m-b-20"><div class="d-flex flex-row comment-row">' .
 			   '<div class="p-2"><span class="round"><img src="' . $uploadInfo["USERSPATH"] .getUserAvatar($dataComment["uid"]) . '" alt="user" width="100"></span></div>' .
 			   '<div class="comment-text w-100"><h5>' . getUserPseudo($dataComment["uid"]) . ' : </h5>' .
-			   '<p class="m-b-5 m-t-10">' . bbcodeParser(htmlspecialchars($dataComment["comment"])) .'</p></div></div>';
+			   '<p class="m-b-5 m-t-10">' . bbcodeParser(htmlspecialchars($dataComment["comment"])) .'</p></div></div></div>';
 
 	return $comment;
 }
@@ -72,7 +76,6 @@ function mkReview($dataReview) {
 		$color = "color:darkorange;";
 	else if($dataReview["note"] < 5) $color = "color:red;";
 
-
 	$review = '<div class="mv-review container"><div class="row"><div class="col-md-2"><div class="avatar-review">' .
 			  '<a href="index.php?view=profile&id=' . $dataReview["uid"] . '">' . 
 			  '<img width="150" height="150" src="'. $uploadInfo["USERSPATH"] . getUserAvatar($dataReview["uid"]) .'" alt="User avatar"/></a>' .
@@ -84,8 +87,7 @@ function mkReview($dataReview) {
 }
 
 function mkCollection($collection, $myprofile) {
-	$collection = '<div class="collection-accordion" id="collectionAccordion">' .
-				  '';
+	$collection = '<div class="collection-accordion" id="collectionAccordion">';
 }
 
 function mkSearchSeries($dataSeries) {

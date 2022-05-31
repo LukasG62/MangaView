@@ -66,27 +66,27 @@ session_start();
 					// -4 erreur survenu lors de l'upload
 		
 					case -1 :
-						$tabQs["msg"] .= "Type de fichier incorrect !";
+						$tabQs["msg"] = "Type de fichier incorrect !";
 						$tabQs["view"] = "signup";
 					break;
 
 					case -2 :
-						$tabQs["msg"] .= "Fichier trop grand !";
+						$tabQs["msg"] = "Fichier trop grand !";
 						$tabQs["view"] = "signup";
 					break;
 
 					case -3 :
-						$tabQs["msg"] .= "Extension de fichier incorrect !";
+						$tabQs["msg"] = "Extension de fichier incorrect !";
 						$tabQs["view"] = "signup";
 					break;
 
 					case -4 :
-						$tabQs["msg"] .= "Upload failed!";
+						$tabQs["msg"] = "Upload failed!";
 						$tabQs["view"] = "signup";
 					break;
 
 					case 1 :
-						$tabQs["msg"] = "Création du compte réussie!";
+						$tabQs["success"] = "Création du compte réussie!";
 						$tabQs["view"] = "login";
 
                         $hashpasse = password_hash($passe, PASSWORD_BCRYPT, ["cost"=>10]);

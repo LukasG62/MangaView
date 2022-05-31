@@ -8,12 +8,14 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 }
 
 $msg = valider("msg");
+$success = valider("success")
 
 ?>
 
 <div class="mv-login-form">
   <div class="container">
     <?php if($msg) echo mkError($msg)?>
+    <?php if($success) echo mkSuccess($success)?>
     <div class="row justify-content-md-center">
       <div class="col-6 card-wrapper">
         <div class="card fat">
