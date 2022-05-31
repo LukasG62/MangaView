@@ -208,6 +208,7 @@ function mkLabel($for, $value) {
 
 function mkListTomes($idManga){
 	$dataVolumes = getVolumes($idManga);
+	echo("Liste des tomes");
 	echo("<ul class=\"scrollable\">");
 	foreach($dataVolumes as $dataTome)
 	{
