@@ -120,8 +120,8 @@ function getUserCredentials($pseudo) {
 function createUser($pseudo,$password, $bio = "",$grade=0, $avatar="") {
     // Fonction qui inserer un utilisateur dans la bdd
 
-    $PHP = "INSERT INTO users (grade,pseudo,password,bio,avatar) 
-            VALUES ($grade,$pseudo,$password,$bio,$avatar);";
+    $PHP = "INSERT INTO users(grade,pseudo,password,bio,avatar) 
+            VALUES ('$grade','$pseudo','$password','$bio','$avatar');";
     return SQLInsert($PHP);
 } // retourne 1 ou 0
 
