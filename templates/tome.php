@@ -23,7 +23,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 		$imgPath = $uploadInfo["VOLUMESPATH"] . $dataTome['cover'];
 	?>
 
-	<div class="row">
+	<div class="row tome-info">
 		<div class="col-0">
 			<img src="<?= $imgPath ?>" alt="First Tome's cover" class="couverturedeu" >
 		</div>
@@ -35,6 +35,13 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 			</div>
 		</div>
 	</div>
+	<br />
+	<div class="row">
+		<?php
+		   if($dataTome["prev"]) echo '<div class="col"><a href="index.php?view=tome&id=' . $dataTome["prev"] .'" ><button type="button" class="btn btn-secondary btn-lg btn-block disable">Tome précédents</button></a></div>';
+		   if($dataTome["next"]) echo '<div class="col"><a href="index.php?view=tome&id=' . $dataTome["next"] .'" ><button type="button" class="btn btn-secondary btn-lg btn-block disable">Tome suivant</button></a></div>'
+		?>
+    </div>
 	<br />
 </div>
 
