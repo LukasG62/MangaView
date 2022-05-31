@@ -106,7 +106,7 @@
 
 
 
-/* Pour la page series */
+/* Pour Jerome */
 
 .mv-series-container img {
   height:300px;
@@ -129,7 +129,9 @@
 .banner
 {
   padding-top: 15px;
+  width: 100%;
 }
+
 
 .tome 
 {
@@ -161,6 +163,15 @@
   margin-left: 10px;
 }
 
+.couverturedeu {
+  height: 275px;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: inline; 
+  margin-right: 10px; 
+}
+
 .couverture{
   height: 100px;
   width: auto;
@@ -186,4 +197,21 @@
 }
 .imgReview{
   margin-right: 0;
+}
+
+.synopsis{
+  font-size: larger;
+}
+
+.description{
+  width: auto;
+  float: right;
+}
+
+.flex{
+  display: flex;
+}
+
+.text_centre{
+  text-align: center;
 }
