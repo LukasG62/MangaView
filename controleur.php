@@ -50,7 +50,44 @@ session_start();
             
             
             case "Signin":
-            
+			if ($passe = valider("password"))
+			if ($user = valider("username"))
+            if ($file = valider("fileToUpload","FILES"))
+			{			
+				$valide = uploadUserAvatar(hash("SHA-1",$user),$uploadInfo);
+			}
+			switch ($valide) 
+			{
+				// -1 type de fichier pas bon
+    			// -2 taile du fichier pas bon
+    			// -3 extension du fichier pas correct
+    			// -4 erreur survenu lors de l'upload
+    
+				case -1 :
+					$tabQs["msg"] = "Type de fichier incorrect !";
+					$tabQs["view"] = "signup";
+				break;
+
+				case -2 :
+					$tabQs["msg"] = "Fichier trop grand !";
+					$tabQs["view"] = "signup";
+				break;
+
+				case -3 :
+					$tabQs["msg"] = "Extension de fichier incorrect !";
+					$tabQs["view"] = "signup";
+				break;
+
+				case -4 :
+					$tabQs["msg"] = "Upload failed!";
+					$tabQs["view"] = "signup";
+				break;
+
+				case 0 :
+					$tabQs["msg"] = "Création du compte réussie!";
+					$tabQs["view"] = "login";
+			
+			}
             break;
             
             
