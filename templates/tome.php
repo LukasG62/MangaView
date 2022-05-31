@@ -21,7 +21,7 @@ echo "<div class='container tome'><h1>" . $_tome[0]["title"]." </h1>
 			  </div>
 			  <div class=\"mv-tome-text col\">
 			  	<p><b>Synopsis :</b></p><p>".$_tome[0]["synopsis"]."</p>
-			  	<p><b>Date de sortie : </b>".$_tome[0]["releaseDate"]."</p>
+			  	<p><b>Date de sortie : </b>". date_format(date_create($_tome[0]["releaseDate"]), "d/m/Y")."</p>
 			  </div> 
 			</div>
 			<br/>
