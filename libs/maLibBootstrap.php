@@ -9,8 +9,8 @@
 include_once "modele.php";
 include_once "LibMangaview.php";
 
-define("NBSERIESBYPAGE", 1);
-define("NBSERIESBYROW", 1);
+define("NBSERIESBYPAGE", 16);
+define("NBSERIESBYROW", 4);
 
 /*
 Ce fichier définit diverses fonctions permettant de faciliter la production de mises en formes complexes
