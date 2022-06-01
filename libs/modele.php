@@ -375,6 +375,12 @@ function getNewsDecroi(){
     
 } // retourne un tableau associatif 
 
+function getNewsById($idNews) {
+    $PHP = "SELECT * FROM news WHERE id='$idNews'";
+
+    return parcoursRs(SQLSelect($PHP));
+}
+
 //// Fonction générale ////
 
 function getComments($id, $typecomm){
