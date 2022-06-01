@@ -150,7 +150,8 @@ session_start();
 			}
 			if ($pdp=valider("fileToUpload"))
 			{
-				changeUserAvatarPath($user,$pdp);
+				$pdp = uploadUserAvatar(hash("sha1",$user),$uploadInfo);
+				changeUserAvatarPath($user,hash("sha1",$user));
 				$change = 1;
 			}
 			if ($nbio=valider("bio"))
