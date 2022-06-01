@@ -78,7 +78,7 @@ function mkReview($dataReview) {
 
 	$review = '<div class="mv-review container"><div class="row"><div class="col-md-2"><div class="avatar-review">' .
 			  '<a href="index.php?view=profile&id=' . $dataReview["uid"] . '">' . 
-			  '<img width="150" height="150" src="'. $uploadInfo["USERSPATH"] . getUserAvatar($dataReview["uid"]) .'" alt="User avatar"/></a>' .
+			  '<div class="p-2"><span class="round"><img width="150" height="150" src="'. $uploadInfo["USERSPATH"] . getUserAvatar($dataReview["uid"]) .'" alt="User avatar"/></a></span></div>' .
 			  '<h4>' . getUserPseudo($dataReview["uid"]) . '</h4>' .
 			  '<h5 style="' . $color . '">' . $dataReview["note"] . '/10</h5></div></div><div class="col-md-8"><p>' .
 			  bbcodeParser(htmlspecialchars($dataReview["content"])) . '</p></div></div></div>';
