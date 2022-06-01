@@ -105,6 +105,17 @@ session_start();
 			$tabQs["view"] = "tome";
 			$tabQs["id"] = $idVolume;
             break;
+
+			   
+            case "addToFav" :
+				$id = valider("id");
+				if (isfav(valider("idUser","SESSION"),$id))
+					addfav(valider("idUser","SESSION"),$id,0);
+				else
+					addfav(valider("idUser","SESSION"),$id,1);
+				$tabQs["view"] = "profile";
+				$tabQs["id"] =  valider("idUser","SESSION");
+				break;
             
             
             case "ModifyProfile" :

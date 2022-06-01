@@ -449,6 +449,23 @@ function addComment($uid, $content, $type, $id) {
     return SQLUpdate($PHP);
 }
 
+function addfav($uid,$id,$val)
+{
+    $PHP="UPDATE collections
+          SET fav = $val 
+          WHERE uid = $uid 
+          AND vid = $id ;";
+    return SQLUpdate($PHP);
+}
+
+function isfav($uid,$id)
+{
+    $PHP="SELECT fav 
+          FROM collections 
+          WHERE uid = $uid 
+          AND vid = $id ;";
+     return SQLGetChamp($PHP);
+}
 
 function addReview($uid, $content,$note,$vid) {
     // Fonction qui insère un commentaire selon si c'est un commentaire de news, de tome, de séries
