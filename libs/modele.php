@@ -189,12 +189,22 @@ function getVolume($idVolume){
 
 } //Retourne un tableau associatif
 
-function addToCollection($idUser, $idVolume) {
+function addToCollection($idUser, $idVolume,$fav) {
     // Ajoute un volume à la collection de utilisateur
 
     $PHP = "INSERT INTO collections (uid,vid,fav)
-            VALUES ($idUser,$idVolume,0);";
+            VALUES ($idUser,$idVolume,$fav);";
     return SQLUpdate($PHP);
+} // retourne 0 ou 1
+
+function inCollection($idUser, $idVolume) {
+    // Ajoute un volume à la collection de utilisateur
+
+    $PHP = "SELECT *
+            FROM collections 
+            WHERE uid = $idUser 
+            AND vid = $idVolume";
+    return (parcoursRs(SQLSelect($PHP))) ;
 } // retourne 0 ou 1
 
 function getReview($idVolume){

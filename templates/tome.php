@@ -19,17 +19,6 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	<h1 class="text_centre"> <?php echo $dataTome['title'] ?></h1>
 	<div class="row volume-banner-container">
 		<img src="<?= $imgPath ?>" alt="banner" class="banner">
-		<div class="addToCollectionForm">
-			<?php
-			echo mkForm();
-			echo mkButton("button", "", "", "", "class=\"addFavBtn\" onclick=\"toggle_fav(this)\"");
-			echo mkButton("submit", "action", "addToCollection", "+", "class=\"addBtn\"");
-			echo mkInput("hidden", "fav", "0", "id=\"favValue\"");
-			echo mkInput("hidden", "id", $idTome);
-			echo endForm();
-		
-			?>
-		</div>
 	</div>
 
 	<?php
@@ -46,6 +35,16 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 				<p class="synopsis"><?php echo($dataTome['synopsis']) ?></p>
 				<p><b>Date de parution : </b><?php echo(date_format(date_create($dataTome["releaseDate"]), "d/m/Y")) ?></p>
 			</div>
+			<?php
+			echo mkForm();
+			echo "<div id='form-add'>";
+			echo mkButton("button", "", "", "", "class=\"addFavBtn\" onclick=\"toggle_fav(this)\"");
+			echo mkButton("submit", "action", "AddToCollection", "+", "class=\"addBtn\"");
+			echo "</div>";
+			echo mkInput("hidden", "fav", "0", "id=\"favValue\"");
+			echo mkInput("hidden", "id", $idTome);
+			echo endForm();
+			?>
 		</div>
 	</div>
 	<br />

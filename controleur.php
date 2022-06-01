@@ -97,7 +97,13 @@ session_start();
             
             
             case "AddToCollection" :
-				
+			$fav = valider("fav");
+			if ($idUser = valider("idUser","SESSION"))
+			if ($idVolume = valider("id"))
+			if (!inCollection($idUser, $idVolume))
+			addToCollection($idUser, $idVolume,$fav);
+			$tabQs["view"] = "tome";
+			$tabQs["id"] = $idVolume;
             break;
             
             
