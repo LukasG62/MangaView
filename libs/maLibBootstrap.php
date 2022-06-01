@@ -122,7 +122,7 @@ function mkCollection($collectionbySeries, $myprofile) {
 			foreach($volumeRow as $dataVolume) {
 				$collection .= mkVolumeCollection($dataVolume, $myprofile);
 			}
-			$collection .= "</div></div>";
+			$collection .= "</div></div></div>";
 		}
 		$collection .= "</div>";
 	}
