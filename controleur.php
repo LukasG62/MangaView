@@ -116,6 +116,14 @@ session_start();
 				$tabQs["view"] = "profile";
 				$tabQs["id"] =  valider("idUser","SESSION");
 				break;
+
+				   
+				case "removeToCollection" :
+					$id = valider("id");
+					removecollec(valider("idUser","SESSION"),$id);
+					$tabQs["view"] = "profile";
+					$tabQs["id"] =  valider("idUser","SESSION");
+					break;
             
             
             case "ModifyProfile" :

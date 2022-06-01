@@ -467,6 +467,14 @@ function isfav($uid,$id)
      return SQLGetChamp($PHP);
 }
 
+function removecollec($uid,$id)
+{
+    $PHP="DELETE FROM collections
+          WHERE uid = $uid 
+          AND vid = $id ;";
+    return SQLUpdate($PHP);
+}
+
 function addReview($uid, $content,$note,$vid) {
     // Fonction qui insère un commentaire selon si c'est un commentaire de news, de tome, de séries
     // typecomm = {news,tome,serie}
