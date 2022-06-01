@@ -63,7 +63,7 @@ $view = valider("view");
                 <?php
                   if(valider("connecte", "SESSION"))
                   if($idUser = valider("idUser", "SESSION"))
-                  echo mkHeadLink("Les news","news",$view);
+                  echo mkHeadLink("Les news","newshistory",$view);
                 
                 ?>
               </ul>
