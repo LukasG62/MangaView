@@ -63,14 +63,15 @@ $view = valider("view");
                 <?php
                   if(valider("connecte", "SESSION"))
                   if($idUser = valider("idUser", "SESSION"))
-                  echo mkHeadLink("Ma collection", "profile&id=$idUser", $view)
+                  echo mkHeadLink("Les news","news",$view);
                 
                 ?>
               </ul>
               <ul class="navbar-nav ml-auto">
                 <?php 
                   if(valider("connecte", "SESSION")) {
-                    echo mkHeadLink("Mon profil", "myprofile", $view, "", "bi bi-person-fill");
+                    echo mkHeadLink("Mon Profil", "profile&id=$idUser", $view,"", "bi bi-person-fill");
+                    echo mkHeadLink("Modifier mon profil", "myprofile", $view);
                     echo "<li class=\"nav-item\"> <a class=\"nav-link\" href=\"controleur.php?action=Logout\">Se déconnecter</a></li>";
                   }
                   else {
