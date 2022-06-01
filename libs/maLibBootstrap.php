@@ -88,10 +88,16 @@ function mkReview($dataReview) {
 
 function mkVolumeCollection($dataVolume, $myprofile) {
 	global $uploadInfo;
+	$changecollection = "";
+
+	if($myprofile) {
+		$changecollection = '<h5><a href="controleur.php?action=addToFav&id=' . $dataVolume["id"]. '"><i class="bi bi-star-fill"></i></a>' . 
+		                    ' <a href="controleur.php?action=removeToCollection&id=' .$dataVolume["id"]. '"><i class="bi bi-x-circle-fill"></i></a></h5>';
+	}
 
 	$volume = '<div class="mv-volume-col col-3 mx-auto"><div class="mv-volume-container"><a href="index.php?view=tome&id=' . $dataVolume["id"] . '">' . 
 	          '<img src="' . $uploadInfo["VOLUMESPATH"] . $dataVolume["cover"] . '" alt="couverture tome"/></a><div>' .
-			  '<h4>' . htmlspecialchars($dataVolume["title"]) . '</h4></div></div></div>';
+			  '<h4>' . htmlspecialchars($dataVolume["title"]) . '</h4>' . $changecollection .'</div></div></div>';
 	
 	return $volume;
 	
@@ -100,6 +106,8 @@ function mkVolumeCollection($dataVolume, $myprofile) {
 
 function mkCollection($collectionbySeries, $myprofile) {
 	global $uploadInfo;
+
+
 
 	//Creation de l'accordion
 	$collection = '<div class="collection-accordion" id="collectionAccordion">';
