@@ -146,8 +146,8 @@ function changeUserAvatarPath($idUser, $newAvatar){
     // Fonction qui change le pseudo de l'utilisateur
     // La fonction met egallement 0 à avatarValided 
     $PHP = "UPDATE users 
-            SET avatar = $newAvatar
-            WHERE id = $idUser;
+            SET avatar = '$newAvatar'
+            WHERE id = '$idUser';
             
             UPDATE users 
             SET avatarValided = 0

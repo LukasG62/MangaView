@@ -148,10 +148,12 @@ session_start();
 					}
 				}
 			}
-			if ($pdp=valider("fileToUpload"))
+			if (valider("fileToUpload","FILES"))
 			{
 				$pdp = uploadUserAvatar(hash("sha1",$user),$uploadInfo);
-				changeUserAvatarPath($user,hash("sha1",$user));
+				tprint($pdp);
+				die();
+				changeUserAvatarPath($user,$pdp["FILENAME"]);
 				$change = 1;
 			}
 			if ($nbio=valider("bio"))
