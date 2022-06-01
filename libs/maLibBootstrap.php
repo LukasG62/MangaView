@@ -45,6 +45,10 @@ function mkSuccess($message) {
 	return '<div class="alert alert-success"><strong>Succès ! </strong><span>' . $message . '</span> </div>';	
 }
 
+function mkInfo($message) {
+	return '<div class="alert alert-info"><strong>Information </strong><span>' . $message . '</span> </div>';	
+}
+
 function mkNews($dataNews, $active="", $carousel = "carousel-item") { // TODO : banner à adapter pour les chemins relatifs
   global $uploadInfo;
 
