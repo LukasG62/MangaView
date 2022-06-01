@@ -142,7 +142,7 @@ session_start();
 				case "removeToCollection" :
 					if($id = valider("id"));
 					if($idUser = valider("idUser","SESSION"))
-					if(inCollection($idUser, $idVolume))
+					if(inCollection($idUser, $id))
 						removecollec($idUser,$id);
 
 					$tabQs["view"] = "profile";
