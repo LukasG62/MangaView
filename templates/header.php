@@ -37,7 +37,7 @@ $view = valider("view");
       <div class="row">
         <div class="col-md-1">
           <div class="header-waifu">
-            <img width="150" height="150" src="ressources/img/header_waifu.png" />
+            <a href="index.php?view=accueil"><img width="150" height="150" src="ressources/img/header_waifu.png" /></a>
           </div>
         </div>
         <div class="col-md-8">
