@@ -7,15 +7,15 @@ function toggle_spoiler(ref) {
 }
 
 function init() {
+    refFavValue = document.getElementById("favValue");
 
 }
 
 
 function toggle_fav(ref) {
 	console.log(ref.style.backgroundImage);
-	refFavValue = document.getElementById("favValue");
 	
-	if(ref.style.backgroundImage == "url(\"ressources/img/star_empty.png\")" || ref.style.backgroundImage == "url(\"ressources/img/star_empty.png\")") {
+	if(ref.style.backgroundImage == "url(\"ressources/img/star_empty.png\")" || ref.style.backgroundImage == "") {
 		ref.style.backgroundImage = "urL(\"ressources/img/star_fill.png\")"
 		refFavValue.value = 1
 		
