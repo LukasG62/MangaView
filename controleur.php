@@ -126,8 +126,47 @@ session_start();
 					break;
             
             
-            case "ModifyProfile" :
-            
+            case "Modifier" :
+			$user = valider("idUser","SESSION");
+			$change = 0;
+			if($newusername=valider("username"))
+			{
+				$change = 1;
+				changeUserPseudo($user,$newusername);
+			}
+			if($oldpasse = valider("oldpassword"))
+			{
+				if($newpasse=valider("newpassword"))
+				{
+					$data=getUser($user);
+					$userCredentials = getUserCredentials($data[0]["pseudo"]);
+					if(password_verify($oldpasse, $userCredentials[0]["password"]))
+					{
+						$change = 1;
+						$newpasse = password_hash($newpasse, PASSWORD_BCRYPT, ["cost"=>10]);
+						changeUserPassword($user,$newpasse);
+					}
+				}
+			}
+			if ($pdp=valider("fileToUpload"))
+			{
+				changeUserAvatarPath($user,$pdp);
+				$change = 1;
+			}
+			if ($nbio=valider("bio"))
+			{
+				changeUserBio($user, $nbio);
+			}
+			
+			if ($change == 1)
+			{
+				session_destroy();
+				sessionchange($user,0);
+				$tabQs["view"] = "login";
+				$tabQs["msg"] = "Déconnexion suite à un changement de données utilisateur. Veuillez vous reconnecter";
+				break;
+			}
+			$tabQs["view"] = "myprofile";
             break;
 
 			case "writeComment":

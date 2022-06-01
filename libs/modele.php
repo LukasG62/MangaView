@@ -129,51 +129,38 @@ function changeUserPseudo($idUser, $newPseudo){
     // Fonction qui change le pseudo de l'utilisateur
 
     $PHP = "UPDATE users 
-            SET pseudo = $newPseudo
-            WHERE id = $idUser;";
+            SET pseudo = '$newPseudo'
+            WHERE id = '$idUser';";
     return SQLUpdate($PHP);
 } // retourne 1 ou 0
 
 function changeUserPassword($idUser, $newPassword){
     // Fonction qui change le mot de passe de l'utilisateur
     $PHP = "UPDATE users 
-            SET password = $newPassword
+            SET password = '$newPassword'
             WHERE id = $idUser;";
-    SQLUpdate($PHP);
-    $PHP = "SELECT *
-            FROM users
-            WHERE id = $idUser;";
-    return (parcoursRs($PHP));
+    return SQLUpdate($PHP);
 } //Retourne un tableau associatif contenant les nouvelles informations 
 
 function changeUserAvatarPath($idUser, $newAvatar){
     // Fonction qui change le pseudo de l'utilisateur
     // La fonction met egallement 0 à avatarValided 
     $PHP = "UPDATE users 
-            SET avatar = $newAvatar
+            SET avatar = '$newAvatar'
             WHERE id = $idUser;
             
             UPDATE users 
             SET avatarValided = 0
             WHERE id = $idUser;";
-    SQLUpdate($PHP);
-    $PHP = "SELECT *
-            FROM users
-            WHERE id = $idUser;";
-    
-    return (parcoursRs(SQLSelect($PHP)));
+    return SQLUpdate($PHP);
 } //Retourne un tableau associatif contenant les nouvelles informations 
 
 function changeUserBio($idUser, $newBio) {
     // Fonction qui change la bio de l'utilisateur
     $PHP = "UPDATE users 
-            SET bio = $newBio
+            SET bio = '$newBio'
             WHERE id = $idUser;";
-    SQLUpdate($PHP);
-    $PHP = "SELECT *
-            FROM users
-            WHERE id = $idUser;";
-    return (parcoursRs(SQLSelect($PHP)));
+    return SQLUpdate($PHP);;
     
 } //Retourne un tableau associatif contenant les nouvelles informations 
 
