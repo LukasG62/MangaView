@@ -125,7 +125,7 @@ function mkCollection($collectionbySeries, $myprofile) {
 							<button type="button" class="btn btn-link" data-toggle="collapse" data-target="#' . $collaspeId .'">
 								<div class="mv-collection-banner"><img class="card-img-top" src="' . $imgpath . '" alt="series banner" /></div>
 							</button>
-							<div class="card-body collapse show" id="' . $collaspeId. '" data-parent="#collectionAccordion">
+							<div class="card-body collapse" id="' . $collaspeId. '" data-parent="#collectionAccordion">
 							<div class="mv-collection-listTome">';
 		//Creation du contenu d'une carte
 		$volumeRows = array_chunk($dataSeries, 4, true);
