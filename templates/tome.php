@@ -36,14 +36,24 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 				<p><b>Date de parution : </b><?php echo(date_format(date_create($dataTome["releaseDate"]), "d/m/Y")) ?></p>
 			</div>
 			<?php
-			echo mkForm();
-			echo "<div id='form-add'>";
-			echo mkButton("button", "", "", "", "class=\"addFavBtn\" onclick=\"toggle_fav(this)\"");
-			echo mkButton("submit", "action", "AddToCollection", "+", "class=\"addBtn\"");
-			echo "</div>";
-			echo mkInput("hidden", "fav", "0", "id=\"favValue\"");
-			echo mkInput("hidden", "id", $idTome);
-			echo endForm();
+			if (valider("idUser","SESSION"))
+			{
+				if (!inCollection($idUser, $idTome))
+				{
+					echo mkForm();
+					echo "<div id='form-add'>";
+					echo mkButton("button", "", "", "", "class=\"addFavBtn\" onclick=\"toggle_fav(this)\"");
+					echo mkButton("submit", "action", "AddToCollection", "+", "class=\"addBtn\"");
+					echo "</div>";
+					echo mkInput("hidden", "fav", "0", "id=\"favValue\"");
+					echo mkInput("hidden", "id", $idTome);
+					echo endForm();
+				}
+				else
+				{
+					echo mkInfo("Vous possédez déjà ce tome");
+				}
+			}
 			?>
 		</div>
 	</div>
