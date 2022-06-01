@@ -49,15 +49,30 @@ session_start();
 			break;
             
             
-            case "Signin":
+            case "Signup":
 			$valide = -4 ;
 			if ($passe = valider("password"))
+			if(strlen($passe) > 72) {
+				$tabQs["view"] = "signup";
+				$tabQs["msg"] = "Afin de pouvoir chiffrer le mot de passe il ne doit pas dépasser 72 caractères";
+				break;
+			}
+
 			if ($user = valider("username"))
+			if(getUserCredentials($user)) {
+				$tabQs["view"] = "signup";
+				$tabQs["msg"] = "Ce pseudo est déjà utilisé";
+				break;
+			}
+			if(strlen($user) > 15 || strlen($user) <= 2) {
+				$tabQs["view"] = "signup";
+				$tabQs["msg"] = "Votre pseudo doit faire entre 3 et 15 caractères";
+				break;
+			}
+
             if (isset($_FILES["fileToUpload"]))
 			{			
-				$tabQs["msg"] = "Fichier ecrit !";
 				$valide = uploadUserAvatar(hash("sha1",$user),$uploadInfo);
-                $tabQs["msg"] = $valide;
 				switch($valide["CODE"]) 
 				{
 					// -1 type de fichier pas bon
@@ -93,6 +108,9 @@ session_start();
 						createUser($user,$hashpasse,"",0,$valide["FILENAME"]);
 				}
 			}
+
+			$tabQs["msg"] = "Champs de formulaire invalides";
+			$tabQs["view"] = "signup";
             break;
             
             
