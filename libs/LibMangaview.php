@@ -175,4 +175,21 @@ function verifTagsArray($tab) {
     return true;
 }
 
+
+function groupby($tab, $id){
+    $res = array();
+    // on parcours le tableau
+    foreach($tab as $tabData) {
+        // si on a aucun tableau à la clé id
+        if(!isset($res[$tabData[$id]])){
+            // on en crée un
+            $res[$tabData[$id]] = array();
+        }
+        // on ajoute dans ce tableau l'enregistrement avec le même id
+        array_push($res[$tabData[$id]], $tabData);
+    }
+
+    return $res;
+}
+
 ?>
