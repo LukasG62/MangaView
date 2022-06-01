@@ -27,10 +27,11 @@ $view = valider("view");
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js"></script>
   <title>MangaView</title>
 </head>
 
-<body>
+<body onload="init()">
   <div class="mv-header">
      <!-- TITRE DU HEADER ! TODO !!-->
     <div class="mv-header-title">
