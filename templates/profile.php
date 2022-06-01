@@ -21,6 +21,9 @@ $collectionRawFav = getCollection($idUser, 1);
 $collectionBySeries = groupby($collectionRaw, "mid");
 $collectionBySeriesFav = groupby($collectionRawFav, "mid");
 
+tprint($collectionBySeriesFav);
+tprint($collectionRawFav)
+
 ?>
 
 <div class="container mv-pagebase">
@@ -36,7 +39,7 @@ $collectionBySeriesFav = groupby($collectionRawFav, "mid");
 		<br>
 		<?php if($collectionRaw) echo mkCollection($collectionBySeries, $myprofile)?>
 		<h4 class="col-2">Mes Favoris</h4>
-		<?php if($collectionRawFav) mkCollection($collectionBySeriesFav, $myprofile)?>
+		<?php if($collectionRawFav) echo mkCollection($collectionBySeriesFav, $myprofile)?>
 
 		<br/>
 		<h4 id="titre-rev">Mes Reviews</h4>
