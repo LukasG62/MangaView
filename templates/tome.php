@@ -31,15 +31,25 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 		</div>
 		
 		<div class="col">
+			<?php
+			$showForm = 0;
+			if (valider("idUser","SESSION")) {
+				if (!inCollection($idUser, $idTome)) {
+					$showForm = 1;
+				}
+				else
+				{
+					echo mkInfo("Vous possédez déjà ce tome");
+				}
+
+			}
+			?>
 			<div class="description" >
 				<p class="synopsis"><?php echo($dataTome['synopsis']) ?></p>
 				<p><b>Date de parution : </b><?php echo(date_format(date_create($dataTome["releaseDate"]), "d/m/Y")) ?></p>
 			</div>
 			<?php
-			if (valider("idUser","SESSION"))
-			{
-				if (!inCollection($idUser, $idTome))
-				{
+				if($showForm) {
 					echo mkForm();
 					echo "<div id='form-add'>";
 					echo mkButton("button", "", "", "", "class=\"addFavBtn\" onclick=\"toggle_fav(this)\"");
@@ -49,11 +59,6 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 					echo mkInput("hidden", "id", $idTome);
 					echo endForm();
 				}
-				else
-				{
-					echo mkInfo("Vous possédez déjà ce tome");
-				}
-			}
 			?>
 		</div>
 	</div>
