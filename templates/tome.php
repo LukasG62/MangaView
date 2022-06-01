@@ -14,10 +14,24 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	$imgPath = $uploadInfo["SERIESPATH"] . $dataSerie['banner'];
 ?>
 
-<div class="container" >
+<div class="container mv-pagebase" >
 	<br>
 	<h1 class="text_centre"> <?php echo $dataTome['title'] ?></h1>
-	<div class="row"><img src="<?= $imgPath ?>" alt="banner" class="banner"></div>
+	<div class="row volume-banner-container">
+		<img src="<?= $imgPath ?>" alt="banner" class="banner">
+		<div class="addToCollectionForm">
+			<?php
+			echo mkForm();
+			echo mkButton("button", "", "", "", "class=\"addFavBtn\" onclick=\"toggle_fav(this)\"");
+			echo mkButton("submit", "action", "addToCollection", "+", "class=\"addBtn\"");
+			echo mkInput("hidden", "fav", "0", "id=\"favValue\"");
+			echo mkInput("hidden", "id", $idTome);
+			echo endForm();
+		
+			?>
+		</div>
+	</div>
+
 	<?php
 		$imgPath = $uploadInfo["VOLUMESPATH"] . $dataTome['cover'];
 	?>
@@ -44,7 +58,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	<br />
 </div>
 
-<div class="container">
+<div class="container mv-pagebase">
 	<?php
 		if(valider("isReviewer", "SESSION")) {
 				echo '<div class="mv-postcomment">';
