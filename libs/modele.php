@@ -212,12 +212,20 @@ function getAllReview(){
     return (parcoursRs(SQLSelect($PHP)));
 } // retourne un tableau contenant les infos d'une review
 
-function getCollection($idUser) {
+function getCollection($idUser,$fav = 0) {
     // Récupère la collection d'un utilisateur et renvoie les informations de la collection
+    $chainefav = "";
+    if($fav) {
+        $chainefav = "AND fav = 1";
+    }
 
-    $PHP = "SELECT *
-            FROM  collections  
-            WHERE uid = $idUser;";
+    $PHP = "SELECT mangas.banner, volumes.mid, volumes.id, volumes.title, volumes.cover
+            FROM collections JOIN volumes ON collections.vid = volumes.id
+                     JOIN users ON collections.uid = users.id
+                     JOIN mangas ON mangas.id = volumes.mid
+            WHERE users.id = '$idUser' $chainefav
+            ORDER BY mangas.id ASC, volumes.num ASC ";
+    
     return (parcoursRs(SQLSelect($PHP)));
 
 } //Retourne un tableau associatif
