@@ -58,13 +58,13 @@ session_start();
 				break;
 			}
 
-			if ($user = valider("username"))
+			if ($user = htmlspecialchars(valider("username")))
 			if(getUserCredentials($user)) {
 				$tabQs["view"] = "signup";
 				$tabQs["msg"] = "Ce pseudo est déjà utilisé";
 				break;
 			}
-			if(strlen($user) > 15 || strlen($user) <= 2) {
+			if(strlen($user) > 20 || strlen($user) <= 2) {
 				$tabQs["view"] = "signup";
 				$tabQs["msg"] = "Votre pseudo doit faire entre 3 et 15 caractères";
 				break;
@@ -126,91 +126,142 @@ session_start();
 
 			   
             case "addToFav" :
-				$id = valider("id");
-				if (isfav(valider("idUser","SESSION"),$id))
+				if($id = valider("id"))
+				if($idUser = valider("idUser","SESSION"))
+				if(inCollection($idUser, $id))
+				if (isfav($idUser,$id))
 					addfav(valider("idUser","SESSION"),$id,0);
 				else
 					addfav(valider("idUser","SESSION"),$id,1);
+				
 				$tabQs["view"] = "profile";
 				$tabQs["id"] =  valider("idUser","SESSION");
 				break;
 
 				   
 				case "removeToCollection" :
-					$id = valider("id");
-					removecollec(valider("idUser","SESSION"),$id);
+					if($id = valider("id"));
+					if($idUser = valider("idUser","SESSION"))
+					if(inCollection($idUser, $idVolume))
+						removecollec($idUser,$id);
+
 					$tabQs["view"] = "profile";
 					$tabQs["id"] =  valider("idUser","SESSION");
 					break;
             
             
             case "Modifier" :
-			$user = valider("idUser","SESSION");
-			$change = 0;
-			if($newusername=valider("username"))
-			{
-				$change = 1;
-				changeUserPseudo($user,$newusername);
-			}
-			if($oldpasse = valider("oldpassword"))
-			{
-				if($newpasse=valider("newpassword"))
-				{
-					$data=getUser($user);
-					$userCredentials = getUserCredentials($data[0]["pseudo"]);
-					if(password_verify($oldpasse, $userCredentials[0]["password"]))
-					{
-						$change = 1;
-						$newpasse = password_hash($newpasse, PASSWORD_BCRYPT, ["cost"=>10]);
-						changeUserPassword($user,$newpasse);
+				if($user = valider("idUser","SESSION")) {
+					$destroysession = 0;
+					if (($newusername = htmlspecialchars(valider("username"))) && $newusername != valider("pseudo", "SESSION")) {
+						if(getUserCredentials($newusername)) {
+							$tabQs["view"] = "myprofile";
+							$tabQs["msg"] = "Ce pseudo est déjà utilisé";
+						}
+						else
+							if(strlen($newusername) > 20 || strlen($newusername) <= 2) {
+								$tabQs["view"] = "myprofile";
+								$tabQs["msg"] = "Votre pseudo doit faire entre 3 et 15 caractères";
+							}
+							else {
+								changeUserPseudo($user,$newusername);
+								$destroysession = 1;
+							}
 					}
+
+					if($oldpasse = valider("oldpassword"))
+					if($newpasse= valider("newpassword"))
+					{
+						$datauser = getUser($user)[0];
+						$userCredentials = getUserCredentials($datauser["pseudo"]);
+						if(strlen($newpasse) > 72) {
+							$tabQs["view"] = "myprofile";
+							$tabQs["msg"] = "Afin de pouvoir chiffrer le mot de passe il ne doit pas dépasser 72 caractères";
+						}
+						else 
+							if(password_verify($oldpasse, $userCredentials[0]["password"]))
+							{
+								$destroysession = 1;
+								$newpasse = password_hash($newpasse, PASSWORD_BCRYPT, ["cost"=>10]);
+								changeUserPassword($user,$newpasse);
+							}
+							else {
+								$tabQs["view"] = "myprofile";
+								$tabQs["msg"] = "Mot de passe incorrect";
+							}
+					}
+					if (($file = valider("fileToUpload","FILES")) && is_array($file) && $file["error"] == UPLOAD_ERR_OK)
+					{
+						$pdp = uploadUserAvatar(hash("sha1",$user),$uploadInfo);
+						switch($pdp["CODE"]) 
+						{
+							case -1 :
+								$tabQs["msg"] = "Type de fichier incorrect !";
+								$tabQs["view"] = "myprofile";
+							break;
+
+							case -2 :
+								$tabQs["msg"] = "Fichier trop grand !";
+								$tabQs["view"] = "myprofile";
+							break;
+
+							case -3 :
+								$tabQs["msg"] = "Extension de fichier incorrect !";
+								$tabQs["view"] = "myprofile";
+							break;
+
+							case -4 :
+								$tabQs["msg"] = "Upload failed!";
+								$tabQs["view"] = "myprofile";
+							break;
+
+							case 1 :
+								changeUserAvatarPath($user,$pdp["FILENAME"]);
+							break;
+						}
+					}
+					if ($nbio=valider("bio"))
+					{
+						changeUserBio($user, $nbio);
+					}
+					
+					if ($destroysession)
+					{
+						session_destroy();
+						sessionchange($user,0);
+						$tabQs["view"] = "login";
+						$tabQs["msg"] = "Déconnexion suite à un changement de données utilisateur. Veuillez vous reconnecter";
+						break;
+					}
+					$tabQs["view"] = "myprofile";
 				}
-			}
-			if (valider("fileToUpload","FILES"))
-			{
-				$pdp = uploadUserAvatar(hash("sha1",$user),$uploadInfo);
-				changeUserAvatarPath($user,$pdp["FILENAME"]);
-				$change = 1;
-			}
-			if ($nbio=valider("bio"))
-			{
-				changeUserBio($user, $nbio);
-			}
-			
-			if ($change == 1)
-			{
-				session_destroy();
-				sessionchange($user,0);
-				$tabQs["view"] = "login";
-				$tabQs["msg"] = "Déconnexion suite à un changement de données utilisateur. Veuillez vous reconnecter";
-				break;
-			}
-			$tabQs["view"] = "myprofile";
             break;
 
 			case "writeComment":
-			 if ($comment = valider("comment"))
-			 htmlspecialchars($comment);
-			 if ($type = valider("type"))
-			 switch($type)
-			 {
-				case 'news':
-					$tabQs["view"] = "news";;
-					break;
-				case 'tome':
-					$tabQs["view"] = "tome";;
-					break;
-				case 'serie':
-					$tabQs["view"] = "serie";;
+				if ($comment = htmlspecialchars(valider("comment")))
+				if ($type = valider("type"))
+				switch($type)
+				{
+					case 'news':
+						$tabQs["view"] = "news";;
 					break;
 				
-				default:
+					case 'tome':
+						$tabQs["view"] = "tome";;
 					break;
-			}
-			if ($id = valider("id"))
-			if ($uid = valider("idUser","SESSION"))
-			 	addComment($uid, $comment, $type, $id);
-			$tabQs["id"] = $id;
+				
+					case 'serie':
+						$tabQs["view"] = "serie";;
+					break;
+					
+					default:
+						break;
+				}
+				if ($id = valider("id"))
+				if ($uid = valider("idUser","SESSION"))
+					addComment($uid, $comment, $type, $id);
+				
+				$tabQs["id"] = $id;
 			break;
 
 
