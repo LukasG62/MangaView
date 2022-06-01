@@ -151,8 +151,6 @@ session_start();
 			if (valider("fileToUpload","FILES"))
 			{
 				$pdp = uploadUserAvatar(hash("sha1",$user),$uploadInfo);
-				tprint($pdp);
-				die();
 				changeUserAvatarPath($user,$pdp["FILENAME"]);
 				$change = 1;
 			}
