@@ -35,7 +35,7 @@ $view = valider("view");
      <!-- TITRE DU HEADER ! TODO !!-->
     <div class="mv-header-title">
       <div class="row">
-        <div class="col-md-1">
+        <div class="col-md-0">
           <div class="header-waifu">
             <a href="index.php?view=accueil"><img width="150" height="150" src="ressources/img/header_waifu.png" /></a>
           </div>
