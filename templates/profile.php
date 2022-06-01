@@ -21,8 +21,8 @@ $collectionRawFav = getCollection($idUser, 1);
 $collectionBySeries = groupby($collectionRaw, "mid");
 $collectionBySeriesFav = groupby($collectionRawFav, "mid");
 
-tprint($collectionBySeriesFav);
-tprint($collectionRawFav)
+//tprint($collectionBySeriesFav);
+//tprint($collectionRawFav)
 
 ?>
 
