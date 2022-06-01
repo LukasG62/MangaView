@@ -86,8 +86,48 @@ function mkReview($dataReview) {
 	return $review;
 }
 
-function mkCollection($collection, $myprofile) {
+function mkVolumeCollection($dataVolume, $myprofile) {
+	global $uploadInfo;
+
+	$volume = '<div class="mv-volume-col col-3 mx-auto"><div class="mv-volume-container"><a href="index.php?view=tome&id=' . $dataVolume["id"] . '">' . 
+	          '<img src="' . $uploadInfo["VOLUMESPATH"] . $dataVolume["cover"] . '" alt="couverture tome"/></a><div>' .
+			  '<h4>' . htmlspecialchars($dataVolume["title"]) . '</h4></div></div></div>';
+	
+	return $volume;
+	
+
+}
+
+function mkCollection($collectionbySeries, $myprofile) {
+	global $uploadInfo;
+
+	//Creation de l'accordion
 	$collection = '<div class="collection-accordion" id="collectionAccordion">';
+
+	//Creation des cartes
+	foreach($collectionbySeries as $dataSeries) {
+		$collaspeId = 'collapse' . $dataSeries[0]["mid"];
+		$imgpath = $uploadInfo["SERIESPATH"] . $dataSeries[0]["banner"];
+		//Creation du header d'un cartes
+		$collection .= '<div class="card">
+							<button type="button" class="btn btn-link" data-toggle="collapse" data-target="#' . $collaspeId .'">
+								<div class="mv-collection-banner"><img class="card-img-top" src="' . $imgpath . '" alt="series banner" /></div>
+							</button>
+							<div class="card-body collapse show" id="' . $collaspeId. '" data-parent="#collectionAccordion">
+							<div class="mv-collection-listTome">';
+		//Creation du contenu d'une carte
+		$volumeRows = array_chunk($dataSeries, 4, true);
+		foreach($volumeRows as $volumeRow) {
+			$collection .= '<div class="mv-collection-row row">';
+			foreach($volumeRow as $dataVolume) {
+				$collection .= mkVolumeCollection($dataVolume, $myprofile);
+			}
+			$collection .= "</div></div>";
+		}
+		$collection .= "</div>";
+	}
+
+	return $collection;
 }
 
 function mkSearchSeries($dataSeries) {
