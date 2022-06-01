@@ -7,7 +7,6 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	$urlBase = dirname($_SERVER["PHP_SELF"]) . "/index.php";
 	if(!($idTome = valider("id", "GET"))) rediriger($url,["view"=>"accueil"]);
 	
-	//TODO VERIFIER ID TOME INEXISTANT
 	if(!($dataTome = getVolume($idTome)[0])) rediriger($url,["view"=>"accueil"]);
 	
 	$dataSerie = getSerie($dataTome["mid"])[0];
@@ -46,15 +45,50 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 </div>
 
 <div class="container">
-	<h2>Les reviews : </h2> 
 	<?php
+		if(valider("isReviewer", "SESSION")) {
+				echo '<div class="mv-postcomment">';
+				echo mkForm();
+				echo '<div class="form-group">';
+				echo '<label for="poster-review">Poster une review :</label>';
+				echo '<textarea name="content" class="form-control" id="poster-review" rows="3"></textarea>';
+				echo '<label for="poster-review">Note du tome </label>';
+				echo '<br />';
+				echo '<div class="row"><div class="col">';
+				echo mkInput("number", "note", "", "min=\"0\" max=\"10\"");
+				echo '</div><div class="col">';
+				echo mkButton("submit","action","writeReview", "Poster", "class=\"btn btn-primary form-control\"");
+				echo '</div>';
+				echo mkInput("hidden", "id", $idTome);
+				echo '</div>';
+				echo endForm();
+				echo '<div class="mv-postcomment">';
+		}
 		foreach($listReview as $dataReview){
 			echo(mkReview($dataReview));
 		}
 	?>
+	<h2>Les reviews : </h2> 
 </div>
 
-<div class="container">
+<div class="container mv-pagebase">
+	<?php
+		//on l'affiche pour un users blacklisté ?
+		if(valider("connecte", "SESSION")) {
+			echo '<div class="mv-postcomment">';
+			echo mkForm();
+			echo '<div class="form-group">';
+			echo '<label for="poster-comment">Poster un commentaire :</label>';
+			echo '<textarea name="comment" class="form-control" id="poster-comment" rows="3"></textarea>';
+			echo mkButton("submit","action","writeComment", "Poster", "class=\"btn btn-primary form-control\"");
+			echo mkInput("hidden", "type", "tome");
+			echo mkInput("hidden", "id", $idTome);
+		  	echo '</div>';
+			echo endForm();
+			echo '<div class="mv-postcomment">';
+		}
+	
+	?>
 	<h2>Les commentaires :</h2> 
 	<?php
 		$dataComment = getComments($idTome, 'tome');
