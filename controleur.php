@@ -110,6 +110,46 @@ session_start();
             case "ModifyProfile" :
             
             break;
+
+			case "writeComment":
+			 if ($comment = valider("comment"))
+			 htmlspecialchars($comment);
+			 if ($type = valider("type"))
+			 switch($type)
+			 {
+				case 'news':
+					$tabQs["view"] = "news";;
+					break;
+				case 'tome':
+					$tabQs["view"] = "tome";;
+					break;
+				case 'serie':
+					$tabQs["view"] = "serie";;
+					break;
+				
+				default:
+					break;
+			}
+			if ($id = valider("id"))
+			if ($uid = valider("idUser","SESSION"))
+			 	addComment($uid, $comment, $type, $id);
+			$tabQs["id"] = $id;
+			break;
+
+
+			case "writeReview":
+				if ($content = valider("content"))
+				htmlspecialchars($comment);
+				if ($note = valider("note") && (0 <= $note) && ($note <= 10));
+				else
+				$note = 0;
+			    if ($id = valider("id"))
+			    if ($uid = valider("idUser","SESSION"))
+				if (valider("isReviewer","SESSION"))
+					addReview($uid, $content,$note,$id);
+				$tabQs["view"] = "tome";
+			    $tabQs["id"] = $id;
+			    break;
             
 			case "Rechercher":
 			case "Trier":

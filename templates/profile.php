@@ -25,20 +25,21 @@ $collectionBySeriesFav = groupby($collectionRawFav, "mid");
 
 <div class="container mv-pagebase">
 	<img src="<?=$imgPath?>" alt="User avatar" class="photoProfil">
+	<br>
 		<h3><?php echo($pseudo);?></h3>
 		<p>Rank : <?php echo($rank);?> </p>
 		<div class="bio">
 			<p><?php echo($bio);?></p>
 		</div>
 		<br>
-		<h4 class="col-2">Ma collection</h4>
-		<br><br>
+		<h4 id="titre-col" class="col-2">Ma collection</h4>
+		<br>
 		<?php if($collectionRaw) echo mkCollection($collectionBySeries, $myprofile)?>
 		<h4 class="col-2">Mes Favoris</h4>
 		<?php if($collectionRawFav) mkCollection($collectionBySeriesFav, $myprofile)?>
 
-		<br />
-		<h4>Mes Reviews</h4>
+		<br/>
+		<h4 id="titre-rev">Mes Reviews</h4>
 
 		<?php 
 			$tabReviewUser = getAllReview();

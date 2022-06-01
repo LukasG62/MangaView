@@ -408,17 +408,17 @@ function getComments($id, $typecomm){
     $PHP="SELECT * FROM ";
     switch ($typecomm) {
         case 'news':
-            $PHP .= "comment_n WHERE nid=$id;";
+            $PHP .= "comment_n WHERE nid=$id ORDER BY id DESC;";
             break;
         case 'tome':
-            $PHP .= "comments_v WHERE vid=$id;";
+            $PHP .= "comments_v WHERE vid=$id ORDER BY id DESC;";
             break;
         case 'serie':
-            $PHP .= "comment_m WHERE mid=$id;";
+            $PHP .= "comment_m WHERE mid=$id ORDER BY id DESC;";
             break;
         
         default:
-            $PHP .= "comment_n WHERE nid=$id;";
+            $PHP .= "comment_n WHERE nid=$id ORDER BY id DESC;";
             break;
     }
     return parcoursRs(SQLSelect($PHP));
@@ -445,7 +445,17 @@ function addComment($uid, $content, $type, $id) {
             $PHP .= "comment_n (uid,nid,comment) ";
             break;
     }
-    $PHP .= "VALUES ($uid,$id,$content);";
+    $PHP .= "VALUES ('$uid','$id','$content');";
+    return SQLUpdate($PHP);
+}
+
+
+function addReview($uid, $content,$note,$vid) {
+    // Fonction qui insère un commentaire selon si c'est un commentaire de news, de tome, de séries
+    // typecomm = {news,tome,serie}
+    
+    $PHP="INSERT INTO reviews (uid,content,note,vid) 
+    VALUES ('$uid','$content','$note','$vid');";
     return SQLUpdate($PHP);
 }
 
