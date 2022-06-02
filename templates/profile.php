@@ -21,21 +21,23 @@ $collectionRawFav = getCollection($idUser, 1);
 $collectionBySeries = groupby($collectionRaw, "mid");
 $collectionBySeriesFav = groupby($collectionRawFav, "mid");
 
-//tprint($collectionBySeriesFav);
-//tprint($collectionRawFav)
-
 ?>
 
 <div class="container mv-pagebase">
-	<img src="<?=$imgPath?>" alt="User avatar" class="photoProfil">
-	<br>
+	<div class="row">
+	<div class="col-0">
+		<img src="<?=$imgPath?>" alt="User avatar" class="photoProfil">
+	</div>
+	<div class="col">
 		<h3><?php echo($pseudo);?></h3>
 		<p>Rank : <?php echo($rank);?> </p>
 		<div class="bio">
 			<p><?php echo($bio);?></p>
 		</div>
-		<br>
-		<h4 id="titre-col" class="col-2">Ma collection</h4>
+	</div>
+
+	<div>
+		<h4 id="titre-col" class="">Ma collection</h4>
 		<br>
 		<?php if($collectionRaw) echo mkCollection($collectionBySeries, $myprofile)?>
 		<h4 class="col-2">Mes Favoris</h4>
@@ -54,5 +56,5 @@ $collectionBySeriesFav = groupby($collectionRawFav, "mid");
 				}
 			}
 		?>
-
+	</div>
 </div>
