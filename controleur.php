@@ -51,28 +51,50 @@ session_start();
             
             case "Signup":
 			$valide = -4 ;
-			if ($passe = valider("password"))
-			if(strlen($passe) > 72) {
+			$newid = getLastUserId() + 1;
+			if ($passe = valider("password")) {
+				if(strlen($passe) > 72) {
+					$tabQs["view"] = "signup";
+					$tabQs["msg"] = "Afin de pouvoir chiffrer le mot de passe il ne doit pas dépasser 72 caractères";
+					break;
+				}
+			}
+			else {
 				$tabQs["view"] = "signup";
-				$tabQs["msg"] = "Afin de pouvoir chiffrer le mot de passe il ne doit pas dépasser 72 caractères";
+				$tabQs["msg"] = "Mot de passe manquant";
 				break;
 			}
 
-			if ($user = htmlspecialchars(valider("username")))
-			if(getUserCredentials($user)) {
+			if ($user = htmlspecialchars(valider("username"))) {
+				if(getUserCredentials($user)) {
+					$tabQs["view"] = "signup";
+					$tabQs["msg"] = "Ce pseudo est déjà utilisé";
+					break;
+				}
+				if(strlen($user) > 20 || strlen($user) <= 2) {
+					$tabQs["view"] = "signup";
+					$tabQs["msg"] = "Votre pseudo doit faire entre 3 et 15 caractères";
+					break;
+				}
+			}
+			else {
 				$tabQs["view"] = "signup";
-				$tabQs["msg"] = "Ce pseudo est déjà utilisé";
+				$tabQs["msg"] = "Pseudo manquant";
 				break;
 			}
-			if(strlen($user) > 20 || strlen($user) <= 2) {
-				$tabQs["view"] = "signup";
-				$tabQs["msg"] = "Votre pseudo doit faire entre 3 et 15 caractères";
-				break;
-			}
+            if (isset($_FILES["fileToUpload"]) && is_array($_FILES["fileToUpload"]))
+			{		
+				if($_FILES["fileToUpload"]["error"] == UPLOAD_ERR_NO_FILE) {
+					$tabQs["success"] = "Création du compte réussie!";
+					$tabQs["view"] = "login";
 
-            if (isset($_FILES["fileToUpload"]))
-			{			
-				$valide = uploadUserAvatar(hash("sha1",$user),$uploadInfo);
+					$hashpasse = password_hash($passe, PASSWORD_BCRYPT, ["cost"=>10]);
+					createUser($user,$hashpasse,"",0);
+					break;
+
+				}
+
+				$valide = uploadUserAvatar(hash("sha1",$newid),$uploadInfo);
 				switch($valide["CODE"]) 
 				{
 					// -1 type de fichier pas bon
@@ -106,22 +128,21 @@ session_start();
 
                         $hashpasse = password_hash($passe, PASSWORD_BCRYPT, ["cost"=>10]);
 						createUser($user,$hashpasse,"",0,$valide["FILENAME"]);
+					break;
 				}
 			}
 
-			$tabQs["msg"] = "Champs de formulaire invalides";
-			$tabQs["view"] = "signup";
             break;
             
             
             case "AddToCollection" :
-			$fav = valider("fav");
-			if ($idUser = valider("idUser","SESSION"))
-			if ($idVolume = valider("id"))
-			if (!inCollection($idUser, $idVolume))
-			addToCollection($idUser, $idVolume,$fav);
-			$tabQs["view"] = "tome";
-			$tabQs["id"] = $idVolume;
+				$fav = valider("fav");
+				if ($idUser = valider("idUser","SESSION"))
+				if ($idVolume = valider("id"))
+				if (!inCollection($idUser, $idVolume))
+				addToCollection($idUser, $idVolume,$fav);
+				$tabQs["view"] = "tome";
+				$tabQs["id"] = $idVolume;
             break;
 
 			   
