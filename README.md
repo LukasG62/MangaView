@@ -14,9 +14,12 @@ Le repos contient la base de données sql avec des exemples de données utilisé
 Vous trouverez dans le repo, un fichier libs/config.php, ce dernier contient les variables concernant la connexion à la base de données vous devez les initialiser :
 
 **$BDD_host**=<host de la base de donnée>; EX : localhost
+
 **$BDD_user**=<utilisateur de la base de donnée>; EX : root
-**$BDD_password**=<mot de passe>; EX : P3lEdIREx3nvMWud
-**$BDD_base**=<nom de base>; EX : mangaviewdb
+
+**$BDD_password**= <mot de passe> EX : P3lEdIREx3nvMWud
+
+**$BDD_base**= <nom de base> EX : mangaviewdb
 
 Nous vous conseillons de créer un utilisateur dédies avec un mot de passe fort
 
@@ -32,4 +35,4 @@ $uploadInfo = [ "USERSPATH" => "CHEMIN DES AVATARS",
               ];
 ````
 
-** A noter :** Il est indispensable de garder le repertoire **ressources/img** utilisé par la partie frontend du projet
+**A noter :** Il est indispensable de garder le repertoire **ressources/img** utilisé par la partie frontend du projet
