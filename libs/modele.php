@@ -119,11 +119,23 @@ function getUserCredentials($pseudo) {
 
 function createUser($pseudo,$password, $bio = "",$grade=0, $avatar="") {
     // Fonction qui inserer un utilisateur dans la bdd
+    if($avatar == "") {
+        $PHP = "INSERT INTO users(grade,pseudo,password,bio) 
+        VALUES ('$grade','$pseudo','$password','$bio');";
+    }
+    else {
+        $PHP = "INSERT INTO users(grade,pseudo,password,bio,avatar) 
+                VALUES ('$grade','$pseudo','$password','$bio','$avatar');";
+    }
 
-    $PHP = "INSERT INTO users(grade,pseudo,password,bio,avatar) 
-            VALUES ('$grade','$pseudo','$password','$bio','$avatar');";
     return SQLInsert($PHP);
 } // retourne 1 ou 0
+
+function getLastUserId() {
+    $PHP = "SELECT MAX(id) AS last_id FROM users";
+
+    return SQLGetChamp($PHP);
+}
 
 function changeUserPseudo($idUser, $newPseudo){
     // Fonction qui change le pseudo de l'utilisateur
@@ -502,5 +514,6 @@ function sessionchange($idU,$num)
         WHERE id = $idU ;" ;
     return SQLUpdate($PHP);   
 }
+
 
 ?>
