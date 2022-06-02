@@ -8,6 +8,7 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
+    margin-bottom: 20px;
  }
 
  .header-waifu {
@@ -240,6 +241,7 @@
 
 .mv-pagebase {
   background-color:white;
+  padding:20px;
 }
 
 .addBtn {
@@ -280,3 +282,33 @@
   height: 130px;
 }
 */
+
+
+.rounded {
+  border-radius: 50% !important;
+}
+
+
+#tags {
+  margin-bottom:20px;
+}
+
+#titre-col {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+
+/*body {
+  background: gray; Pour tester le rendu avec un fond différent
+}*/
+
+html, body {
+  overflow-x: hidden;
+}
+
+
+.mv-manga-info {
+  margin-top: 20px;
+
+}
