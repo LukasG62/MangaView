@@ -11,6 +11,7 @@ $success = valider("success");
 $urlBase = dirname($_SERVER["PHP_SELF"]) . "/index.php";
 if(!$idUser =valider("idUser", "SESSION")) rediriger($url,["view"=>"accueil"]);
 
+if($idUser <= 0 && $idUser > getLastUserId()) rediriger($url,["view"=>"accueil"]);
 $username = getUserPseudo($idUser);
 $bio = getUserBio($idUser);
 
@@ -27,7 +28,7 @@ $bio = getUserBio($idUser);
 			<div class="col-6 card-wrapper">
 				<div class="card fat">
 					<div class="card-body">
-						<h4 class="card-title">Modifier mes information de connexion</h4>
+						<h4 class="card-title">Modifier mes informations de connexion</h4>
 						<h5>Modifier mon pseudo :</h5>
 						<div class="form-group">
 							<label for="text-username">Username :</label>

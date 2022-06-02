@@ -378,7 +378,8 @@ function getFirstTomeSerie($idManga) {
 function getNews(){
     // liste toutes les informations nécessaires pour l'affichage de toutes les news ( sur carroussel ou page de news ).
     $PHP = "SELECT *
-            FROM news;";
+            FROM news
+            ORDER BY date DESC;";
     return parcoursRs(SQLSelect($PHP));
     
 } // retourne un tableau associatif 

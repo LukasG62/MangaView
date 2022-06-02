@@ -92,11 +92,13 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 				echo endForm();
 				echo '<div class="mv-postcomment">';
 		}
-		foreach($listReview as $dataReview){
-			echo(mkReview($dataReview));
-		}
 	?>
-	<h2>Les reviews : </h2> 
+	<h2>Les reviews : </h2>
+	<?php
+			foreach($listReview as $dataReview){
+				echo(mkReview($dataReview));
+			}
+	?> 
 </div>
 
 <div class="container mv-pagebase">

@@ -1,11 +1,5 @@
 <?php
-//
-//
-// TODO :
-// -> adapter avec les fonctions de modele.php
-// -> Formulaire de recherche
-// -> Menu déroulant de trie
-// -> Zone de case à cocher représentant chaque case
+
 if (basename($_SERVER["PHP_SELF"]) != "index.php")
 {
 	header("Location:../index.php?view=series");
