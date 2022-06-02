@@ -18,7 +18,7 @@ $bio = getUserBio($idUser);
 
 
 <div class="mv-login-form">
-  <div class="container">
+  <div class="container mv-pagebase">
   <?php if($msg) echo mkError($msg)?>
   <?php if($success) echo mkSuccess($success)?>
 
@@ -32,6 +32,7 @@ $bio = getUserBio($idUser);
 						<div class="form-group">
 							<label for="text-username">Username :</label>
 							<input id="text-username" type="text" class="form-control" name="username" value="<?=$username?>">
+							<small id="text-username-help" class="form-text text-muted">Pseudo entre 3 et 20 caractères</small>
 						</div>
 						<h5>Modifier mon mot de passe :</h5>
 						<div class="form-group">
@@ -46,6 +47,7 @@ $bio = getUserBio($idUser);
 						<div class="form-group">
 							<label for="file-upload">Avatar : </label>
 							<input id="file-upload" type="file" class="form-control" name="fileToUpload">
+							<small id="textarea-help" class="form-text text-muted">fichier .png .jpg .gif de taille 250x250</small>
 						</div>
 					</div>
 				</div>
@@ -57,6 +59,7 @@ $bio = getUserBio($idUser);
 						<div class="form-group">
 							<label for="textarea-bio">Biographie : </label><br />
 							<textarea id="textarea-bio"name="bio"rows="6" cols="25"><?=$bio?></textarea>
+							<small id="textarea-help" class="form-text text-muted">Vous pouvez utiliser le BBcode pour donner du style</small>
 						</div>
 					</div>
 				</div>
