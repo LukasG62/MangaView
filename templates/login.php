@@ -23,12 +23,12 @@ $success = valider("success")
             <h4 class="card-title">Login</h4>
             <form action ="controleur.php" method="GET">
               <div class="form-group">
-                <label for="username">Username :</label>
-                <input id="text-username" type="text" class="form-control" name="username" value="">
+                <label for="text-username">Username :</label>
+                <input id="text-username" type="text" class="form-control" name="username" value="" required>
               </div>
               <div class="form-group">
-                <label for="password">Password : </label>
-                <input id="text-password" type="password" class="form-control" name="password">
+                <label for="text-password">Password : </label>
+                <input id="text-password" type="password" class="form-control" name="password" required>
               </div>
               <div class="form-group m-0">
                 <button name="action" value="Login" type="submit" class="btn btn-primary btn-block">Login</button>
