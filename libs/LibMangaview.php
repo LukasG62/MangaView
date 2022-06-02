@@ -10,7 +10,7 @@ $uploadInfo = [ "USERSPATH" => "ressources/img/users/",
 
 
 function getStatusLabel($status) {
-
+    // retourne la chaine correspondant à la valeur du status
     switch($status) {
         case 0:
             return "Annulé";
@@ -30,7 +30,7 @@ function getStatusLabel($status) {
 }
 
 function getStatusColor($status) {
-
+    // Retourne la couleur du status
     switch($status) {
         case 0:
             return "color:red;";
@@ -132,9 +132,9 @@ function bbcodeParser($text){ // TODO eviter cas du genre "[b][u][/b][u]"
         "~\[b\](.*?)\[/b\]~si",
         "~\[i\](.*?)\[/i\]~si",
         "~\[u\](.*?)\[/u\]~si",
-        "~\[center\](.*?)\[/center\]~si",
         "~\[right\](.*?)\[/right\]~si",
         "~\[left\](.*?)\[/left\]~si",
+        "~\[center\](.*?)\[/center\]~si",
         "~\[quote\](.*?)\[/quote\]~si",
         "~\[size=(.*?)\](.*?)\[/size\]~si",
         "~\[color=(.*?)\](.*?)\[/color\]~si",
@@ -150,9 +150,9 @@ function bbcodeParser($text){ // TODO eviter cas du genre "[b][u][/b][u]"
         '<b>$1</b>',
         '<i>$1</i>',
         '<span style="text-decoration:underline;">$1</span>',
-        '<span style="text-align: right">$1</span>',
-        '<span style="text-align: left";">$1</span>',
-        '<span style="text-align: center";">$1</span>',
+        '<p style="text-align: right">$1</p>',
+        '<p style="text-align: left";">$1</p>',
+        '<p style="text-align: center";">$1</p>',
         '<pre>$1</'.'pre>',
         '<span style="font-size:$1px;">$2</span>',
         '<span style="color:$1;">$2</span>',
