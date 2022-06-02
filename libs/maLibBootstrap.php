@@ -108,7 +108,7 @@ function mkVolumeCollection($dataVolume, $myprofile) {
 
 }
 
-function mkCollection($collectionbySeries, $myprofile) {
+function mkCollection($collectionbySeries, $myprofile, $fav=0) {
 	global $uploadInfo;
 
 
@@ -118,7 +118,7 @@ function mkCollection($collectionbySeries, $myprofile) {
 
 	//Creation des cartes
 	foreach($collectionbySeries as $dataSeries) {
-		$collaspeId = 'collapse' . $dataSeries[0]["mid"];
+		$collaspeId = 'collapse' . $dataSeries[0]["mid"] . ($fav ? "-fav" : "");
 		$imgpath = $uploadInfo["SERIESPATH"] . $dataSeries[0]["banner"];
 		//Creation du header d'un cartes
 		$collection .= '<div class="card">
