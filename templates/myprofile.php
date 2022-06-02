@@ -36,7 +36,7 @@ $bio = getUserBio($idUser);
 						<h5>Modifier mon mot de passe :</h5>
 						<div class="form-group">
 							<label for="text-password">Ancien mot de passe : </label>
-							<input id="text-password" type="password" class="form-control" name="oldpasseword">
+							<input id="text-password" type="password" class="form-control" name="oldpassword">
 						</div>
 						<div class="form-group">
 							<label for="text-new-password">Nouveau mot de passe : </label>
