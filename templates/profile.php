@@ -39,9 +39,10 @@ $collectionBySeriesFav = groupby($collectionRawFav, "mid");
 	</div>
 	<div>
 		<h4 id="titre-col" class="">Ma collection</h4>
-		<br>
+		<br />
 		<?php if($collectionRaw) echo mkCollection($collectionBySeries, $myprofile)?>
 		<h4>Mes Favoris</h4>
+		<br />
 		<?php if($collectionRawFav) echo mkCollection($collectionBySeriesFav, $myprofile, 1)?>
 
 		<br/>

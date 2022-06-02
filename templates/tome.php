@@ -47,11 +47,10 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 			<div class="description" >
 				<p class="synopsis"><?php echo($dataTome['synopsis']) ?></p>
 				<p><b>Date de parution : </b><?php echo(date_format(date_create($dataTome["releaseDate"]), "d/m/Y")) ?></p>
-			</div>
 			<?php
 				if($showForm) {
-					echo mkForm();
-					echo "<div id='form-add'>";
+					echo mkForm("controleur.php", "get", "class=\"form-inline\"");
+					echo "<div id='form-add' style=\"display: inherit;\">";
 					echo mkButton("button", "", "", "", "class=\"addFavBtn\" onclick=\"toggle_fav(this)\"");
 					echo mkButton("submit", "action", "AddToCollection", "+", "class=\"addBtn\"");
 					echo "</div>";
@@ -60,6 +59,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 					echo endForm();
 				}
 			?>
+			</div>
 		</div>
 	</div>
 	<br />
