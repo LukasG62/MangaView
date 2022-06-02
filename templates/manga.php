@@ -59,7 +59,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 				echo "<div class=\"row\">";
 				foreach($dataTagsList as $dataTags) {
 				echo "<div class=\"col\">";
-				echo "<a href=index.php?view=series&tag[]=$dataTags[tid]><button class=\" rounded btn btn-dark\">$dataTags[label]</button></a>";
+				echo "<a href=index.php?view=series&tag[]=$dataTags[tid]><button class=\" rounded btn btn-outline-dark\">$dataTags[label]</button></a>";
 				echo "</div>";
 				}
 
