@@ -299,9 +299,9 @@
 }
 
 
-/*body {
-  background: gray; Pour tester le rendu avec un fond différent
-}*/
+body {
+  background: #EEEBDD;
+}
 
 html, body {
   overflow-x: hidden;
@@ -311,4 +311,11 @@ html, body {
 .mv-manga-info {
   margin-top: 20px;
 
+}
+
+
+
+.mv-collection-banner img {
+  width:1100px;
+  height: 180px;
 }
