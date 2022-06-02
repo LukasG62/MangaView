@@ -8,7 +8,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 $tabNews = getNewsDecroi();
 ?>
 
-<div class="container" >
+<div class="container mv-pagebase" >
 	<?php 
 		foreach($tabNews as $dataNews)
 		{
