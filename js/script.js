@@ -31,17 +31,17 @@ function toggle_fav(ref) {
 
 
 function password_verify(refConfirm) {
-	console.log("OOH OOH")
+	// On compare les deux champs
 	if(refConfirm.value != refPassword.value) {
-
+		// Si il ne sont pas égale
+		// on ajoute une classe qui affichera l'erreur
 		refConfirm.classList.add("is-invalid")
 		refPassword.classList.add("is-invalid")
-		refSignUp.disable = true
+		refSignUp.setAttribute("disabled", "") 
 	}
 	else {
 		refConfirm.classList.remove("is-invalid")
 		refPassword.classList.remove("is-invalid")
-		refSignUp.disable = false
-
+		refSignUp.removeAttribute("disabled", "")
 	}
 }
