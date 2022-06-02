@@ -44,7 +44,7 @@ if(!count($seriesList) < 1) {
 }
 ?>
 
-<div class="mv-manga container">
+<div class="mv-manga mv-pagebase container">
   <?=mkForm()?>
   <div class="row">
     <div class = "col">
