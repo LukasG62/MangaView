@@ -91,9 +91,12 @@ function mkReview($dataReview) {
 }
 
 function mkVolumeCollection($dataVolume, $myprofile) {
+	// Créer un volume dans une collection 
+
 	global $uploadInfo;
 	$changecollection = "";
 
+	// Si c'est le profil de l'utilisateur connecté alors on ajoute les élément de commande (supprimer, mettre en favoris)
 	if($myprofile) {
 		$changecollection = '<h5><a href="controleur.php?action=addToFav&id=' . $dataVolume["id"]. '"><i class="bi bi-star-fill"></i></a>' . 
 		                    ' <a href="controleur.php?action=removeToCollection&id=' .$dataVolume["id"]. '"><i class="bi bi-x-circle-fill"></i></a></h5>';
@@ -109,6 +112,8 @@ function mkVolumeCollection($dataVolume, $myprofile) {
 }
 
 function mkCollection($collectionbySeries, $myprofile, $fav=0) {
+	// créer une collection
+	// prends un tableau de volumme regrouper par séries 
 	global $uploadInfo;
 
 

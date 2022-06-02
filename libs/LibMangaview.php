@@ -177,6 +177,7 @@ function verifTagsArray($tab) {
 
 
 function groupby($tab, $id){
+    // Regourpe tout les tableaux associatifs de tab avec une même valeur de clé
     $res = array();
     // on parcours le tableau
     foreach($tab as $tabData) {
