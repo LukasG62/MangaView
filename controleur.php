@@ -73,7 +73,7 @@ session_start();
 				}
 				if(strlen($user) > 20 || strlen($user) <= 2) {
 					$tabQs["view"] = "signup";
-					$tabQs["msg"] = "Votre pseudo doit faire entre 3 et 15 caractères";
+					$tabQs["msg"] = "Votre pseudo doit faire entre 3 et 20 caractères";
 					break;
 				}
 			}
@@ -182,7 +182,7 @@ session_start();
 						else
 							if(strlen($newusername) > 20 || strlen($newusername) <= 2) {
 								$tabQs["view"] = "myprofile";
-								$tabQs["msg"] = "Votre pseudo doit faire entre 3 et 15 caractères";
+								$tabQs["msg"] = "Votre pseudo doit faire entre 3 et 20 caractères";
 							}
 							else {
 								changeUserPseudo($user,$newusername);
@@ -243,7 +243,13 @@ session_start();
 					}
 					if ($nbio=valider("bio"))
 					{
-						changeUserBio($user, $nbio);
+						if(strlen($nbio) > 300) {
+								$tabQs["msg"] = "La biographie ne peut pas dépasser 300 caractères";
+								$tabQs["view"] = "myprofile";
+						}
+						else {
+							changeUserBio($user, $nbio);
+						}
 					}
 					
 					if ($destroysession)
@@ -272,7 +278,7 @@ session_start();
 					break;
 				
 					case 'serie':
-						$tabQs["view"] = "serie";;
+						$tabQs["view"] = "manga";;
 					break;
 					
 					default:
@@ -280,6 +286,7 @@ session_start();
 				}
 				if ($id = valider("id"))
 				if ($uid = valider("idUser","SESSION"))
+				if(!isUserBlacklist($uid))
 					addComment($uid, $comment, $type, $id);
 				
 				$tabQs["id"] = $id;
@@ -287,15 +294,15 @@ session_start();
 
 
 			case "writeReview":
-				if ($content = valider("content"))
-				htmlspecialchars($comment);
-				if ($note = valider("note") && (0 <= $note) && ($note <= 10));
-				else
-				$note = 0;
+				$note =0;
+				if ($content = htmlspecialchars(valider("content")))
+				if (($note = valider("note")) && (0 <= $note) && ($note <= 10));
 			    if ($id = valider("id"))
 			    if ($uid = valider("idUser","SESSION"))
 				if (valider("isReviewer","SESSION"))
+				if(strlen($content) <= 1500)
 					addReview($uid, $content,$note,$id);
+				
 				$tabQs["view"] = "tome";
 			    $tabQs["id"] = $id;
 			    break;
