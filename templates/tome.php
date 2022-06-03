@@ -79,7 +79,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 				echo mkForm();
 				echo '<div class="form-group">';
 				echo '<label for="poster-review">Poster une review :</label>';
-				echo '<textarea name="content" class="form-control" id="poster-review" rows="3"></textarea>';
+				echo '<textarea placeholder="[spoiler] [/spoiler] : Pour les spoil \n [size=...][/size] : Pour modifier la taille \n [color=...][/color] : Pour modiifer la couleur \n [center][/center] : Pour centrer  \n [underline] [/underline] : Pour souligner" name="content" class="form-control" id="poster-review" rows="3"></textarea>';
 				echo '<label for="poster-review">Note du tome </label>';
 				echo '<br />';
 				echo '<div class="row"><div class="col">';
@@ -109,7 +109,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 			echo mkForm();
 			echo '<div class="form-group">';
 			echo '<label for="poster-comment">Poster un commentaire :</label>';
-			echo '<textarea name="comment" class="form-control" id="poster-comment" rows="3"></textarea>';
+			echo '<textarea placeholder="[spoiler] [/spoiler] : Pour les spoil \ [size=...][/size] : Pour modifier la taille \ [color=...][/color] : Pour modiifer la couleur \ [center][/center] : Pour centrer  \ [underline] [/underline] : Pour souligner" name="comment" class="form-control" id="poster-comment" rows="3"></textarea>';
 			echo mkButton("submit","action","writeComment", "Poster", "class=\"btn btn-primary form-control\"");
 			echo mkInput("hidden", "type", "tome");
 			echo mkInput("hidden", "id", $idTome);
