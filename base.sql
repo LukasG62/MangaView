@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 03 juin 2022 à 11:27
+-- Généré le : ven. 03 juin 2022 à 11:37
 -- Version du serveur :  10.3.34-MariaDB-0ubuntu0.20.04.1
 -- Version de PHP : 7.4.3
 
@@ -284,7 +284,7 @@ CREATE TABLE `users` (
   `bio` varchar(300) NOT NULL,
   `avatar` varchar(44) DEFAULT NULL,
   `avatarValided` bit(1) NOT NULL,
-  `connected` bit(1) NOT NULL
+  `connected` bit(1) DEFAULT b'0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -292,9 +292,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `grade`, `pseudo`, `password`, `bio`, `avatar`, `avatarValided`, `connected`) VALUES
-(1, 20, 'Lukas', '$2y$10$TMtlRMbnVPUbci3Wat1Gse8h4bQ8ofjrpZiLxrwIPPaXpx5UwKtCK', '[b]to answer that, we need to talk about parallel universes.[/b]\r\n[quote] Never trust user input [/quote]', 'c46c1237fa0ecc12628a2a5004543d2beeb2e2f2.png', b'0', b'1'),
+(1, 20, 'Lukas', '$2y$10$TMtlRMbnVPUbci3Wat1Gse8h4bQ8ofjrpZiLxrwIPPaXpx5UwKtCK', '[b]to answer that, we need to talk about parallel universes.[/b]\r\n[quote] Never trust user input [/quote]', 'c46c1237fa0ecc12628a2a5004543d2beeb2e2f2.png', b'0', b'0'),
 (2, 20, 'Nekotaku', '$2y$10$4rgKqwiKtXHF0bedVKcRTeWMwc3N.H0sknblEbUDQndq72ZuBqVeS', '', 'da4b9237bacccdf19c0760cab7aec4a8359010b0.jpg', b'1', b'0'),
-(3, 20, '5_rei', '$2y$10$jbg.l1MuXLXIcUggDazN9OAHo9SwktNCJEo.ICt4PfJjTjXsx3.Cq', 'L\'alcool c\'est de l\'eau LOL', '77de68daecd823babbb58edb1c8e14d7106e83bb.jpg', b'1', b'0');
+(3, 20, '5_rei', '$2y$10$jbg.l1MuXLXIcUggDazN9OAHo9SwktNCJEo.ICt4PfJjTjXsx3.Cq', 'L\'alcool c\'est de l\'eau LOL', '77de68daecd823babbb58edb1c8e14d7106e83bb.jpg', b'1', b'0'),
+(4, 0, 'elbitos', '$2y$10$QbNN8QlpB53wI6L7nhExz.vcvYyLl6VZM9dCxd7wqdc0N06xlYW2S', '', '1b6453892473a467d07372d45eb05abc2031647a.jpg', b'0', b'1');
 
 -- --------------------------------------------------------
 
@@ -497,7 +498,7 @@ ALTER TABLE `themes`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `volumes`
