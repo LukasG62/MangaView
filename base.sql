@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 4.9.5deb2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : ven. 03 juin 2022 à 10:20
--- Version du serveur : 10.4.22-MariaDB
--- Version de PHP : 7.4.27
+-- Hôte : localhost:3306
+-- Généré le : ven. 03 juin 2022 à 11:06
+-- Version du serveur :  10.3.34-MariaDB-0ubuntu0.20.04.1
+-- Version de PHP : 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `mangaview1`
+-- Base de données : `Mangaview`
 --
 
 -- --------------------------------------------------------
@@ -42,6 +43,7 @@ INSERT INTO `collections` (`uid`, `vid`, `fav`) VALUES
 (1, 4, b'0'),
 (1, 6, b'0'),
 (2, 2, b'1'),
+(2, 37, b'1'),
 (3, 3, b'0'),
 (3, 20, b'0');
 
@@ -63,7 +65,9 @@ CREATE TABLE `comments_v` (
 --
 
 INSERT INTO `comments_v` (`id`, `uid`, `vid`, `comment`) VALUES
-(2, 1, 2, 'Super ce premier tome !!');
+(2, 1, 2, 'Super ce premier tome !!'),
+(5, 2, 37, '[size=30] [color=blue] Un bon [/color]  petit manga  [color=red] francais [/color] [/size]\r\n\r\nPetit spoil : [spoiler] C\'est génial [/spoiler] '),
+(6, 2, 37, '&lt;script&gt; alert(Essayons une injection ) &lt;/script&gt;');
 
 -- --------------------------------------------------------
 
@@ -151,8 +155,9 @@ CREATE TABLE `mangas` (
 INSERT INTO `mangas` (`id`, `titre`, `banner`, `publisher`, `author`, `year`, `synopsis`, `status`, `chapters`) VALUES
 (1, 'Spice and Wolf', 'spice_and_wolf.jpg', 'Ototo Manga', 'Isuna Hasekura', 2008, 'Jolie créature mi-femme mi-louve, Holo se retrouve délaissée par les paysans de son village, pour qui les vieilles légendes ne servent plus qu\'à effrayer les enfants. Oubliée des hommes, Holo ne se laisse pas abattre pour autant ! Au contraire, elle s\'en va découvrir le monde à bord de la carriole d\'un marchand itinérant, l\'énigmatique Lawrence Kraft...', 3, 108),
 (2, 'Spy X Family', 'spy-x-family-manga-banner.jpg', 'Kurokawa', 'Tatsuya Endō', 2019, 'Twilight, le plus grand espion du monde, vient de recevoir une mission de la plus haute importance, nom de code : Opération STRIX.\r\nSon objectif : s’approcher de Donovan Desmond, le chef du parti « Nation Unifiée », afin d’enquêter sur ses projets politiques douteux.\r\nPour y parvenir, notre agent super secret doit fonder une famille de toute pièce afin de s’introduire dans l’école Eden : la plus prestigieuse école de toute l’aristocratie, dans laquelle étudie le fils de sa cible.\r\nTotalement dépourvu d’expérience familiale, Twilight adopte une petite fille dont il ignore tout des dons de télépathie, et s’associe à une jeune femme à l’allure timide : en réalité une redoutable tueuse à gage.\r\nCe trio hors du commun va devoir tout mettre en œuvre afin de ressembler à une famille unie et aimante… Il en va de la réussite de l’opération STRIX, et de l’avenir du pays tout entier.', 1, 61),
-(3, 'L\'atelier des sorcières', 'Atelier_des_sorcieres_banner.png', 'Kodancha', 'Kamome Shirahama', 2016, 'Dans un monde fantastique, ceux qui manipulent la magie depuis la naissance sont des sorciers et seuls ces derniers peuvent la pratiquer.\r\n\r\nCoco, une jeune fille qui n\'est pas née sorcière mais qui est passionnée par la magie depuis son enfance et travaillant avec sa mère, rencontre pour la première fois un sorcier du nom de Kieffrey. Elle décide de l’espionner pour découvrir la nature de la magie ainsi que celui des sorciers.\r\n\r\nRedessinant un sort en cachette depuis un livre avec un encrier qu\'elle reçu d\'un individu capuchonné lors d\'un festival quand elle était petite et du fait de son ignorance, elle commet un acte tragique en pétrifiant sa mère par accident en la transformant en cristal. Kieffrey, qui la sauve in extremis, décide de la prendre sous son aile afin qu\'elle puisse sauver sa mère et découvrir le monde de la magie ainsi que des sorciers.', 1, 10),
-(4, 'Blitz', 'Blitz-manga-banner.jpg', 'Iwa', 'Cédric Biscay', 2020, 'Tom, jeune collégien, a un coup de cœur pour la belle Harmony. Apprenant que celle- ci se passionne pour les échecs, il décide de s’inscrire au club du collège. Mais il n’en connaît pas les règles ! Il n’a donc pas le choix : il doit tout apprendre et s’entraîner sérieusement.\r\nTrès vite, il découvre l’existence de Garry Kasparov, le plus grand joueur de l’Histoire des échecs. Lors de ses recherches Tom tombe sur une machine de réalité virtuelle qui va lui permettre d’analyser les parties les plus mythiques du maître !\r\nUn événement inattendu va alors ouvrir à Tom les portes du très haut niveau des échecs, et ce malgré lui...\r\n', 1, 6);
+(3, 'L\'atelier des sorcières', 'Atelier_des_sorcieres_banner.jpg', 'Kodancha', 'Kamome Shirahama', 2016, 'Dans un monde fantastique, ceux qui manipulent la magie depuis la naissance sont des sorciers et seuls ces derniers peuvent la pratiquer.\r\n\r\nCoco, une jeune fille qui n\'est pas née sorcière mais qui est passionnée par la magie depuis son enfance et travaillant avec sa mère, rencontre pour la première fois un sorcier du nom de Kieffrey. Elle décide de l’espionner pour découvrir la nature de la magie ainsi que celui des sorciers.\r\n\r\nRedessinant un sort en cachette depuis un livre avec un encrier qu\'elle reçu d\'un individu capuchonné lors d\'un festival quand elle était petite et du fait de son ignorance, elle commet un acte tragique en pétrifiant sa mère par accident en la transformant en cristal. Kieffrey, qui la sauve in extremis, décide de la prendre sous son aile afin qu\'elle puisse sauver sa mère et découvrir le monde de la magie ainsi que des sorciers.', 1, 10),
+(4, 'Blitz', 'Blitz-manga-banner.jpg', 'Iwa', 'Cédric Biscay', 2020, 'Tom, jeune collégien, a un coup de cœur pour la belle Harmony. Apprenant que celle- ci se passionne pour les échecs, il décide de s’inscrire au club du collège. Mais il n’en connaît pas les règles ! Il n’a donc pas le choix : il doit tout apprendre et s’entraîner sérieusement.\r\nTrès vite, il découvre l’existence de Garry Kasparov, le plus grand joueur de l’Histoire des échecs. Lors de ses recherches Tom tombe sur une machine de réalité virtuelle qui va lui permettre d’analyser les parties les plus mythiques du maître !\r\nUn événement inattendu va alors ouvrir à Tom les portes du très haut niveau des échecs, et ce malgré lui...\r\n', 1, 6),
+(5, 'Evangelion - Perfect Edition', 'evangelion-manga-banner.jpg', 'Glénat', 'SADAMOTO Yoshiyuki', 2022, 'En 2015, alors que les humains ayant survécu au cataclysme du Second Impact se sont réfugiés dans la cité forteresse de Tokyo-3, de mystérieux Anges apparaissent, semant la terreur et la destruction. Pour les combattre, l’organisation Nerv possède la seule arme capable de les repousser : les Evangelion. Seulement, il lui manque encore l’essentiel pour activer ces gigantesques machines de guerre anthropoïdes : un pilote...', 1, 96);
 
 -- --------------------------------------------------------
 
@@ -225,7 +230,12 @@ INSERT INTO `tags` (`mid`, `tid`) VALUES
 (3, 11),
 (4, 6),
 (4, 12),
-(4, 13);
+(4, 13),
+(5, 1),
+(5, 5),
+(5, 14),
+(5, 15),
+(5, 16);
 
 -- --------------------------------------------------------
 
@@ -255,7 +265,10 @@ INSERT INTO `themes` (`id`, `label`) VALUES
 (10, 'Seinen'),
 (11, 'Tranche de vie'),
 (12, 'Échecs'),
-(13, 'Suspense');
+(13, 'Suspense'),
+(14, 'Science Ficiton'),
+(15, 'Post apocalyptique'),
+(16, 'Psychologique');
 
 -- --------------------------------------------------------
 
@@ -280,7 +293,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `grade`, `pseudo`, `password`, `bio`, `avatar`, `avatarValided`, `connected`) VALUES
 (1, 20, 'Lukas', '$2y$10$TMtlRMbnVPUbci3Wat1Gse8h4bQ8ofjrpZiLxrwIPPaXpx5UwKtCK', '[b]to answer that, we need to talk about parallel universes.[/b]', 'c46c1237fa0ecc12628a2a5004543d2beeb2e2f2.png', b'0', b'1'),
-(2, 20, 'Nekotaku', '$2y$10$4rgKqwiKtXHF0bedVKcRTeWMwc3N.H0sknblEbUDQndq72ZuBqVeS', '', NULL, b'1', b'0'),
+(2, 20, 'Nekotaku', '$2y$10$4rgKqwiKtXHF0bedVKcRTeWMwc3N.H0sknblEbUDQndq72ZuBqVeS', '', 'da4b9237bacccdf19c0760cab7aec4a8359010b0.jpg', b'1', b'1'),
 (3, 20, '5_rei', '$2y$10$jbg.l1MuXLXIcUggDazN9OAHo9SwktNCJEo.ICt4PfJjTjXsx3.Cq', 'L\'alcool c\'est de l\'eau LOL', '77de68daecd823babbb58edb1c8e14d7106e83bb.jpg', b'1', b'0');
 
 -- --------------------------------------------------------
@@ -340,7 +353,8 @@ INSERT INTO `volumes` (`id`, `mid`, `title`, `num`, `cover`, `releaseDate`, `nex
 (35, 3, 'L\'atelier des sorcières , Vol. 8', 8, 'ADS8.png', '2020-12-23', 36, 34, 'Après avoir réussi leur examen à l’Académie, Coco et les autres apprenties sorcières sont de retour à l’Atelier. C’est alors qu’arrive Tarta, qui propose à Coco et à ses amies de l’aider à tenir un stand lors du grand festival annuel des sorciers, la Fête de la Nuit d’argent. Excitées comme des puces à l’idée de prendre part à ces festivités, les petites sorcières entament les préparatifs. Alors que Coco accompagne Tarta voir son grand-père à l’hôpital, elle recroise le chemin de Kustas, le petit garçon qui s’était blessé lors de l’incident près de la rivière…\n'),
 (36, 3, 'L\'atelier des sorcières , Vol. 9', 9, 'ADS9.png', '2021-07-21', NULL, 35, 'Emportant chacune un objet magique de sa confection, Coco et ses amies partent pour l’île-cité d’Esrest, afin de participer à la Fête de la Nuit d’argent. Au milieu des stands et de la foule de visiteurs, la ville est plus animée que jamais. Il y flotte une atmosphère festive ! Mais parmi les convives se cachent aussi des invités indésirables. Sorciers, milice, nobles, sages… Beaucoup de forces se croisent et les contours de ce monde se dessinent peu à peu. Entre lumière et ténèbres, le rideau se lève enfin sur le grand festival des sorciers.'),
 (37, 4, 'Blitz Vol. 1', 1, 'blitz-1-iwa.jpg', '2020-02-14', 38, NULL, 'Tom, jeune collégien, a un coup de cœur pour la belle Harmony. Apprenant que celle- ci se passionne pour les échecs, il décide de s’inscrire au club du collège. Mais il n’en connaît pas les règles ! Il n’a donc pas le choix : il doit tout apprendre et s’entraîner sérieusement. Très vite, il découvre l’existence de Garry Kasparov, le plus grand joueur de l’Histoire des échecs. Lors de ses recherches Tom tombe sur une machine de réalité virtuelle qui va lui permettre d’analyser les parties les plus mythiques du maître ! Un événement inattendu va alors ouvrir à Tom les portes du très haut niveau des échecs, et ce malgré lui...'),
-(38, 4, 'Blitz Vol. 2', 2, 'blitz-2-iwa.jpg', '2020-10-23', NULL, 37, 'Suite à l\'incident avec Caïssa, le niveau de Tom aux échecs a considérablement progressé. De retour à l\'école, il retrouve Harmony, Laurent, Saori, mais aussi Anne, Marius et Zhang. Les sept membres du club d\'échecs de l\'International School of Shibuya doivent maintenant s\'affronter afin de déterminer les cinq représentants de l\'école qui participeront aux championnats inter-collèges de la région du Kantô.Face à des adversaires redoutables à bien des égards, les nerfs de nos héros vont être mis à rude épreuve...Souvenirs, rivalité, retrouvailles inattendues... difficile de garder sa concentration ! La team ISS sera-t-elle assez solide pour s\'en sortir ?');
+(38, 4, 'Blitz Vol. 2', 2, 'blitz-2-iwa.jpg', '2020-10-23', NULL, 37, 'Suite à l\'incident avec Caïssa, le niveau de Tom aux échecs a considérablement progressé. De retour à l\'école, il retrouve Harmony, Laurent, Saori, mais aussi Anne, Marius et Zhang. Les sept membres du club d\'échecs de l\'International School of Shibuya doivent maintenant s\'affronter afin de déterminer les cinq représentants de l\'école qui participeront aux championnats inter-collèges de la région du Kantô.Face à des adversaires redoutables à bien des égards, les nerfs de nos héros vont être mis à rude épreuve...Souvenirs, rivalité, retrouvailles inattendues... difficile de garder sa concentration ! La team ISS sera-t-elle assez solide pour s\'en sortir ?'),
+(39, 5, 'Evangelion Vol 1', 1, 'Evangelion_tome1.jpeg', '2022-05-25', NULL, NULL, 'En 2015, alors que les humains ayant survécu au cataclysme du Second Impact se sont réfugiés dans la cité forteresse de Tokyo-3, de mystérieux Anges apparaissent, semant la terreur et la destruction. Pour les combattre, l’organisation Nerv possède la seule arme capable de les repousser : les Evangelion. Seulement, il lui manque encore l’essentiel pour activer ces gigantesques machines de guerre anthropoïdes : un pilote...');
 
 --
 -- Index pour les tables déchargées
@@ -441,7 +455,7 @@ ALTER TABLE `volumes`
 -- AUTO_INCREMENT pour la table `comments_v`
 --
 ALTER TABLE `comments_v`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `comment_m`
@@ -459,7 +473,7 @@ ALTER TABLE `comment_n`
 -- AUTO_INCREMENT pour la table `mangas`
 --
 ALTER TABLE `mangas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `news`
@@ -477,7 +491,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT pour la table `themes`
 --
 ALTER TABLE `themes`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `users`
@@ -489,7 +503,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `volumes`
 --
 ALTER TABLE `volumes`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- Contraintes pour les tables déchargées
