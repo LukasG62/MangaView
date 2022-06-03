@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 02 juin 2022 à 22:00
+-- Généré le : ven. 03 juin 2022 à 10:20
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 7.4.27
 
@@ -41,7 +41,6 @@ INSERT INTO `collections` (`uid`, `vid`, `fav`) VALUES
 (1, 2, b'1'),
 (1, 4, b'0'),
 (1, 6, b'0'),
-(1, 7, b'0'),
 (2, 2, b'1'),
 (3, 3, b'0'),
 (3, 20, b'0');
@@ -282,7 +281,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `grade`, `pseudo`, `password`, `bio`, `avatar`, `avatarValided`, `connected`) VALUES
 (1, 20, 'Lukas', '$2y$10$TMtlRMbnVPUbci3Wat1Gse8h4bQ8ofjrpZiLxrwIPPaXpx5UwKtCK', '[b]to answer that, we need to talk about parallel universes.[/b]', 'c46c1237fa0ecc12628a2a5004543d2beeb2e2f2.png', b'0', b'1'),
 (2, 20, 'Nekotaku', '$2y$10$4rgKqwiKtXHF0bedVKcRTeWMwc3N.H0sknblEbUDQndq72ZuBqVeS', '', NULL, b'1', b'0'),
-(3, 20, '5_rei', '$2y$10$jbg.l1MuXLXIcUggDazN9OAHo9SwktNCJEo.ICt4PfJjTjXsx3.Cq', 'L\'alcool c\'est de l\'eau LOL', '77de68daecd823babbb58edb1c8e14d7106e83bb.jpg', b'1', b'1');
+(3, 20, '5_rei', '$2y$10$jbg.l1MuXLXIcUggDazN9OAHo9SwktNCJEo.ICt4PfJjTjXsx3.Cq', 'L\'alcool c\'est de l\'eau LOL', '77de68daecd823babbb58edb1c8e14d7106e83bb.jpg', b'1', b'0');
 
 -- --------------------------------------------------------
 
