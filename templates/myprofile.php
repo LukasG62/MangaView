@@ -11,9 +11,11 @@ $success = valider("success");
 $urlBase = dirname($_SERVER["PHP_SELF"]) . "/index.php";
 if(!$idUser =valider("idUser", "SESSION")) rediriger($url,["view"=>"accueil"]);
 
-if($idUser <= 0 && $idUser > getLastUserId()) rediriger($url,["view"=>"accueil"]);
-$username = getUserPseudo($idUser);
-$bio = getUserBio($idUser);
+
+$user = getUser($idUser)[0];
+
+$username = $user["pseudo"];
+$bio = $user["bio"];
 
 ?>
 

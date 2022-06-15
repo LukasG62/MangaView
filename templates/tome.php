@@ -4,14 +4,19 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	header("Location:../index.php?view=manga");
 	die("");
 }
-	$urlBase = dirname($_SERVER["PHP_SELF"]) . "/index.php";
-	if(!($idTome = valider("id", "GET"))) rediriger($url,["view"=>"accueil"]);
-	
-	if(!($dataTome = getVolume($idTome)[0])) rediriger($url,["view"=>"accueil"]);
-	
-	$dataSerie = getSerie($dataTome["mid"])[0];
-	$listReview = getReview($idTome);
-	$imgPath = $uploadInfo["SERIESPATH"] . $dataSerie['banner'];
+$idUser = valider("idUser", "SESSION");
+$isAdmin = valider("isAdmin", "SESSION");
+$isReviewer = valider("isReviewer", "SESSION");
+
+
+$urlBase = dirname($_SERVER["PHP_SELF"]) . "/index.php";
+
+if(!($idTome = valider("id", "GET"))) rediriger($url,["view"=>"accueil"]);
+
+if(!($dataTome = getVolume($idTome)[0])) rediriger($url,["view"=>"accueil"]);
+
+$listReview = getReview($idTome);
+$imgPath = $uploadInfo["SERIESPATH"] . $dataTome['mangaBanner'];
 ?>
 
 <div class="container mv-pagebase" >
@@ -33,7 +38,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 		<div class="col">
 			<?php
 			$showForm = 0;
-			if (valider("idUser","SESSION")) {
+			if ($idUser) {
 				if (!inCollection($idUser, $idTome)) {
 					$showForm = 1;
 				}
@@ -74,7 +79,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 
 <div class="container mv-pagebase">
 	<?php
-		if(valider("isReviewer", "SESSION")) {
+		if($isReviewer) {
 				echo '<div class="mv-postcomment">';
 				echo mkForm();
 				echo '<div class="form-group">';
@@ -123,7 +128,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	<?php
 		$dataComment = getComments($idTome, 'tome');
 		foreach($dataComment as $dataOneComment){
-			$comment = mkComment($dataOneComment);
+			$comment = mkComment($dataOneComment,($idUser == $dataOneComment["uid"]),$isAdmin, "serie");;
 			echo($comment);
 		}
 	?>

@@ -9,9 +9,9 @@ include_once "LibMangaview.php";
 function getUser($idUser) {
     // Fonction retournant toutes les information d'un utilisateur
     // Params : idUser, l'id de l'utilisateur
-    $PHP = "SELECT *
-            FROM users
-            WHERE id = $idUser";
+    $PHP = "SELECT users.*, grades.label AS gradeLabel
+            FROM users JOIN grades ON grades.id = users.grade
+            WHERE users.id = $idUser";
     return parcoursRs(SQLSelect($PHP));
     
 } //Retourne un tableau associatif 
@@ -181,9 +181,9 @@ function changeUserBio($idUser, $newBio) {
 function getVolume($idVolume){
   // Retourne toute les info d'un tome
 
-    $PHP = "SELECT *
-            FROM volumes 
-            WHERE id = $idVolume;";
+    $PHP = "SELECT volumes.*, mangas.banner AS mangaBanner
+            FROM volumes JOIN mangas ON mangas.id = volumes.mid 
+            WHERE volumes.id = $idVolume;";
     return (parcoursRs(SQLSelect($PHP)));
 
 } //Retourne un tableau associatif
@@ -208,16 +208,16 @@ function inCollection($idUser, $idVolume) {
 
 function getReview($idVolume){
     // liste les reviews d'un volume
-    $PHP = "SELECT *
-            FROM reviews 
-            WHERE vid = $idVolume;";
+    $PHP = "SELECT reviews.*, users.avatar AS userAvatar, users.pseudo AS userPseudo, users.avatarValided
+            FROM reviews JOIN users ON users.id = reviews.uid 
+            WHERE reviews.vid = $idVolume;";
     return (parcoursRs(SQLSelect($PHP)));
 } // retourne un tableau contenant toutes les infos d'une reviews
 
 function getAllReview(){
     // liste les reviews d'un volume
-    $PHP = "SELECT *
-            FROM reviews";
+    $PHP = "SELECT reviews.*, users.avatar AS userAvatar, users.pseudo AS userPseudo, users.avatarValided
+            FROM reviews JOIN users ON users.id = reviews.uid;";
     return (parcoursRs(SQLSelect($PHP)));
 } // retourne un tableau contenant les infos d'une review
 
@@ -315,10 +315,10 @@ function searchSeries($keyword, $listtags, $order){
         break;
 
         case "title":
-            $orderby = "ORDER BY mangas.title ASC;";
+            $orderby = "ORDER BY mangas.titre ASC;";
         
         default:
-            $orderby = ";";
+            $orderby = "ORDER BY mangas.titre ASC;";
     }
 
 
@@ -377,8 +377,8 @@ function getFirstTomeSerie($idManga) {
 
 function getNews(){
     // liste toutes les informations nécessaires pour l'affichage de toutes les news ( sur carroussel ou page de news ).
-    $PHP = "SELECT *
-            FROM news
+    $PHP = "SELECT news.*, users.pseudo AS userPseudo
+            FROM news JOIN users ON users.id = news.uid
             ORDER BY date DESC;";
     return parcoursRs(SQLSelect($PHP));
     
@@ -394,7 +394,9 @@ function getNewsDecroi(){
 } // retourne un tableau associatif 
 
 function getNewsById($idNews) {
-    $PHP = "SELECT * FROM news WHERE id='$idNews'";
+    $PHP = "SELECT news.*, users.pseudo AS userPseudo
+            FROM news JOIN users ON news.uid = users.id
+            WHERE news.id='$idNews'";
 
     return parcoursRs(SQLSelect($PHP));
 }
@@ -405,21 +407,19 @@ function getComments($id, $typecomm){
     // liste les commentaires liés à une news, un tome ou une série via un champ caché récupéré dans typecomm
     // typecomm = {news,tome,serie}
 
-    $PHP="SELECT * FROM ";
+    $PHP="SELECT comments.*, users.pseudo AS userPseudo, users.avatar AS userAvatar, users.avatarValided FROM ";
+    $join = "JOIN users ON comments.uid = users.id";
     switch ($typecomm) {
         case 'news':
-            $PHP .= "comment_n WHERE nid=$id ORDER BY id DESC;";
+            $PHP .= "comment_n AS comments $join WHERE nid=$id ORDER BY id DESC;";
             break;
         case 'tome':
-            $PHP .= "comments_v WHERE vid=$id ORDER BY id DESC;";
+            $PHP .= "comments_v AS comments $join WHERE vid=$id ORDER BY id DESC;";
             break;
         case 'serie':
-            $PHP .= "comment_m WHERE mid=$id ORDER BY id DESC;";
+            $PHP .= "comment_m AS comments $join WHERE mid=$id ORDER BY id DESC;";
             break;
-        
-        default:
-            $PHP .= "comment_n WHERE nid=$id ORDER BY id DESC;";
-            break;
+
     }
     return parcoursRs(SQLSelect($PHP));
 
@@ -516,5 +516,26 @@ function sessionchange($idU,$num)
     return SQLUpdate($PHP);   
 }
 
+
+function editComment($idUser, $cid, $type, $newComment) {
+    $PHP = "UPDATE ";
+    
+    switch ($type) {
+        case 'news':
+            $PHP .= "comment_n ";
+            break;
+        case 'tome':
+            $PHP .= "comments_v ";
+            break;
+        case 'serie':
+            $PHP .= "comment_m ";
+            break;
+    }
+
+    $PHP .= "SET comment = '$newComment' WHERE uid='$idUser' AND id='$cid'";
+
+
+    return SQLUpdate($PHP);
+}
 
 ?>

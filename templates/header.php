@@ -16,6 +16,7 @@ include_once "libs/maLibUtils.php";
 include_once "libs/maLibForms.php";
 
 $view = valider("view");
+$idUser = valider("idUser", "SESSION");
 ?>
 
 <!DOCTYPE html>
@@ -61,8 +62,6 @@ $view = valider("view");
                 <?=mkHeadLink("Liste des mangas", "series", $view, "")?>
                 
                 <?php
-                  if(valider("connecte", "SESSION"))
-                  if($idUser = valider("idUser", "SESSION"))
                   echo mkHeadLink("Les news","newshistory",$view);
                 
                 ?>

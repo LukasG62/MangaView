@@ -6,20 +6,24 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	die("");
 }
 
+// On récupère la vue normalement c'est toujours le cas
 if($view = valider("view"))
   $tabQs["view"] = $view;
 
+// On regarde si on a un motif
 if($search = valider("search"))
   $tabQs["search"] = $search;
 else
   $tabQs["search"] = "";
 
-
+// On regarde si on a un critére de trie
 if($sortby = valider("sortby"))
   $tabQs["sortby"] = $sortby;
 else
-  $tabQs["sortby"] = "";
+  $tabQs["sortby"] = "title";
 
+
+// On regarde si on a bien un tableau de tags 
 if(($tags = valider("tag")) && is_array($tags) && verifTagsArray($tags)) $tabQs["tag"] = $tags;
 
 else 
@@ -43,7 +47,7 @@ if(!count($seriesList) < 1) {
   <div class="row">
     <div class = "col">
       <div class="input-group mb-3">
-        <?=mkInput("text", "search", "", "placeholder=\"Rechercher une séries\"class=\"form-control\"")?>
+        <?=mkInput("text", "search", "", "placeholder=\"Rechercher une série\"class=\"form-control\" value=\"$tabQs[search]\"")?>
         <div class="input-group-append">
           <?=mkInput("submit","action", "Rechercher","class=\"btn btn-outline-dark\"")?>
         </div>
@@ -51,7 +55,7 @@ if(!count($seriesList) < 1) {
     </div>
     <div class = "col-2">
       <div class="input-group mb-3">
-        <?=mkSelect("sortby",$sortsAvailable, "id", "label", "class=\"\"", "[\"title\"]")?>
+        <?=mkSelect("sortby",$sortsAvailable, "id", "label", "class=\"\"", "[\"$tabQs[sortby]\"]")?>
         <?=mkInput("submit","action", "Trier","class=\"btn btn-outline-dark\"")?>
 
       </div>
@@ -71,8 +75,10 @@ if(!count($seriesList) < 1) {
           foreach($partionedTagsList as $dataTagsList) {
             echo "<div class=\"container\">";
             foreach($dataTagsList as $dataTags) {
+              $checked = "";
+              if(in_array($dataTags["id"], $tabQs["tag"])) $checked = "checked";
               echo "<div class=\"form-check form-check-inline\">";
-              echo "<input class=\"form-check-input\" type=\"checkbox\" name=\"tag[]\" id=\"checkbox$dataTags[id]\" value=\"$dataTags[id]\">";
+              echo "<input class=\"form-check-input\" type=\"checkbox\" name=\"tag[]\" id=\"checkbox$dataTags[id]\" value=\"$dataTags[id]\" $checked >";
               echo "<label class=\"form-check-label\" for=\"checkbox$dataTags[id]\">$dataTags[label]</label>";
               echo "</div>";
             }

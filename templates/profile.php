@@ -8,14 +8,17 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 
 $urlBase = dirname($_SERVER["PHP_SELF"]) . "/index.php";
 if(!($idUser = valider("id"))) rediriger($url,["view"=>"accueil"]);
-if(!$pseudo = getUserPseudo($idUser)) rediriger($url,["view"=>"accueil"]);
+if(!$user = getUser($idUser)) rediriger($url,["view"=>"accueil"]);
 
-$connected = isUserConnected($idUser);
-$rank = getGradeLabel($idUser);
-$bio = bbcodeparser(htmlspecialchars(getUserBio($idUser)));
+$user = $user[0];
+$pseudo = $user["pseudo"];
+$connected = $user["connected"];
+$rank = $user["gradeLabel"];
+$bio = bbcodeparser(htmlspecialchars($user["bio"]));
 $imgPath = $uploadInfo["USERSPATH"];
-$imgPath .= getUserAvatar($idUser);
+$imgPath .= ($user["avatarValided"] ? $user["avatar"] : "default.png");
 $myprofile = ($idUser == valider("idUser","SESSION"));
+
 $collectionRaw = getCollection($idUser);
 $collectionRawFav = getCollection($idUser, 1);
 

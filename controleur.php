@@ -50,88 +50,97 @@ session_start();
             
             
             case "Signup":
-			$valide = -4 ;
-			$newid = getLastUserId() + 1;
-			if ($passe = valider("password")) {
-				if(strlen($passe) > 72) {
+				$valide = -4 ; // postulat que la validation échoue
+				$newid = getLastUserId() + 1; // on récupère le nouvelle id utilisateur
+
+				// Vérification du mot de passe
+				if ($passe = valider("password")) { 
+					// Contrainte technique lié à bcrypt2
+					if(strlen($passe) > 72) {
+						$tabQs["view"] = "signup";
+						$tabQs["msg"] = "Afin de pouvoir chiffrer le mot de passe il ne doit pas dépasser 72 caractères";
+						break;
+					}
+				}
+				// Cas ou il n'y a pas de mot de passe
+				else {
 					$tabQs["view"] = "signup";
-					$tabQs["msg"] = "Afin de pouvoir chiffrer le mot de passe il ne doit pas dépasser 72 caractères";
+					$tabQs["msg"] = "Mot de passe manquant";
 					break;
 				}
-			}
-			else {
-				$tabQs["view"] = "signup";
-				$tabQs["msg"] = "Mot de passe manquant";
-				break;
-			}
-
-			if ($user = htmlspecialchars(valider("username"))) {
-				if(getUserCredentials($user)) {
+				// Vérification de pseudo
+				if ($user = htmlspecialchars(valider("username"))) {
+					// Pseudo déjà utilisé
+					if(getUserCredentials($user)) {
+						$tabQs["view"] = "signup";
+						$tabQs["msg"] = "Ce pseudo est déjà utilisé";
+						break;
+					}
+					// Vérification de la taille du pseudo
+					if(strlen($user) > 20 || strlen($user) <= 2) {
+						$tabQs["view"] = "signup";
+						$tabQs["msg"] = "Votre pseudo doit faire entre 3 et 20 caractères";
+						break;
+					}
+				}
+				// Si il n'y a pas de pseudo
+				else {
 					$tabQs["view"] = "signup";
-					$tabQs["msg"] = "Ce pseudo est déjà utilisé";
+					$tabQs["msg"] = "Pseudo manquant";
 					break;
 				}
-				if(strlen($user) > 20 || strlen($user) <= 2) {
-					$tabQs["view"] = "signup";
-					$tabQs["msg"] = "Votre pseudo doit faire entre 3 et 20 caractères";
-					break;
-				}
-			}
-			else {
-				$tabQs["view"] = "signup";
-				$tabQs["msg"] = "Pseudo manquant";
-				break;
-			}
-            if (isset($_FILES["fileToUpload"]) && is_array($_FILES["fileToUpload"]))
-			{		
-				if($_FILES["fileToUpload"]["error"] == UPLOAD_ERR_NO_FILE) {
-					$tabQs["success"] = "Création du compte réussie!";
-					$tabQs["view"] = "login";
 
-					$hashpasse = password_hash($passe, PASSWORD_BCRYPT, ["cost"=>10]);
-					createUser($user,$hashpasse,"",0);
-					break;
-
-				}
-
-				$valide = uploadUserAvatar(hash("sha1",$newid),$uploadInfo);
-				switch($valide["CODE"]) 
-				{
-					// -1 type de fichier pas bon
-					// -2 taile du fichier pas bon
-					// -3 extension du fichier pas correct
-					// -4 erreur survenu lors de l'upload
-		
-					case -1 :
-						$tabQs["msg"] = "Type de fichier incorrect !";
-						$tabQs["view"] = "signup";
-					break;
-
-					case -2 :
-						$tabQs["msg"] = "Fichier trop grand !";
-						$tabQs["view"] = "signup";
-					break;
-
-					case -3 :
-						$tabQs["msg"] = "Extension de fichier incorrect !";
-						$tabQs["view"] = "signup";
-					break;
-
-					case -4 :
-						$tabQs["msg"] = "Upload failed!";
-						$tabQs["view"] = "signup";
-					break;
-
-					case 1 :
+				// Vérification de l'avatar
+				if (isset($_FILES["fileToUpload"]) && is_array($_FILES["fileToUpload"]))
+				{	
+					// Cas ou il n'y a pas d'avatar : on peut quand même faire un compte	
+					if($_FILES["fileToUpload"]["error"] == UPLOAD_ERR_NO_FILE) {
 						$tabQs["success"] = "Création du compte réussie!";
 						$tabQs["view"] = "login";
 
-                        $hashpasse = password_hash($passe, PASSWORD_BCRYPT, ["cost"=>10]);
-						createUser($user,$hashpasse,"",0,$valide["FILENAME"]);
-					break;
-				}
-			}
+						$hashpasse = password_hash($passe, PASSWORD_BCRYPT, ["cost"=>10]);
+						createUser($user,$hashpasse,"",0);
+						break;
 
+					}
+					// Vérification de l'upload
+					$valide = uploadUserAvatar(hash("sha1",$newid),$uploadInfo);
+					switch($valide["CODE"]) 
+					{
+						// -1 type de fichier pas bon
+						// -2 taile du fichier pas bon
+						// -3 extension du fichier pas correct
+						// -4 erreur survenu lors de l'upload
+			
+						case -1 :
+							$tabQs["msg"] = "Type de fichier incorrect !";
+							$tabQs["view"] = "signup";
+						break;
+
+						case -2 :
+							$tabQs["msg"] = "Fichier trop grand !";
+							$tabQs["view"] = "signup";
+						break;
+
+						case -3 :
+							$tabQs["msg"] = "Extension de fichier incorrect !";
+							$tabQs["view"] = "signup";
+						break;
+
+						case -4 :
+							$tabQs["msg"] = "Upload failed!";
+							$tabQs["view"] = "signup";
+						break;
+
+						case 1 :
+							$tabQs["success"] = "Création du compte réussie!";
+							$tabQs["view"] = "login";
+
+							$hashpasse = password_hash($passe, PASSWORD_BCRYPT, ["cost"=>10]);
+							createUser($user,$hashpasse,"",0,$valide["FILENAME"]);
+						break;
+					}
+				}
             break;
             
             
@@ -307,6 +316,38 @@ session_start();
 			    $tabQs["id"] = $id;
 			    break;
             
+			
+			case "editComment" :
+
+				if($idUser = valider("idUser", "SESSION"))
+				if($idComment = valider("idComment"))
+				if($comment = htmlspecialchars(valider("comment")))
+				if($type = valider("type"))
+				if($id = valider("id")) {
+					editComment($idUser, $idComment, $type, $comment);
+					switch($type)
+						{
+							case 'news':
+								$tabQs["view"] = "news";;
+							break;
+						
+							case 'tome':
+								$tabQs["view"] = "tome";;
+							break;
+						
+							case 'serie':
+								$tabQs["view"] = "manga";;
+							break;
+							
+							default:
+								break;
+					}
+				}
+
+				$tabQs["id"] = $id;
+			break;
+
+			
 			case "Rechercher":
 			case "Trier":
 

@@ -49,24 +49,43 @@ function mkInfo($message) {
 	return '<div class="alert alert-info"><strong>Information : </strong><span>' . $message . '</span> </div>';	
 }
 
-function mkNews($dataNews, $active="", $carousel = "carousel-item") { // TODO : banner à adapter pour les chemins relatifs
+function mkNews($dataNews, $active="", $carousel = "carousel-item") {
   global $uploadInfo;
 
   $news = '<div class="' . $carousel .' '. $active . '"><div class="news-preview">'.
   		  '<a href="index.php?view=news&id=' . $dataNews["id"] . '"><img class="img-fluid" src="' . $uploadInfo["NEWSPATH"] . $dataNews["banner"]. '" /></a>' .
-          '<div class="news-preview-text"><p><i class="bi bi-clock"></i> Posté le <b>' . date_format(date_create($dataNews["date"]), "d/m/Y") . '</b> par <b>' . getUserPseudo($dataNews["uid"]) . '</b></p>' .
+          '<div class="news-preview-text"><p><i class="bi bi-clock"></i> Posté le <b>' . date_format(date_create($dataNews["date"]), "d/m/Y") . '</b> par <b>' . $dataNews["userPseudo"] . '</b></p>' .
           '<h1>' . $dataNews["title"] . '</h1>' .
           '<p>' . bbcodeparser(htmlspecialchars($dataNews["content"])) . '</p>' . '</div></div></div>';
 
   return $news;
 }
-
-function mkComment($dataComment) { // TODO : userAvatar à adapter pour les chemins relatifs  + faire le css pour rendre ça plus jolie
+//toggle_edit(refEdit, idComment, type, qsId)
+function mkComment($dataComment, $writeByUser = 0, $isUserAdmin = 0, $type) {
 	global $uploadInfo;
+	$id = "";
+	switch($type) {
+		case "news":
+			$id = "nid";
+		break;
+
+		case "serie":
+			$id = "mid";
+		break;
+
+		case "tome":
+			$id = "vid";
+		break;
+	}
+
+
+	$edit = "";
+	if($writeByUser) $edit .= "<i class=\"bi bi-pencil-fill\" onclick=\"toggle_edit(this, $dataComment[id], '$type', $dataComment[$id])\"></i> ";
+	if($writeByUser || $isUserAdmin) $edit .= "<a href=\"controleur.php?action=deleteComment&id=$dataComment[id]\"><i class=\"bi bi-x-circle-fill\"></i></a>";
 
 	$comment = '<div class="comment-widgets m-b-20"><div class="d-flex flex-row comment-row">' .
-			   '<div class="p-2"><span class="round"><img src="' . $uploadInfo["USERSPATH"] .getUserAvatar($dataComment["uid"]) . '" alt="user" width="100"></span></div>' .
-			   '<div class="comment-text w-100"><h5>' . getUserPseudo($dataComment["uid"]) . ' : </h5>' .
+			   '<div class="p-2"><span class="round"><img src="' . $uploadInfo["USERSPATH"] . ($dataComment["avatarValided"] ? $dataComment["userAvatar"] : "default.png") . '" alt="user" width="100"></span></div>' .
+			   '<div class="comment-text w-100"><h5>' . $dataComment["userPseudo"] . ' : ' . $edit . '</h5>' .
 			   '<p class="m-b-5 m-t-10">' . bbcodeParser(htmlspecialchars($dataComment["comment"])) .'</p></div></div></div>';
 
 	return $comment;
@@ -82,8 +101,8 @@ function mkReview($dataReview) {
 
 	$review = '<div class="mv-review container"><div class="row"><div class="col-md-2"><div class="avatar-review">' .
 			  '<a href="index.php?view=profile&id=' . $dataReview["uid"] . '">' . 
-			  '<div class="p-2"><span class="round"><img width="150" height="150" src="'. $uploadInfo["USERSPATH"] . getUserAvatar($dataReview["uid"]) .'" alt="User avatar"/></a></span></div>' .
-			  '<h4>' . getUserPseudo($dataReview["uid"]) . '</h4>' .
+			  '<div class="p-2"><span class="round"><img width="150" height="150" src="'. $uploadInfo["USERSPATH"] . ($dataReview["avatarValided"] ? $dataReview["userAvatar"] : "default.png").'" alt="User avatar"/></a></span></div>' .
+			  '<h4>' . $dataReview["userPseudo"] . '</h4>' .
 			  '<h5 style="' . $color . '">' . $dataReview["note"] . '/10</h5></div></div><div class="col-md-8"><p>' .
 			  bbcodeParser(htmlspecialchars($dataReview["content"])) . '</p></div></div></div>';
 

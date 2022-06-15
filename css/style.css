@@ -310,9 +310,7 @@ html, body {
 
 }
 
-
-
 .mv-collection-banner img {
-  width:1100px;
-  height: 180px;
+  max-width:900px;
+  max-height: 180px;
 }

@@ -4,13 +4,15 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	header("Location:../index.php?view=manga");
 	die("");
 }
+$idUser = valider("idUser", "SESSION");
+$isAdmin = valider("isAdmin", "SESSION");
 
-	//TODO REDIRIGER QUAND IDMANGA PAS BON
-	$idManga = valider("id", "GET");
-	$dataSerie = getSerieInfos($idManga);
-	$imgPath = $uploadInfo["SERIESPATH"] . $dataSerie[0]['banner'];
+//TODO REDIRIGER QUAND IDMANGA PAS BON
+$idManga = valider("id", "GET");
+$dataSerie = getSerieInfos($idManga);
+$imgPath = $uploadInfo["SERIESPATH"] . $dataSerie[0]['banner'];
 
-	$listTags = getSerieTags($idManga);
+$listTags = getSerieTags($idManga);
 ?>
 
 <div class="container mv-pagebase" >
@@ -93,7 +95,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	<?php
 		$dataComment = getComments($idManga, 'serie');
 		foreach($dataComment as $dataOneComment){
-			$comment = mkComment($dataOneComment);
+			$comment = mkComment($dataOneComment,($idUser == $dataOneComment["uid"]),$isAdmin, "serie");
 			echo($comment);
 		}
 	?>

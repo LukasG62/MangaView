@@ -40,7 +40,7 @@ if(!($dataNews = getNewsById($idNews)[0])) rediriger($url,["view"=>"accueil"]);
 	<?php
 		$dataComment = getComments($idNews, 'news');
 		foreach($dataComment as $dataOneComment){
-			$comment = mkComment($dataOneComment);
+			$comment = mkComment($dataOneComment,($idUser == $dataOneComment["uid"]),$isAdmin, "serie");;
 			echo($comment);
 		}
 	?>
