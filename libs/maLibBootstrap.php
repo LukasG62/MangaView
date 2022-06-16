@@ -80,7 +80,7 @@ function mkComment($dataComment, $writeByUser = 0, $isUserAdmin = 0, $type) {
 
 
 	$edit = "";
-	if($writeByUser) $edit .= "<i class=\"bi bi-pencil-fill\" onclick=\"toggle_edit(this, $dataComment[id], '$type', $dataComment[$id])\"></i> ";
+	if($writeByUser) $edit .= "<i class=\"bi bi-pencil-fill\" onclick=\"toggle_edit(this, $dataComment[id], '$type', $dataComment[$id]," . htmlspecialchars(json_encode($dataComment["comment"])) . ")\"></i> ";
 	if($writeByUser || $isUserAdmin) $edit .= "<a href=\"controleur.php?action=deleteComment&id=$dataComment[id]\"><i class=\"bi bi-x-circle-fill\"></i></a>";
 
 	$comment = '<div class="comment-widgets m-b-20"><div class="d-flex flex-row comment-row">' .

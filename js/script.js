@@ -1,6 +1,7 @@
 
+var editComments = {} // Garde une trace des commentaire édité
+
 // Fonction qui permet de cacher ou d'afficher un spoiler
-var a;
 
 function toggle_spoiler(ref) {
 
@@ -49,14 +50,16 @@ function password_verify(refConfirm) {
 }
 
 
-function toggle_edit(refEdit, idComment, type, qsId) {
+function toggle_edit(refEdit, idComment, type, qsId, content) {
 	if(refEdit.tagName == "BUTTON") 
 		comment = refEdit.parentElement.parentElement
 	else 
 		comment = refEdit.parentElement.nextElementSibling
-	a = refEdit
+	
+	a = comment
 	if(comment.className != "mv-edit-comment-form") {
 		// Creation des différents tags html
+		editComments[idComment] = comment.innerHTML
 		newDiv = document.createElement("div")
 		newForm = document.createElement("form")
 		newTextarea = document.createElement("textarea")
@@ -71,7 +74,7 @@ function toggle_edit(refEdit, idComment, type, qsId) {
 		newForm.setAttribute("method", "GET")
 
 		// Modification du tags textarea (ajout du texte du commentaire)
-		newTextarea.value = comment.innerHTML
+		newTextarea.value = content
 		newTextarea.innerHTML = comment.innerHTML
 		newTextarea.setAttribute("name","comment")
 
@@ -114,8 +117,6 @@ function toggle_edit(refEdit, idComment, type, qsId) {
 
 		comment.parentElement.replaceChild(newDiv, comment)
 
-		a = newCancelButton
-
 	}
 	else {
 		newP = document.createElement("p")
@@ -123,7 +124,7 @@ function toggle_edit(refEdit, idComment, type, qsId) {
 		
 		newP.classList.add("m-b-5")
 		newP.classList.add("m-t-10")
-		newP.innerHTML = comment.firstElementChild.firstElementChild.innerHTML
+		newP.innerHTML = editComments[idComment]
 
 		comment.parentElement.replaceChild(newP, comment)
 
