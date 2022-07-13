@@ -6,12 +6,11 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 }
 
 $tabNews = getNews();
-echo count($tabNews);
+
 ?>
 
 <div class="container mv-pagebase" >
 	<?php 
-		echo count($tabNews);
 		foreach($tabNews as $dataNews)
 		{
 			echo mkNews($dataNews, "", "");

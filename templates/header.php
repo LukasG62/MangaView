@@ -17,6 +17,7 @@ include_once "libs/maLibForms.php";
 
 $view = valider("view");
 $idUser = valider("idUser", "SESSION");
+$isAdmin = valider("isAdmin", "SESSION");
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +35,7 @@ $idUser = valider("idUser", "SESSION");
 
 <body onload="init()">
   <div class="mv-header">
-     <!-- TITRE DU HEADER ! TODO !!-->
+     <!-- TITRE DU HEADER -->
     <div class="mv-header-title">
       <div class="row">
         <div class="col-md-0">
@@ -60,15 +61,16 @@ $idUser = valider("idUser", "SESSION");
               <ul class="navbar-nav">
                 <?=mkHeadLink("Accueil", "accueil", $view, "", "bi bi-house-door-fill")?>
                 <?=mkHeadLink("Liste des mangas", "series", $view, "")?>
-                
+                <?=mkHeadLink("Les news","newshistory",$view);?>
+
                 <?php
-                  echo mkHeadLink("Les news","newshistory",$view);
-                
+                  if($idUser) echo mkHeadLink("Annuaire", "community", $view, "", "bi bi-people-fill");
+                  if($isAdmin) echo mkHeadLink("Panel Admin", "admin", $view,);
                 ?>
               </ul>
               <ul class="navbar-nav ml-auto">
                 <?php 
-                  if(valider("connecte", "SESSION")) {
+                  if($idUser) {
                     echo mkHeadLink("Mon Profil", "profile&id=$idUser", $view,"", "bi bi-person-fill");
                     echo mkHeadLink("Modifier mon profil", "myprofile", $view);
                     echo "<li class=\"nav-item\"> <a class=\"nav-link\" href=\"controleur.php?action=Logout\">Se déconnecter</a></li>";

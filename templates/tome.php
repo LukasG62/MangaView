@@ -15,7 +15,7 @@ if(!($idTome = valider("id", "GET"))) rediriger($url,["view"=>"accueil"]);
 
 if(!($dataTome = getVolume($idTome)[0])) rediriger($url,["view"=>"accueil"]);
 
-$listReview = getReview($idTome);
+$listReview = getReviews($idTome);
 $imgPath = $uploadInfo["SERIESPATH"] . $dataTome['mangaBanner'];
 ?>
 
@@ -101,7 +101,7 @@ $imgPath = $uploadInfo["SERIESPATH"] . $dataTome['mangaBanner'];
 	<h2>Les reviews : </h2>
 	<?php
 			foreach($listReview as $dataReview){
-				echo(mkReview($dataReview));
+				echo mkReview($dataReview,($idUser == $dataReview["uid"]),$isAdmin);
 			}
 	?> 
 </div>
@@ -128,7 +128,7 @@ $imgPath = $uploadInfo["SERIESPATH"] . $dataTome['mangaBanner'];
 	<?php
 		$dataComment = getComments($idTome, 'tome');
 		foreach($dataComment as $dataOneComment){
-			$comment = mkComment($dataOneComment,($idUser == $dataOneComment["uid"]),$isAdmin, "serie");;
+			$comment = mkComment($dataOneComment,($idUser == $dataOneComment["uid"]),$isAdmin, "tome");;
 			echo($comment);
 		}
 	?>

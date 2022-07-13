@@ -4,7 +4,7 @@ if (basename($_SERVER["PHP_SELF"]) != "index.php")
 	header("Location:../index.php?view=news");
 	die("");
 }
-
+$isAdmin = valider("isAdmin", "SESSION");
 $urlBase = dirname($_SERVER["PHP_SELF"]) . "/index.php";
 if(!($idNews = valider("id", "GET"))) rediriger($url,["view"=>"accueil"]);
 	
@@ -40,7 +40,7 @@ if(!($dataNews = getNewsById($idNews)[0])) rediriger($url,["view"=>"accueil"]);
 	<?php
 		$dataComment = getComments($idNews, 'news');
 		foreach($dataComment as $dataOneComment){
-			$comment = mkComment($dataOneComment,($idUser == $dataOneComment["uid"]),$isAdmin, "serie");;
+			$comment = mkComment($dataOneComment,($idUser == $dataOneComment["uid"]),$isAdmin, "news");;
 			echo($comment);
 		}
 	?>

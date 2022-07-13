@@ -52,14 +52,8 @@ $collectionBySeriesFav = groupby($collectionRawFav, "mid");
 		<h4 id="titre-rev">Mes Reviews</h4>
 
 		<?php 
-			$tabReviewUser = getAllReview();
-			foreach($tabReviewUser as $dataReview)
-			{
-				if ($dataReview['uid'] == $idUser)
-				{
-					echo mkReview($dataReview);
-				}
-			}
+			$tabReviewUser = getUserReviews($idUser);
+			foreach($tabReviewUser as $dataReview) echo mkReview($dataReview);
 		?>
 	</div>
 </div>
