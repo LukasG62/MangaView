@@ -6,11 +6,11 @@ include_once "LibMangaview.php";
 
 //// FONCTIONS METIERS LIÉE A UN UTILISATEUR ////
 
-function getUser($idUser) {
+function getUser($uid) {
     // Fonction retournant toutes les information d'un utilisateur
-    // Params : idUser, l'id de l'utilisateur
+    // Params : uid, l'id de l'utilisateur
     $db = Config::getDatabase();
-    $params = [$idUser];
+    $params = [$uid];
     
     $sql = "SELECT users.*, grades.label AS gradeLabel
             FROM users JOIN grades ON grades.id = users.grade
@@ -20,19 +20,19 @@ function getUser($idUser) {
     
 } //Retourne un tableau associatif 
 
-function deleteUser($idUser) {
+function deleteUser($uid) {
     // Fonction supprime toutes les informations de l'utilisateur via son id
-    // Params : idUser, l'id de l'utilisateur
+    // Params : uid, l'id de l'utilisateur
     $db = Config::getDatabase();
     return 0;
     
 } // Retourne 1 ou 0 
 
 
-function getGrade($idUser) {
+function getGrade($uid) {
     // Fonction retournant la valeur numérique du grade d'un utilisateur
     $db = Config::getDatabase();
-    $params = [$idUser];
+    $params = [$uid];
     $sql = "SELECT grades.id
             FROM users JOIN grades ON users.grade = grades.id
             WHERE users.id = ?;";
@@ -42,10 +42,10 @@ function getGrade($idUser) {
 
 } // retourne un nombre 
 
-function isUserConnected($idUser) {
+function isUserConnected($uid) {
     // Fonction retournant vrai si l'utilisateur est connectés
     $db = Config::getDatabase();
-    $params = [$idUser];
+    $params = [$uid];
     $sql = "SELECT connected 
             FROM users
             WHERE id = ?;";
@@ -84,10 +84,10 @@ function getLastUserId() {
     return $db->SQLGetChamp($sql);
 }
 
-function changeUserPseudo($idUser, $newPseudo){
+function changeUserPseudo($uid, $newPseudo){
     // Fonction qui change le pseudo de l'utilisateur
     $db = Config::getDatabase();
-    $params = [$newPseudo, $idUser];
+    $params = [$newPseudo, $uid];
     $sql = "UPDATE users 
             SET pseudo = ?
             WHERE id = ?;";
@@ -96,10 +96,10 @@ function changeUserPseudo($idUser, $newPseudo){
     return $db->SQLUpdate($sql, $params);
 } // retourne 1 ou 0
 
-function changeUserPassword($idUser, $newPassword){
+function changeUserPassword($uid, $newPassword){
     // Fonction qui change le mot de passe de l'utilisateur
     $db = Config::getDatabase();
-    $params = [$newPassword, $idUser];
+    $params = [$newPassword, $uid];
     $sql = "UPDATE users 
             SET password = ?
             WHERE id = ?;";
@@ -107,11 +107,11 @@ function changeUserPassword($idUser, $newPassword){
     return $db->SQLUpdate($sql, $params);
 }
 
-function changeUserAvatarPath($idUser, $newAvatar){
+function changeUserAvatarPath($uid, $newAvatar){
     // Fonction qui change le pseudo de l'utilisateur
     // La fonction met egallement 0 à avatarValided 
     $db = Config::getDatabase();
-    $params = [$idUser, $newAvatar, $idUser];
+    $params = [$uid, $newAvatar, $uid];
     $sql = "UPDATE users 
             SET avatar = ?
             WHERE id = ?;
@@ -123,10 +123,10 @@ function changeUserAvatarPath($idUser, $newAvatar){
     return $db->SQLUpdate($sql, $params);
 } 
 
-function changeUserBio($idUser, $newBio) {
+function changeUserBio($uid, $newBio) {
     // Fonction qui change la bio de l'utilisateur
     $db = Config::getDatabase();
-    $params = [$newBio, $idUser];
+    $params = [$newBio, $uid];
     $sql = "UPDATE users 
             SET bio = ?
             WHERE id = ?;";
@@ -136,30 +136,30 @@ function changeUserBio($idUser, $newBio) {
 
 //// FONCTIONS METIERS LIÉE A UN TOME ////
 
-function getVolume($idVolume){
+function getVolume($vid){
     // Retourne toute les info d'un tome
     $db = Config::getDatabase();
     $sql = "SELECT volumes.*, mangas.banner AS mangaBanner
             FROM volumes JOIN mangas ON mangas.id = volumes.mid 
             WHERE volumes.id = ?;";
 
-    return Database::parcoursRs($db->SQLSelect($sql, [$idVolume]));
+    return Database::parcoursRs($db->SQLSelect($sql, [$vid]));
 
 } //Retourne un tableau associatif
 
-function addToCollection($idUser, $idVolume,$fav) {
+function addToCollection($uid, $vid,$fav) {
     // Ajoute un volume à la collection de utilisateur
     $db = Config::getDatabase();
-    $params = [$idUser, $idVolume, $fav];
+    $params = [$uid, $vid, $fav];
     $sql = "INSERT INTO collections (uid,vid,fav)
             VALUES (?, ?, ?);";
     return $db->SQLUpdate($sql, $params);
 } // retourne 0 ou 1
 
-function inCollection($idUser, $idVolume) {
+function inCollection($uid, $vid) {
     // Cherche un volume dans une collection : retourne faux si aucun trouvé
     $db = Config::getDatabase();
-    $params = [$idUser, $idVolume];
+    $params = [$uid, $vid];
     $sql = "SELECT *
             FROM collections 
             WHERE uid = ? 
@@ -167,27 +167,27 @@ function inCollection($idUser, $idVolume) {
     return $db->SQLGetChamp($sql, $params) ;
 } // retourne 0 ou 1
 
-function getReviews($idVolume){
+function getReviews($vid){
     // liste les reviews d'un volume
     $db = Config::getDatabase();
     $sql = "SELECT reviews.*, users.avatar AS userAvatar, users.pseudo AS userPseudo, users.avatarValided
             FROM reviews JOIN users ON users.id = reviews.uid 
             WHERE reviews.vid = ?;";
 
-    return Database::parcoursRs($db->SQLSelect($sql, [$idVolume]));
+    return Database::parcoursRs($db->SQLSelect($sql, [$vid]));
 } // retourne un tableau contenant toutes les infos d'une reviews
 
-function getUserReviews($idUser){
+function getUserReviews($uid){
     // liste les reviews d'un volume
     $db = Config::getDatabase();
     $sql = "SELECT reviews.*, users.avatar AS userAvatar, users.pseudo AS userPseudo, users.avatarValided
             FROM reviews JOIN users ON users.id = reviews.uid
             WHERE users.id=?;";
     
-    return Database::parcoursRs($db->SQLSelect($sql, [$idUser]));
+    return Database::parcoursRs($db->SQLSelect($sql, [$uid]));
 } // retourne un tableau contenant les infos d'une review
 
-function getCollection($idUser,$fav = 0) {
+function getCollection($uid,$fav = 0) {
     // Récupère la collection d'un utilisateur et renvoie les informations de la collection
     $db = Config::getDatabase();
     $chainefav = "";
@@ -202,44 +202,44 @@ function getCollection($idUser,$fav = 0) {
             WHERE users.id = ? $chainefav
             ORDER BY mangas.id ASC, volumes.num ASC ";
     
-    return Database::parcoursRs($db->SQLSelect($sql, [$idUser]));
+    return Database::parcoursRs($db->SQLSelect($sql, [$uid]));
 
 } //Retourne un tableau associatif
 
 
-function getPrev($idVolume){
+function getPrev($vid){
     // donne l'id du tome précédent s'il existe
     $db = Config::getDatabase();
     $sql = "SELECT prev
             FROM  volumes 
-            WHERE id = $idVolume;";
+            WHERE id = $vid;";
     
-    return Database::parcoursRs($db->SQLSelect($sql, [$idVolume]));
+    return Database::parcoursRs($db->SQLSelect($sql, [$vid]));
 
 } // retourne un int 
 
 
-function getNext($idVolume){
+function getNext($vid){
     // donne l'id du tome suivant s'il existe
     $db = Config::getDatabase();
     $sql = "SELECT next
             FROM  volumes 
-            WHERE id = $idVolume;";
-    return Database::parcoursRs($db->SQLSelect($sql, [$idVolume]));
+            WHERE id = $vid;";
+    return Database::parcoursRs($db->SQLSelect($sql, [$vid]));
 
 } // retourne un int
 
 
 //// FONCTIONS METIERS LIÉE A UNE SERIE ////
 
-function getVolumes($idManga) {
+function getVolumes($mid) {
     // Donne la liste de tous les tomes d'une série
     $db = Config::getDatabase();
     $sql = "SELECT * 
             FROM  volumes 
             WHERE mid = ?
             ORDER BY id ASC;";
-    return Database::parcoursRs($db->SQLSelect($sql, [$idManga]));
+    return Database::parcoursRs($db->SQLSelect($sql, [$mid]));
 
 } // retourne un tableau associatif
 
@@ -283,32 +283,32 @@ function searchSeries($keyword, $listtags, $order){
 
 } // retourne un tableau associatif
 
-function getSerieTags($idManga) {
+function getSerieTags($mid) {
    // retourne la liste des identifiant tags et le label pour une série
     $db = Config::getDatabase();
     $sql = "SELECT DISTINCT tags.tid , themes.label
             FROM  mangas JOIN tags ON mangas.id = tags.mid JOIN themes ON tags.tid = themes.id 
             WHERE mangas.id = ?;";
-    return Database::parcoursRs($db->SQLSelect($sql, [$idManga]));
+    return Database::parcoursRs($db->SQLSelect($sql, [$mid]));
 
 } // retourne un tableau associatif 
 
-function getSerieInfos($idManga) {
+function getSerieInfos($mid) {
     // donne les infos relatives a un manga sous forme de tableau associatif
     $db = Config::getDatabase();
     $sql = "SELECT *
             FROM mangas
             WHERE id = ?;";
-    return Database::parcoursRs($db->SQLSelect($sql,[$idManga]));
+    return Database::parcoursRs($db->SQLSelect($sql,[$mid]));
 }
 
-function getFirstTomeSerie($idManga) {
+function getFirstTomeSerie($mid) {
     // donne les infos relatives au premier tome d'un manga sous forme de tableau associatif
     $db = Config::getDatabase();
     $sql = "SELECT *
             FROM volumes
             WHERE ((mid = ?) AND (num = 1));";
-    return Database::parcoursRs($db->SQLSelect($sql, [$idManga]));
+    return Database::parcoursRs($db->SQLSelect($sql, [$mid]));
 }
 
 //// FONCTIONS METIERS LIEE A UNE NEWS ////
@@ -323,13 +323,13 @@ function getNews(){
     
 } // retourne un tableau associatif 
 
-function getNewsById($idNews) {
+function getNewsById($nid) {
     $db = Config::getDatabase();
     $sql = "SELECT news.*, users.pseudo AS userPseudo
             FROM news JOIN users ON news.uid = users.id
             WHERE news.id=?";
 
-    return Database::parcoursRs($db->SQLSelect($sql, [$idNews]));
+    return Database::parcoursRs($db->SQLSelect($sql, [$nid]));
 }
 
 //// Fonction générale ////
@@ -427,7 +427,7 @@ function getTags() {
     return Database::parcoursRS($db->SQLSelect($sql));
 }
 
-function sessionchange($idUser,$connected)
+function sessionchange($uid,$connected)
 {
     $db = Config::getDatabase();
 
@@ -439,23 +439,38 @@ function sessionchange($idUser,$connected)
         $sql = "UPDATE users 
         SET connected = 1 
         WHERE id = ? ;" ;
-    return $db->SQLUpdate($sql, [$idUser]);   
+    return $db->SQLUpdate($sql, [$uid]);   
 }
 
 
-function editComment($idUser, $cid, $type, $newComment) {
+function editComment($uid, $cid, $type, $newComment) {
     $db = Config::getDatabase();
 
     $sql = "UPDATE " . getCommentTableName($type) . "SET comment = ? WHERE uid=? AND id=?;";
-    return $db->SQLUpdate($sql, [$newComment, $idUser, $cid, ]);
+    return $db->SQLUpdate($sql, [$newComment, $uid, $cid, ]);
 }
 
-function deleteComment($idComment, $uid, $isAdmin, $type) {
+function deleteComment($cid, $uid, $isAdmin, $type) {
     $db = Config::getDatabase();
     $sql = "DELETE FROM " . getCommentTableName($type) . " WHERE id=? AND (uid=? OR ?);";
 
 
-    return $db->SQLDelete($sql, [$idComment, $uid, $isAdmin]);
+    return $db->SQLDelete($sql, [$cid, $uid, $isAdmin]);
+}
+
+function editReview($uid, $rid, $newNote, $newContent) {
+    $db = Config::getDatabase();
+    $sql = "UPDATE reviews SET content = ?, note = ? WHERE uid = ? AND id = ?";
+
+    return $db->SQLUpdate($sql, [$newContent, $newNote, $uid, $rid]);
+}
+
+
+function deleteReview($rid, $uid, $isAdmin) {
+    $db = Config::getDatabase();
+    $sql = "DELETE FROM review WHERE id = ? AND (uid=? OR ?)";
+
+    return $db->SQLDelete($sql, [$rid, $uid, boolval($isAdmin)]);
 }
 
 ?>

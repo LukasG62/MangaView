@@ -60,7 +60,6 @@ function mkNews($dataNews, $active="", $carousel = "carousel-item") {
 
   return $news;
 }
-//toggle_edit(refEdit, idComment, type, qsId)
 function mkComment($dataComment, $writeByUser = 0, $isUserAdmin = 0, $type) {
 	global $uploadInfo;
 	$id = "";
@@ -80,18 +79,18 @@ function mkComment($dataComment, $writeByUser = 0, $isUserAdmin = 0, $type) {
 
 
 	$edit = "";
-	if($writeByUser) $edit .= "<i class=\"bi bi-pencil-fill\" onclick=\"toggle_edit(this, $dataComment[id], '$type', $dataComment[$id]," . htmlspecialchars(json_encode($dataComment["comment"])) . ")\"></i> ";
-	if($writeByUser || $isUserAdmin) $edit .= "<a href=\"controleur.php?action=deleteComment&id=$dataComment[id]\"><i class=\"bi bi-x-circle-fill\"></i></a>";
+	if($writeByUser) $edit .= "<i class=\"bi bi-pencil-fill\" onclick=\"toggle_edit_comment(this, $dataComment[id], '$type', $dataComment[$id]," . htmlspecialchars(json_encode($dataComment["comment"])) . ")\"></i> ";
+	if($writeByUser || $isUserAdmin) $edit .= "<a href=\"controleur.php?action=deleteComment&id=$dataComment[$id]&idComment=$dataComment[id]&type=$type\"><i class=\"bi bi-x-circle-fill\"></i></a>";
 
 	$comment = '<div class="comment-widgets m-b-20"><div class="d-flex flex-row comment-row">' .
 			   '<div class="p-2"><span class="round"><img src="' . $uploadInfo["USERSPATH"] . ($dataComment["avatarValided"] ? $dataComment["userAvatar"] : "default.png") . '" alt="user" width="100"></span></div>' .
 			   '<div class="comment-text w-100"><h5>' . $dataComment["userPseudo"] . ' : ' . $edit . '</h5>' .
-			   '<p class="m-b-5 m-t-10">' . bbcodeParser(htmlspecialchars($dataComment["comment"])) .'</p></div></div></div>';
+			   '<div class="m-b-5 m-t-10">' . bbcodeParser(htmlspecialchars($dataComment["comment"])) .'</div></div></div></div>';
 
 	return $comment;
 }
 
-function mkReview($dataReview) {
+function mkReview($dataReview, $writeByUser = 0, $isUserAdmin = 0) {
 	global $uploadInfo;
 
 	$color = "color:green;";
@@ -99,12 +98,18 @@ function mkReview($dataReview) {
 		$color = "color:darkorange;";
 	else if($dataReview["note"] < 5) $color = "color:red;";
 
-	$review = '<div class="mv-review container"><div class="row"><div class="col-md-2"><div class="avatar-review">' .
+	$edit = "";
+	// function toggle_edit_review(refEdit, idReview, content, note) {
+	if($writeByUser) $edit .= "<i class=\"bi bi-pencil-fill\" onclick=\"toggle_edit_review(this, $dataReview[vid],$dataReview[id]," . htmlspecialchars(json_encode($dataReview["content"])) . ", $dataReview[note])\"></i> ";
+	if($writeByUser || $isUserAdmin) $edit .= "<a href=\"controleur.php?action=deleteReview&id=$dataReview[id]\"><i class=\"bi bi-x-circle-fill\"></i></a>";
+
+
+	$review = '<div id="review-' . $dataReview["id"] . '" class="mv-review container"><div class="row"><div class="col-md-2"><div class="avatar-review">' .
 			  '<a href="index.php?view=profile&id=' . $dataReview["uid"] . '">' . 
 			  '<div class="p-2"><span class="round"><img width="150" height="150" src="'. $uploadInfo["USERSPATH"] . ($dataReview["avatarValided"] ? $dataReview["userAvatar"] : "default.png").'" alt="User avatar"/></a></span></div>' .
-			  '<h4>' . $dataReview["userPseudo"] . '</h4>' .
-			  '<h5 style="' . $color . '">' . $dataReview["note"] . '/10</h5></div></div><div class="col-md-8"><p>' .
-			  bbcodeParser(htmlspecialchars($dataReview["content"])) . '</p></div></div></div>';
+			  '<h5><small>' . $edit . '</small></h5>' . '<h4>' . $dataReview["userPseudo"] . '</h4>' .
+			  '<h5 id="review-note-' . $dataReview["id"] . '" style="' . $color . '">' . $dataReview["note"] . '/10</h5></div></div><div class="col-md-10"><div id="review-content-' . $dataReview["id"] . '">' .
+			  bbcodeParser(htmlspecialchars($dataReview["content"])) . '</div></div></div></div>';
 
 	return $review;
 }

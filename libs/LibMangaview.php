@@ -176,6 +176,44 @@ function verifTagsArray($tab) {
 }
 
 
+function isCommentTypeValid($type) {
+    switch($type){
+        case "news":
+            return "news";
+        break;
+    
+        case "tome":
+            return "tome";
+        break;
+    
+        case "serie":
+            return "manga";
+        break;
+        
+        default:
+            return false;
+        break;
+    }
+}
+
+
+function getCommentTableName($type) {
+    switch ($type) {
+        case 'news':
+            return "comment_n ";
+        break;
+        
+        case 'tome':
+            return "comments_v ";
+        break;
+        
+        case 'manga':
+            return "comment_m ";
+        break;
+    }
+
+}
+
 function groupby($tab, $id){
     // Regourpe tout les tableaux associatifs de tab avec une même valeur de clé
     $res = array();
