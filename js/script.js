@@ -1,5 +1,7 @@
 
-var editComments = {} // Garde une trace des commentaire édité
+var editComments = {} // Garde une trace des commentaires édités
+
+var editReviews = {} // la même pour les reviews édités 
 
 // Fonction qui permet de cacher ou d'afficher un spoiler
 
@@ -50,14 +52,15 @@ function password_verify(refConfirm) {
 }
 
 
-function toggle_edit(refEdit, idComment, type, qsId, content) {
+function toggle_edit_comment(refEdit, idComment, type, qsId, content) {
+	// TODO : changer la façon de récup les element pas viable en cas de changement de structure html
+
 	if(refEdit.tagName == "BUTTON") 
 		comment = refEdit.parentElement.parentElement
 	else 
 		comment = refEdit.parentElement.nextElementSibling
 	
-	a = comment
-	if(comment.className != "mv-edit-comment-form") {
+	if(!comment.classList.contains("mv-edit-comment-form")) {
 		// Creation des différents tags html
 		editComments[idComment] = comment.innerHTML
 		newDiv = document.createElement("div")
@@ -89,7 +92,7 @@ function toggle_edit(refEdit, idComment, type, qsId, content) {
 		newCancelButton.setAttribute("name", "Annuler")
 		newCancelButton.setAttribute("value", "0")
 		newCancelButton.innerHTML = "Annuler"
-		newCancelButton.setAttribute("onclick", "toggle_edit(this," + idComment + ")")
+		newCancelButton.setAttribute("onclick", "toggle_edit_comment(this," + idComment + ")")
 
 
 		// Modification des champs cachés
@@ -119,16 +122,139 @@ function toggle_edit(refEdit, idComment, type, qsId, content) {
 
 	}
 	else {
-		newP = document.createElement("p")
+		newCommentContent = document.createElement("div")
 
 		
-		newP.classList.add("m-b-5")
-		newP.classList.add("m-t-10")
-		newP.innerHTML = editComments[idComment]
+		newCommentContent.classList.add("m-b-5")
+		newCommentContent.classList.add("m-t-10")
+		newCommentContent.innerHTML = editComments[idComment]
 
-		comment.parentElement.replaceChild(newP, comment)
+		comment.parentElement.replaceChild(newCommentContent, comment)
 
 	}
+
+
+}
+
+// TODO trouver un autre moyen pour recupérer les données (list objet json)
+function toggle_edit_review(refEdit, idVolume,idReview, content, note) {
+
+	// TODO : changer la façon de récup les element pas viable en cas de changement de structure html
+	refReviewContainer = document.getElementById("review-" + idReview);
+	refNote = document.getElementById("review-note-" + idReview)
+	refReview = document.getElementById("review-content-" + idReview)
+
+	if(!refReviewContainer.classList.contains("mv-edit-review-form")) {
+		editReviews[idReview] = refReview.innerHTML
+		// Creation des éléments html
+		newDiv = document.createElement("div")
+		newForm = document.createElement("form")
+		newTextarea = document.createElement("textarea")
+		newSubmitButton = document.createElement("button")
+		newCancelButton = document.createElement("button")
+		newNumInput = document.createElement("input")
+		newInputIdReivew = document.createElement("input")
+		newInputIdVolume = document.createElement("input")
+
+
+		// Modification de la balise de formulaire
+		newForm.setAttribute("action", "controleur.php")
+		newForm.setAttribute("method", "GET")
+		newForm.innerHTML = refReview.innerHTML
+		newForm.classList.add("mv-review")
+		newForm.classList.add("container")
+		newForm.classList.add("mv-edit-review-form")
+		newForm.id = "review-" + idReview
+
+		// Modification de la balise textarea
+		newTextarea.innerHTML = content
+		newTextarea.setAttribute("name","content")
+
+		// Modification du bouton de soumission
+		newSubmitButton.setAttribute("type", "submit")
+		newSubmitButton.setAttribute("name", "action")
+		newSubmitButton.setAttribute("value", "editReview")
+		newSubmitButton.innerHTML = "Modifier"
+
+		// Modification du bouton d'annulation
+		newCancelButton.setAttribute("type", "button")
+		newCancelButton.setAttribute("name", "Annuler")
+		newCancelButton.setAttribute("value", "0")
+		newCancelButton.innerHTML = "Annuler"
+		newCancelButton.setAttribute("onclick", "toggle_edit_review(this," + idReview + "," + idVolume + ",'" + JSON.stringify(content) + "'," + note + ")")
+
+
+		// Modification de l'entrée numérique
+		newNumInput.setAttribute("type", "number")
+		newNumInput.setAttribute("min", 0)
+		newNumInput.setAttribute("max", 10)
+		newNumInput.setAttribute("name", "note")
+		newNumInput.setAttribute("value", note)
+		newNumInput.id = "review-note-" + idReview
+
+		// Modification de l'entrée caché contenant l'id de la review
+		newInputIdReivew.setAttribute("name", "id")
+		newInputIdReivew.setAttribute("value", idReview)
+		newInputIdReivew.setAttribute("type", "hidden")
+
+		// Modification de l'entrée caché contenant l'id de la review
+		newInputIdVolume.setAttribute("name", "vid")
+		newInputIdVolume.setAttribute("value", idVolume)
+		newInputIdVolume.setAttribute("type", "hidden")
+		
+		// Creation des liens de parentés entre les balises
+		newDiv.appendChild(newTextarea)
+		newDiv.appendChild(newCancelButton)
+		newDiv.appendChild(newSubmitButton)
+		newDiv.appendChild(newInputIdReivew)
+		newDiv.appendChild(newInputIdVolume)
+
+		// Modification de la div
+		newDiv.id = "review-content-" + idReview
+
+		refNote.parentElement.replaceChild(newNumInput, refNote)
+		refReview.parentElement.replaceChild(newDiv, refReview)
+
+		newForm.innerHTML = refReviewContainer.innerHTML
+
+		refReviewContainer.parentElement.replaceChild(newForm, refReviewContainer)
+
+	}
+	else {
+		// Creation des balises html
+		newReviewContent = document.createElement("div");
+		newH5 = document.createElement("h5")
+		newReviewContainerDiv = document.createElement("div")
+
+		// Modification des balise HTML
+		newReviewContent.innerHTML = editReviews[idReview]
+		newReviewContent.id = "review-content-"+ idReview
+		
+		newReviewContainerDiv.classList.add("mv-review")
+		newReviewContainerDiv.classList.add("container")
+		newReviewContainerDiv.id = "review-" + idReview
+
+		newH5.innerHTML = note + "/10"
+		newH5.id = "review-note-" + idReview
+		
+		color = "green"
+		if(note == 5) $color = "darkorange"
+		else if(note < 5) $color = "red"
+
+		newH5.style.color = color
+
+
+		refNote.parentElement.replaceChild(newH5, refNote);
+		refReview.parentElement.replaceChild(newReviewContent, refReview)
+		newReviewContainerDiv.innerHTML = refReviewContainer.innerHTML
+
+		refReviewContainer.parentElement.replaceChild(newReviewContainerDiv, refReviewContainer)
+
+
+	}
+
+
+
 
 
 }
