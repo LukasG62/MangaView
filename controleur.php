@@ -49,6 +49,7 @@ session_start();
 			break;
             
             
+			//TODO : reflechir sur un refactoring 
             case "Signup":
 				$valide = -4 ; // postulat que la validation échoue
 				$newid = getLastUserId() + 1; // on récupère le nouvelle id utilisateur
@@ -158,11 +159,12 @@ session_start();
             case "addToFav" :
 				if($id = valider("id"))
 				if($idUser = valider("idUser","SESSION"))
-				if(inCollection($idUser, $id))
-				if (isfav($idUser,$id))
-					addfav(valider("idUser","SESSION"),$id,0);
+				if($toto = inCollection($idUser, $id))
+				if (isfav($idUser,$id)) {
+					addfav($idUser,$id,0);
+				}
 				else
-					addfav(valider("idUser","SESSION"),$id,1);
+					addfav($idUser,$id,1);
 				
 				$tabQs["view"] = "profile";
 				$tabQs["id"] =  valider("idUser","SESSION");
@@ -273,78 +275,53 @@ session_start();
 				}
             break;
 
+			case "editComment" :
 			case "writeComment":
 				if ($comment = htmlspecialchars(valider("comment")))
-				if ($type = valider("type"))
-				switch($type)
-				{
-					case 'news':
-						$tabQs["view"] = "news";;
-					break;
-				
-					case 'tome':
-						$tabQs["view"] = "tome";;
-					break;
-				
-					case 'serie':
-						$tabQs["view"] = "manga";;
-					break;
-					
-					default:
-						break;
-				}
+				if ($type = isCommentTypeValid(valider("type")))
 				if ($id = valider("id"))
 				if ($uid = valider("idUser","SESSION"))
 				if(!isUserBlacklist($uid))
-					addComment($uid, $comment, $type, $id);
+					if($action == "writeComment") addComment($uid, $comment, $type, $id);
+					else
+						if($idComment = valider("idComment")) editComment($uid, $idComment, $type, $comment);
 				
 				$tabQs["id"] = $id;
+				$tabQs["view"] = $type;
 			break;
 
-
+			
+			case "editReview" :
 			case "writeReview":
 				$note =0;
 				if ($content = htmlspecialchars(valider("content")))
 				if (($note = valider("note")) && (0 <= $note) && ($note <= 10));
-			    if ($id = valider("id"))
+			    if ($vid = valider("vid"))
 			    if ($uid = valider("idUser","SESSION"))
 				if (valider("isReviewer","SESSION"))
-				if(strlen($content) <= 1500)
-					addReview($uid, $content,$note,$id);
-				
+				if(strlen($content) <= 1500) {
+					if($action == "writeReview") addReview($uid, $content,$note,$vid);
+					else
+						if($id = valider("id")) editReview($uid, $id, $note, $content);
+				}
 				$tabQs["view"] = "tome";
-			    $tabQs["id"] = $id;
-			    break;
-            
-			
-			case "editComment" :
+			    $tabQs["id"] = $vid;
+			break;
 
+			case "deleteComment":
+				$isAdmin = valider("isAdmin", "SESSION");
+				if($id = valider("id"))
 				if($idUser = valider("idUser", "SESSION"))
 				if($idComment = valider("idComment"))
-				if($comment = htmlspecialchars(valider("comment")))
-				if($type = valider("type"))
-				if($id = valider("id")) {
-					editComment($idUser, $idComment, $type, $comment);
-					switch($type)
-						{
-							case 'news':
-								$tabQs["view"] = "news";;
-							break;
-						
-							case 'tome':
-								$tabQs["view"] = "tome";;
-							break;
-						
-							case 'serie':
-								$tabQs["view"] = "manga";;
-							break;
-							
-							default:
-								break;
-					}
+				if($type = isCommentTypeValid(valider("type"))) {
+					deleteComment($idComment, $idUser, $isAdmin, $type);
+
+					$tabQs["view"] = $type;
+					$tabQs["id"] = $id;
+					
 				}
 
-				$tabQs["id"] = $id;
+
 			break;
 
 			
