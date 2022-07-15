@@ -92,7 +92,7 @@ $imgPath = $uploadInfo["SERIESPATH"] . $dataTome['mangaBanner'];
 				echo '</div><div class="col">';
 				echo mkButton("submit","action","writeReview", "Poster", "class=\"btn btn-primary form-control\"");
 				echo '</div>';
-				echo mkInput("hidden", "id", $idTome);
+				echo mkInput("hidden", "vid", $idTome);
 				echo '</div>';
 				echo endForm();
 				echo '<div class="mv-postcomment">';
